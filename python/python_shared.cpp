@@ -125,6 +125,9 @@ PYBIND11_PLUGIN(pyigl) {
            slice_mask
            slice_tets
            sortrows
+           trace_polyvector_field_sort
+           trace_seeds
+           trace_streamlines
            triangle_triangle_adjacency
            triangle_triangulate
            unique

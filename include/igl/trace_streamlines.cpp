@@ -1,4 +1,8 @@
 #include "trace_streamlines.h"
+#include "sort_vectors_ccw.h"
+#include "per_face_normals.h"
+#include "polyvector_field_matchings.h"
+
 
 #include <Eigen/Geometry>
 
