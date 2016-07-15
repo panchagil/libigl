@@ -23,7 +23,7 @@ namespace igl
             double eps = 1e-6
     );
 
-    template<typename DerivedS, typename DerivedV, typename DerivedF, typename DerivedM>
+    template<typename DerivedV, typename DerivedF, typename DerivedS, typename DerivedM>
     IGL_INLINE void trace_streamlines(
             const Eigen::PlainObjectBase<DerivedV>& V,
             const Eigen::PlainObjectBase<DerivedF>& F,
@@ -38,13 +38,21 @@ namespace igl
             std::vector <Eigen::VectorXi>& face,
             Eigen::MatrixXi& direction
     );
+    template<typename DerivedV, typename DerivedF, typename DerivedS, typename DerivedM>
+    IGL_INLINE void trace_polyvector_field_sort(
+            const Eigen::PlainObjectBase<DerivedV>& V,
+            const Eigen::PlainObjectBase<DerivedF>& F,
+            const Eigen::PlainObjectBase<DerivedS>& temp_field,
+            const bool treat_as_symmetric,
+            Eigen::PlainObjectBase <DerivedS>& field,
+            Eigen::PlainObjectBase <DerivedM> &match_ab,
+            Eigen::PlainObjectBase <DerivedM> &match_ba
 
-    IGL_INLINE void initialize_seeds(
+    );
+    IGL_INLINE void trace_seeds(
             const Eigen::MatrixXd& V,
             const Eigen::MatrixXi& F,
-            const Eigen::MatrixXd& temp_field,
-            const bool treat_as_symmetric,
-            Eigen::MatrixXd& field,
+            const int degree,
             Eigen::VectorXi& samples,
             std::vector <Eigen::MatrixXd>& start_point,
             std::vector <Eigen::MatrixXd>& end_point,

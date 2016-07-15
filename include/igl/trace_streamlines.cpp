@@ -55,7 +55,7 @@ IGL_INLINE bool igl::segments_intersect(
     return true;
 };
 
-template<typename DerivedS, typename DerivedV, typename DerivedF, typename DerivedM>
+template<typename DerivedV, typename DerivedF, typename DerivedS, typename DerivedM>
 IGL_INLINE void igl::trace_streamlines(
         const Eigen::PlainObjectBase <DerivedV> &V,
         const Eigen::PlainObjectBase <DerivedF> &F,
@@ -132,19 +132,16 @@ IGL_INLINE void igl::trace_streamlines(
     }
 }
 
-IGL_INLINE void igl::initialize_seeds(
-        const Eigen::MatrixXd& V,
-        const Eigen::MatrixXi& F,
-        const Eigen::MatrixXd& temp_field,
+template<typename DerivedV, typename DerivedF, typename DerivedS, typename DerivedM>
+IGL_INLINE void igl::trace_polyvector_field_sort(
+        const Eigen::PlainObjectBase<DerivedV>& V,
+        const Eigen::PlainObjectBase<DerivedF>& F,
+        const Eigen::PlainObjectBase<DerivedS>& temp_field,
         const bool treat_as_symmetric,
-        Eigen::MatrixXd& field,
-        Eigen::VectorXi& samples,
-        std::vector <Eigen::MatrixXd>& start_point,
-        std::vector <Eigen::MatrixXd>& end_point,
-        std::vector <Eigen::VectorXi>& face,
-        Eigen::MatrixXi& direction
-)
-{
+        Eigen::PlainObjectBase <DerivedS>& field,
+        Eigen::PlainObjectBase <DerivedM> &match_ab,
+        Eigen::PlainObjectBase <DerivedM> &match_ba
+){
     int degree;
     int half_degree = temp_field.cols() / 3;
     if (treat_as_symmetric)
@@ -179,8 +176,21 @@ IGL_INLINE void igl::initialize_seeds(
             field.block(i, j * 3, 1, 3) = pd;
         }
     }
+    Eigen::VectorXd curl;
+    igl::polyvector_field_matchings(field, V, F, false, match_ab, match_ba, curl);
+}
 
-    // Create samples to start the field rendering
+IGL_INLINE void igl::trace_seeds(
+        const Eigen::MatrixXd& V,
+        const Eigen::MatrixXi& F,
+        const int degree,
+        Eigen::VectorXi& samples,
+        std::vector <Eigen::MatrixXd>& start_point,
+        std::vector <Eigen::MatrixXd>& end_point,
+        std::vector <Eigen::VectorXi>& face,
+        Eigen::MatrixXi& direction
+)
+{
     int nsamples;
     double percentage = 0.3;
 

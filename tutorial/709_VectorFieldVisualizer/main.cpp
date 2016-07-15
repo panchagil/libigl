@@ -134,13 +134,12 @@ int main(int argc, char *argv[])
 
     igl::copyleft::comiso::nrosy(V, F, b, bc, VectorXi(), VectorXd(), MatrixXd(), 1, 0.5, temp_field, S);
 
-    Eigen::VectorXi samples;
-    igl::initialize_seeds(V, F, temp_field, treat_as_symmetric, field, samples, start_point, end_point, current_face, prev_m);
+    igl::trace_polyvector_field_sort(V, F, temp_field, treat_as_symmetric, field, match_ab, match_ba);
     degree = field.cols() / 3;
 
-    // Match vector fields of different elements
-    Eigen::VectorXd curl;
-    igl::polyvector_field_matchings(field, V, F, false, match_ab, match_ba, curl);
+    Eigen::VectorXi samples;
+    igl::trace_seeds(V, F, degree, samples, start_point, end_point, current_face, prev_m);
+
 
 
     // Viewer Settings
@@ -164,9 +163,9 @@ int main(int argc, char *argv[])
     Eigen::MatrixXd VN;
     igl::per_vertex_normals(V, F, VN);
 
-    Eigen::MatrixXd BC, BC_sample;
-    igl::barycenter(V, F, BC);
-    igl::slice(BC, samples, 1, BC_sample);
+    Eigen::MatrixXd BC_sample = start_point[0];
+//    igl::barycenter(V, F, BC);
+//    igl::slice(BC, samples, 1, BC_sample);
 
     for (int i = 0; i < degree; ++i)
     {
