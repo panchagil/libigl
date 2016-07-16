@@ -69,30 +69,28 @@ IGL_INLINE void igl::trace_streamlines(
         const Eigen::PlainObjectBase <DerivedS> &field,
         const Eigen::PlainObjectBase <DerivedM> &match_ab,
         const Eigen::PlainObjectBase <DerivedM> &match_ba,
-        std::vector <Eigen::MatrixXd> &start_point,
-        std::vector <Eigen::MatrixXd> &end_point,
-        std::vector <Eigen::VectorXi> &face,
+        Eigen::MatrixXd &start_point,
+        Eigen::MatrixXd &end_point,
+        Eigen::MatrixXi &face,
         Eigen::MatrixXi &direction
 )
 {
     using namespace Eigen;
     using namespace std;
 
-    int degree = start_point.size();
-    int nsample = direction.rows();
+    int degree = face.cols();
+    int nsample = face.rows();
 
     for (int i = 0; i < degree; ++i)
     {
         for (int j = 0; j < nsample; ++j)
         {
 
-            int f0 = face[i][j];
+            int f0 = face(j,i);
             int m0 = direction(j, i);
 
-
-
             // the starting point of the vector
-            const Eigen::RowVector3d &p = start_point[i].row(j);
+            const Eigen::RowVector3d &p = start_point.row(j + nsample * i);
             // the direction where we are trying to go
             const Eigen::RowVector3d &r = field.block(f0, 3 * m0, 1, 3);
 
@@ -115,8 +113,8 @@ IGL_INLINE void igl::trace_streamlines(
                 if (igl::segments_intersect(p, r, q, s, t, u))
                 {
                     // point on next face
-                    end_point[i].row(j) = p + t * r;
-                    face[i][j] = f1;
+                    end_point.row(j + nsample * i) = p + t * r;
+                    face(j,i) = f1;
 
                     // matching direction on next face
                     int e1 = F2E(f0, k);
@@ -189,9 +187,9 @@ IGL_INLINE void igl::trace_seeds(
         const Eigen::MatrixXi& F,
         const int degree,
         Eigen::VectorXi& samples,
-        std::vector <Eigen::MatrixXd>& start_point,
-        std::vector <Eigen::MatrixXd>& end_point,
-        std::vector <Eigen::VectorXi>& face,
+        Eigen::MatrixXd& start_point,
+        Eigen::MatrixXd& end_point,
+        Eigen::MatrixXi& face,
         Eigen::MatrixXi& direction
 )
 {
@@ -220,10 +218,12 @@ IGL_INLINE void igl::trace_seeds(
     igl::slice(BC, samples, 1, BC_sample);
 
     // initialize points for tracing vector field
-    start_point.assign(degree, BC_sample);
+
+    start_point = BC_sample.replicate(degree,1);
     end_point = start_point;
 
-    face.assign(degree, samples);
+    face = samples.replicate(1, degree);
+
     direction.setZero(nsamples, degree);
     for (int i = 0; i < nsamples; ++i)
         for (int j = 0; j < degree; ++j)

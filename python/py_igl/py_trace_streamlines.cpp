@@ -1,24 +1,3 @@
-//m.def("trace_streamlines", []
-//(
-//  const Eigen::MatrixXd& V,
-//  const Eigen::MatrixXi& F,
-//  const Eigen::MatrixXi& TT,
-//  const Eigen::MatrixXi& F2E,
-//  const Eigen::MatrixXi& E2F,
-//  const Eigen::MatrixXd& sold3d,
-//  const Eigen::MatrixXi& match_ab,
-//  const Eigen::MatrixXi& match_ba,
-//  std::vector <Eigen::MatrixXd>& start_point,
-//  std::vector <Eigen::MatrixXd>& end_point,
-//  std::vector <Eigen::VectorXi>& face,
-//  Eigen::MatrixXi& direction
-//)
-//{
-//  return igl::trace_streamlines(V, F,TT, F2E, E2F, sold3d, match_ab, match_ba, start_point, end_point, face, direction);
-//}, __doc_igl_barycenter,
-//py::arg("V"), py::arg("F"), py::arg("TT"), py::arg("F2E"), py::arg("E2F"),
-//py::arg("sold3d"), py::arg("match_ab"), py::arg("match_ba"),py::arg("start_point"),py::arg("end_point"),
-//py::arg("face"),py::arg("direction"));
 m.def("trace_polyvector_field_sort", []
 (
   const Eigen::MatrixXd& V,
@@ -40,32 +19,37 @@ m.def("trace_seeds", []
   const Eigen::MatrixXd& V,
   const Eigen::MatrixXi& F,
   const int degree,
-  Eigen::VectorXi& samples,
-  std::vector <Eigen::MatrixXd>& start_point,
-  std::vector <Eigen::MatrixXd>& end_point,
-  std::vector <Eigen::VectorXi>& face,
+  Eigen::MatrixXi& samples,
+  Eigen::MatrixXd& start_point,
+  Eigen::MatrixXd& end_point,
+  Eigen::MatrixXi& face,
   Eigen::MatrixXi& direction
 )
 {
-  return igl::trace_seeds(V, F, degree, samples, start_point, end_point, face, direction);
+  Eigen::VectorXi vSamples;
+
+  igl::trace_seeds(V, F, degree, vSamples, start_point, end_point, face, direction);
+
+  samples = vSamples;
+
 },__doc_igl_trace_seeds,
 py::arg("V"), py::arg("F"), py::arg("degree"), py::arg("samples"), py::arg("start_point"),
 py::arg("end_point"), py::arg("face"), py::arg("direction"));
 
 m.def("trace_streamlines", []
 (
-const Eigen::MatrixXd& V,
-const Eigen::MatrixXi& F,
-const Eigen::MatrixXi TT,
-const Eigen::MatrixXi& F2E,
-const Eigen::MatrixXi& E2F,
-const Eigen::MatrixXd& field,
-const Eigen::MatrixXi& match_ab,
-const Eigen::MatrixXi& match_ba,
-std::vector <Eigen::MatrixXd>& start_point,
-std::vector <Eigen::MatrixXd>& end_point,
-std::vector <Eigen::VectorXi>& face,
-Eigen::MatrixXi& direction
+  const Eigen::MatrixXd& V,
+  const Eigen::MatrixXi& F,
+  const Eigen::MatrixXi TT,
+  const Eigen::MatrixXi& F2E,
+  const Eigen::MatrixXi& E2F,
+  const Eigen::MatrixXd& field,
+  const Eigen::MatrixXi& match_ab,
+  const Eigen::MatrixXi& match_ba,
+  Eigen::MatrixXd& start_point,
+  Eigen::MatrixXd& end_point,
+  Eigen::MatrixXi& face,
+  Eigen::MatrixXi& direction
 
 )
 {

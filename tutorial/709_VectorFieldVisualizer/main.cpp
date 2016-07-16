@@ -1,23 +1,23 @@
 #include <igl/barycenter.h>
 #include <igl/edge_topology.h>
+#include <igl/local_basis.h>
+#include <igl/parula.h>
 #include <igl/per_face_normals.h>
 #include <igl/per_vertex_normals.h>
 #include <igl/polyvector_field_matchings.h>
 #include <igl/read_triangle_mesh.h>
 #include <igl/readOFF.h>
 #include <igl/slice.h>
-#include <igl/copyleft/comiso/nrosy.h>
 #include <igl/sort_vectors_ccw.h>
-#include <igl/triangle_triangle_adjacency.h>
-#include <igl/viewer/Viewer.h>
 #include <igl/trace_streamlines.h>
-#include <igl/parula.h>
+#include <igl/triangle_triangle_adjacency.h>
+#include <igl/copyleft/comiso/nrosy.h>
+#include <igl/viewer/Viewer.h>
 
 #include <cstdlib>
 #include <iostream>
 #include <vector>
 #include <fstream>
-
 
 
 // Mesh
@@ -42,11 +42,10 @@ Eigen::MatrixXd field;
 // matchings across interior edges
 Eigen::MatrixXi match_ab, match_ba;
 
-std::vector <Eigen::MatrixXd> start_point;
-std::vector <Eigen::MatrixXd> end_point;
-std::vector <Eigen::VectorXi> current_face;
-//face where end_point is
-std::vector <Eigen::VectorXi> prev_face;
+Eigen::MatrixXd start_point;
+Eigen::MatrixXd end_point;
+Eigen::MatrixXi current_face;
+
 //face where end_point is
 Eigen::MatrixXi prev_m;//face where end_point is
 
@@ -65,6 +64,35 @@ int anim_t = 0;
 int anim_t_dir = 1;
 
 
+void representative_to_nrosy(
+        const Eigen::MatrixXd &V,
+        const Eigen::MatrixXi &F,
+        const Eigen::MatrixXd &R,
+        const int N,
+        Eigen::MatrixXd &Y)
+{
+    using namespace Eigen;
+    using namespace std;
+    MatrixXd B1, B2, B3;
+
+    igl::local_basis(V, F, B1, B2, B3);
+
+    Y.resize(F.rows(), 3 * N);
+    for (unsigned i = 0; i < F.rows(); ++i)
+    {
+        double x = R.row(i) * B1.row(i).transpose();
+        double y = R.row(i) * B2.row(i).transpose();
+        double angle = atan2(y, x);
+
+        for (unsigned j = 0; j < N; ++j)
+        {
+            double anglej = angle + M_PI * double(j) / double(N);
+            double xj = cos(anglej);
+            double yj = sin(anglej);
+            Y.block(i, j * 3, 1, 3) = xj * B1.row(i) + yj * B2.row(i);
+        }
+    }
+}
 
 bool pre_draw(igl::viewer::Viewer &viewer)
 {
@@ -75,22 +103,15 @@ bool pre_draw(igl::viewer::Viewer &viewer)
 
     igl::trace_streamlines(V, F, TT, F2E, E2F, field, match_ab, match_ba, start_point, end_point, current_face, prev_m);
 
-    for (int i = 0; i < start_point.size(); ++i)
-    {
-        Eigen::RowVector3d color = Eigen::RowVector3d::Zero();
-        double value = ((anim_t) % 100) / 100.;
+    Eigen::RowVector3d color = Eigen::RowVector3d::Zero();
+    double value = ((anim_t) % 100) / 100.;
 
-        if (value > 0.5)
-            value = 1 - value;
-        value = value / 0.5;
-        igl::parula(value, color[0], color[1], color[2]);
-//        //parula
-//        int index = 255 * value;
-//        color[0] = parula_values[index][0];
-//        color[1] = parula_values[index][1];
-//        color[2] = parula_values[index][2];
-        viewer.data.add_edges(start_point[i], end_point[i], color);
-    }
+    if (value > 0.5)
+        value = 1 - value;
+    value = value / 0.5;
+    igl::parula(value, color[0], color[1], color[2]);
+    viewer.data.add_edges(start_point, end_point, color);
+
     anim_t += anim_t_dir;
     start_point = end_point;
     return false;
@@ -121,7 +142,7 @@ int main(int argc, char *argv[])
 
     // Create Vector Field
     // #F x 3N matrix where N is the number of vectors per face
-    Eigen::MatrixXd temp_field;
+    Eigen::MatrixXd temp_field, temp_field2;
 
     Eigen::VectorXi b;
     Eigen::MatrixXd bc;
@@ -129,13 +150,17 @@ int main(int argc, char *argv[])
 
     b.resize(1);
     b << 0;
-    bc.resize(1, 6);
-    bc << 1, 0, 0;
+    bc.resize(1, 3);
+    bc << 1, 1, 1;
 
+    degree = 3;
     igl::copyleft::comiso::nrosy(V, F, b, bc, VectorXi(), VectorXd(), MatrixXd(), 1, 0.5, temp_field, S);
+    representative_to_nrosy(V, F, temp_field, degree, temp_field2);
+    treat_as_symmetric = true;
 
-    igl::trace_polyvector_field_sort(V, F, temp_field, treat_as_symmetric, field, match_ab, match_ba);
+    igl::trace_polyvector_field_sort(V, F, temp_field2, treat_as_symmetric, field, match_ab, match_ba);
     degree = field.cols() / 3;
+    std::cout << degree << std::endl;
 
     Eigen::VectorXi samples;
     igl::trace_seeds(V, F, degree, samples, start_point, end_point, current_face, prev_m);
@@ -163,9 +188,9 @@ int main(int argc, char *argv[])
     Eigen::MatrixXd VN;
     igl::per_vertex_normals(V, F, VN);
 
-    Eigen::MatrixXd BC_sample = start_point[0];
-//    igl::barycenter(V, F, BC);
-//    igl::slice(BC, samples, 1, BC_sample);
+    Eigen::MatrixXd BC, BC_sample;
+    igl::barycenter(V, F, BC);
+    igl::slice(BC, samples, 1, BC_sample);
 
     for (int i = 0; i < degree; ++i)
     {

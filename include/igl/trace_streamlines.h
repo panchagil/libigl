@@ -33,9 +33,9 @@ namespace igl
             const Eigen::PlainObjectBase<DerivedS>& sol3D,
             const Eigen::PlainObjectBase<DerivedM>& match_ab,
             const Eigen::PlainObjectBase<DerivedM>& match_ba,
-            std::vector <Eigen::MatrixXd>& start_point,
-            std::vector <Eigen::MatrixXd>& end_point,
-            std::vector <Eigen::VectorXi>& face,
+            Eigen::MatrixXd& start_point,
+            Eigen::MatrixXd& end_point,
+            Eigen::MatrixXi& face,
             Eigen::MatrixXi& direction
     );
     template<typename DerivedV, typename DerivedF, typename DerivedS, typename DerivedM>
@@ -54,9 +54,9 @@ namespace igl
             const Eigen::MatrixXi& F,
             const int degree,
             Eigen::VectorXi& samples,
-            std::vector <Eigen::MatrixXd>& start_point,
-            std::vector <Eigen::MatrixXd>& end_point,
-            std::vector <Eigen::VectorXi>& face,
+            Eigen::MatrixXd& start_point,
+            Eigen::MatrixXd& end_point,
+            Eigen::MatrixXi& face,
             Eigen::MatrixXi& direction
     );
 
