@@ -24,42 +24,25 @@
 Eigen::MatrixXd V;
 Eigen::MatrixXi F;
 
-// Face normals
-Eigen::MatrixXd FN;
-
 // Topology
 Eigen::MatrixXi E, E2F, F2E, TT;
 
-// Constrained faces id
-Eigen::VectorXi b;
 
-// Constrained faces representative vector
-Eigen::MatrixXd bc;
-
-// Final Output
+// vector field
 Eigen::MatrixXd field;
+int degree;         // degree of the vector field
+int half_degree;    // degree/2 if treat_as_symmetric
+bool treat_as_symmetric = true;
 
-// matchings across interior edges
+// vector field direction matching across interior edges
 Eigen::MatrixXi match_ab, match_ba;
 
+// sample tracing status
 Eigen::MatrixXd start_point;
 Eigen::MatrixXd end_point;
-Eigen::MatrixXi current_face;
+Eigen::MatrixXi current_face;       // face where end_point is
+Eigen::MatrixXi current_direction;  // field direction for end_point
 
-//face where end_point is
-Eigen::MatrixXi prev_m;//face where end_point is
-
-
-int nsamples;
-double percentage = 0.3;
-
-bool treat_as_symmetric = true;
-//field degree
-int degree;
-//field half degree (=degree if field is not symmetric)
-int half_degree;
-
-double eps = 1e-6;
 int anim_t = 0;
 int anim_t_dir = 1;
 
@@ -101,7 +84,8 @@ bool pre_draw(igl::viewer::Viewer &viewer)
     if (!viewer.core.is_animating)
         return false;
 
-    igl::trace_streamlines(V, F, TT, F2E, E2F, field, match_ab, match_ba, start_point, end_point, current_face, prev_m);
+    igl::trace_streamlines(V, F, TT, F2E, E2F, field, match_ab, match_ba,
+                           start_point, end_point, current_face, current_direction);
 
     Eigen::RowVector3d color = Eigen::RowVector3d::Zero();
     double value = ((anim_t) % 100) / 100.;
@@ -134,16 +118,12 @@ int main(int argc, char *argv[])
 
 
     // Load a mesh in OFF format
-    igl::readOFF(TUTORIAL_SHARED_PATH
-    "/bumpy.off", V, F);
-    igl::per_face_normals(V, F, FN);
+    igl::readOFF(TUTORIAL_SHARED_PATH "/bumpy.off", V, F);
+
     igl::edge_topology(V, F, E, F2E, E2F);
     igl::triangle_triangle_adjacency(F, TT);
 
-    // Create Vector Field
-    // #F x 3N matrix where N is the number of vectors per face
-    Eigen::MatrixXd temp_field, temp_field2;
-
+    // Create a Vector Field
     Eigen::VectorXi b;
     Eigen::MatrixXd bc;
     Eigen::VectorXd S; // unused
@@ -153,19 +133,20 @@ int main(int argc, char *argv[])
     bc.resize(1, 3);
     bc << 1, 1, 1;
 
-    degree = 3;
-    igl::copyleft::comiso::nrosy(V, F, b, bc, VectorXi(), VectorXd(), MatrixXd(), 1, 0.5, temp_field, S);
-    representative_to_nrosy(V, F, temp_field, degree, temp_field2);
+    half_degree = 3;
     treat_as_symmetric = true;
+
+    Eigen::MatrixXd temp_field, temp_field2;
+    igl::copyleft::comiso::nrosy(V, F, b, bc, VectorXi(), VectorXd(), MatrixXd(), 1, 0.5, temp_field, S);
+    representative_to_nrosy(V, F, temp_field, half_degree, temp_field2);
+
 
     igl::trace_polyvector_field_sort(V, F, temp_field2, treat_as_symmetric, field, match_ab, match_ba);
     degree = field.cols() / 3;
-    std::cout << degree << std::endl;
 
     Eigen::VectorXi samples;
-    igl::trace_seeds(V, F, degree, samples, start_point, end_point, current_face, prev_m);
-
-
+    igl::trace_seeds(V, F, degree, samples,
+                     start_point, end_point, current_face, current_direction);
 
     // Viewer Settings
     igl::viewer::Viewer viewer;
@@ -198,7 +179,7 @@ int main(int argc, char *argv[])
         igl::slice(v1, samples, 1, v);
         viewer.data.add_edges(BC_sample,
                               BC_sample + 0.059 * v,
-                              Eigen::RowVector3d::Constant(i / degree));
+                              Eigen::RowVector3d::Constant(1.0f * i / degree));
     }
 
     cout <<
