@@ -86,7 +86,8 @@ namespace igl
             Eigen::MatrixXd& start_point,
             Eigen::MatrixXd& end_point,
             Eigen::MatrixXi& face,
-            Eigen::MatrixXi& direction
+            Eigen::MatrixXi& direction,
+            double percentage = 0.3
     );
 
     // Given a mesh, a vector field and a set of tracing points with

@@ -23,18 +23,19 @@ m.def("trace_seeds", []
   Eigen::MatrixXd& start_point,
   Eigen::MatrixXd& end_point,
   Eigen::MatrixXi& face,
-  Eigen::MatrixXi& direction
+  Eigen::MatrixXi& direction,
+  double percentage
 )
 {
   Eigen::VectorXi vSamples;
 
-  igl::trace_seeds(V, F, degree, vSamples, start_point, end_point, face, direction);
+  igl::trace_seeds(V, F, degree, vSamples, start_point, end_point, face, direction, percentage);
 
   samples = vSamples;
 
 },__doc_igl_trace_seeds,
 py::arg("V"), py::arg("F"), py::arg("degree"), py::arg("samples"), py::arg("start_point"),
-py::arg("end_point"), py::arg("face"), py::arg("direction"));
+py::arg("end_point"), py::arg("face"), py::arg("direction"), py::arg("percentage")=0.3);
 
 m.def("trace_streamlines", []
 (

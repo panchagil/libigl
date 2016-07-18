@@ -192,11 +192,11 @@ IGL_INLINE void igl::trace_seeds(
         Eigen::MatrixXd& start_point,
         Eigen::MatrixXd& end_point,
         Eigen::MatrixXi& face,
-        Eigen::MatrixXi& direction
+        Eigen::MatrixXi& direction,
+        double percentage
 )
 {
     int nsamples;
-    double percentage = 0.3;
 
     if (F.rows() < 20)
     {
