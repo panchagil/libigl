@@ -66,6 +66,7 @@ def representative_to_nrosy(V, F, R, N, Y):
             yj = float(np.sin(anglej))
             Y.setBlock(i, j * 3, 1, 3, xj * B1.row(i) + yj * B2.row(i))
 
+
 def pre_draw(viewer):
     if not viewer.core.is_animating:
         return False
@@ -140,11 +141,11 @@ viewer.core.animation_max_fps = 30.0
 C = igl.eigen.MatrixXd()
 C.setConstant(viewer.data.V.rows(), 3, .9)
 viewer.data.set_colors(C)
-
+#
 # Draw vector field
 VN = igl.eigen.MatrixXd()
 igl.per_vertex_normals(V, F, VN)
-
+#
 BC = igl.eigen.MatrixXd()
 BC_sample = igl.eigen.MatrixXd()
 igl.barycenter(V, F, BC)
@@ -155,7 +156,7 @@ for i in range(0, degree):
     igl.slice(v1, samples, 1, v)
     viewer.data.add_edges(BC_sample,
                           BC_sample + 0.059 * v,
-                          igl.eigen.MatrixXd([(i / degree), (i / degree), (i / degree)]))
+                          igl.eigen.MatrixXd([[(i / degree), (i / degree), (i / degree)]]))
 
 print("Press [space] to toggle animation")
 viewer.launch()
