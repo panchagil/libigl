@@ -87,6 +87,8 @@ IGL_INLINE void igl::trace_streamlines(
         {
 
             int f0 = face(j,i);
+            if (f0 == -1) // reach boundary
+                continue;
             int m0 = direction(j, i);
 
             // the starting point of the vector
