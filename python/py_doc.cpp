@@ -988,9 +988,8 @@ const char *__doc_igl_sortrows = R"igl_Qu8mg5v7(// Act like matlab's [Y,I] = sor
   //     reference as X)
   //   I  m list of indices so that
   //     Y = X(I,:);)igl_Qu8mg5v7";
-const char *__doc_igl_trace_polyvector_field_sort = R"igl_Qu8mg5v7(// TODO )igl_Qu8mg5v7";
-const char *__doc_igl_trace_seeds = R"igl_Qu8mg5v7(// TODO )igl_Qu8mg5v7";
-const char *__doc_igl_trace_streamlines = R"igl_Qu8mg5v7(// TODO )igl_Qu8mg5v7";
+const char *__doc_igl_streamlines_init = R"igl_Qu8mg5v7(// TODO )igl_Qu8mg5v7";
+const char *__doc_igl_streamlines_next = R"igl_Qu8mg5v7(// TODO )igl_Qu8mg5v7";
 const char *__doc_igl_triangle_triangle_adjacency = R"igl_Qu8mg5v7(// Constructs the triangle-triangle adjacency matrix for a given
   // mesh (V,F).
   //
