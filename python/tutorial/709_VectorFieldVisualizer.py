@@ -51,7 +51,7 @@ def pre_draw(viewer):
     global start_point
     global end_point
 
-    igl.streamlines_next(V,F, data, state)
+    igl.streamlines_next(V, F, data, state)
 
     value = (anim_t % 100) / 100.0
 
@@ -107,6 +107,17 @@ def main():
     C = igl.eigen.MatrixXd()
     C.setConstant(viewer.data.V.rows(), 3, .9)
     viewer.data.set_colors(C)
+
+    # Draw vector field on sample points
+    state0 = state.copy()
+
+    igl.streamlines_next(V, F, data, state0)
+    v = state0.end_point - state0.start_point
+    v = v.rowwiseNormalized()
+
+    viewer.data.add_edges(state0.start_point,
+                          state0.start_point + 0.059 * v,
+                          igl.eigen.MatrixXd([[1.0, 1.0, 1.0]]))
 
     print("Press [space] to toggle animation")
     viewer.launch()

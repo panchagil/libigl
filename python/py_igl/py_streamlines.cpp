@@ -19,6 +19,7 @@ StreamlineState
 .def_readwrite("end_point", &igl::StreamlineState::end_point)
 .def_readwrite("current_face", &igl::StreamlineState::current_face)
 .def_readwrite("current_direction", &igl::StreamlineState::current_direction)
+.def("copy", [](const igl::StreamlineState &m) { return igl::StreamlineState(m); })
 ;
 
 m.def("streamlines_init", []

@@ -145,22 +145,16 @@ int main(int argc, char *argv[])
     viewer.data.set_colors(C);
 
 
-//    // Draw vector field
-//    Eigen::MatrixXd VN;
-//    igl::per_vertex_normals(V, F, VN);
-//
-//    Eigen::MatrixXd BC, BC_sample;
-//    igl::barycenter(V, F, BC);
-//    igl::slice(BC, samples, 1, BC_sample);
-//
-//    for (int i = 0; i < degree; ++i)
-//    {
-//        Eigen::MatrixXd v, v1 = field.block(0, i * 3, F.rows(), 3);
-//        igl::slice(v1, samples, 1, v);
-//        viewer.data.add_edges(BC_sample,
-//                              BC_sample + 0.059 * v,
-//                              Eigen::RowVector3d::Constant(1.0f * i / degree));
-//    }
+    // Draw vector field on sample points
+    igl::StreamlineState state0;
+    state0 = state;
+    igl::streamlines_next(V, F, data, state0);
+    Eigen::MatrixXd v = state0.end_point - state0.start_point;
+    v.rowwise().normalize();
+
+    viewer.data.add_edges(state0.start_point,
+                          state0.start_point + 0.059 * v,
+                          Eigen::RowVector3d::Constant(1.0f));
 
     cout <<
     "Press [space] to toggle animation" << endl;
