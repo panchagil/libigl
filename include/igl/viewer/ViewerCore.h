@@ -83,6 +83,14 @@ public:
     Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic>& B,
     Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic>& A);
 
+  // TODO: @pancha. This is a hack. The above function 'draw_buffer' doesn't work with my graphics card.
+  IGL_INLINE bool render_to_png(
+          ViewerData& data,
+          OpenGL_state& opengl,
+          const std::string png_file,
+          const int width,
+          const int height);
+
   // Trackball angle (quaternion)
   enum RotationType
   {

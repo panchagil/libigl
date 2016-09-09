@@ -67,6 +67,9 @@ def pre_draw(viewer):
 
 
 def key_down(viewer, key, modifier):
+    if key == ord('1'):
+        viewer.core.render_to_png(viewer.data,viewer.opengl,"outA.png", 1280, 800)
+
     if key == ord(' '):
         viewer.core.is_animating = not viewer.core.is_animating
         return True

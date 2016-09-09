@@ -160,6 +160,7 @@ py::class_<igl::viewer::ViewerCore> viewercore_class(me, "ViewerCore");
     .def("clear_framebuffers",&igl::viewer::ViewerCore::clear_framebuffers)
     .def("draw",&igl::viewer::ViewerCore::draw)
     .def("draw_buffer",&igl::viewer::ViewerCore::draw_buffer)
+    .def("render_to_png",&igl::viewer::ViewerCore::render_to_png)
 
     .def_readwrite("shininess",&igl::viewer::ViewerCore::shininess)
 

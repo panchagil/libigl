@@ -16,6 +16,8 @@
 #include <igl/barycenter.h>
 #include <Eigen/Geometry>
 #include <iostream>
+#include <stb_image_write.h>
+
 
 #ifdef ENABLE_SERIALIZATION
 #include <igl/serialize.h>
@@ -456,6 +458,44 @@ IGL_INLINE void igl::viewer::ViewerCore::draw_buffer(ViewerData& data,
   glDeleteRenderbuffers(1, &rboDepthStencil);
   glDeleteTextures(1, &texColorBuffer);
   glDeleteFramebuffers(1, &frameBuffer);
+}
+
+// TODO: @pancha. This is a hack. The above function 'draw_buffer' doesn't work with my graphics card.
+IGL_INLINE bool igl::viewer::ViewerCore::render_to_png(
+    ViewerData& data,
+    OpenGL_state& opengl,
+    const std::string png_file,
+    const int width,
+    const int height)
+{
+  const int comp = 4;                                             // 4 Channels Red, Green, Blue, Alpha
+  const int stride = width*comp;  // Length of one row in bytes
+  unsigned char * data_fv = new unsigned char[comp * width * height];
+
+  // Hack -- override viewport and redraw
+  Eigen::Vector4f viewport_ori = viewport;
+  viewport << 0, 0, width, height;
+
+  glClearColor(0.0f,0.0f,0.0f,0.0f);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  draw(data,opengl,false);
+
+  // get the data
+  glReadPixels(0,0,width,height,GL_RGBA,GL_UNSIGNED_BYTE,data_fv);
+
+  viewport = viewport_ori;
+
+  // flip vertically
+  std::vector<unsigned char> pixels(comp * width * height,0);     // The image itself;
+  for (unsigned j = 0; j<height;++j){
+    int j_fl = (height-1-j);
+    for (unsigned i = 0; i< stride; ++i){
+      pixels[j*stride + i] = data_fv[j_fl * stride + i];
+    }
+  }
+  bool ret = stbi_write_png(png_file.c_str(), width, height, comp, pixels.data(), stride*sizeof(unsigned char));
+  delete [] data_fv;
+  return ret;
 }
 
 IGL_INLINE void igl::viewer::ViewerCore::set_rotation_type(
