@@ -12,7 +12,6 @@
 #include "slice.h"
 #include "round.h"
 #include "colon.h"
-#include "matlab_format.h"
 
 #include <iostream>
 
@@ -391,7 +390,7 @@ IGL_INLINE void igl::sort_triangles(
 //  assert(false && 
 //    "THIS WILL NEVER WORK because depth sorting is not a numerical sort where"
 //    "pairwise comparisons of triangles are transitive.  Rather it is a"
-//    "topological sort on a dependecy graph. Dependency encodes 'This triangle"
+//    "topological sort on a dependency graph. Dependency encodes 'This triangle"
 //    "must be drawn before that one'");
 //  using namespace std;
 //  using namespace Eigen;
@@ -493,7 +492,7 @@ IGL_INLINE void igl::sort_triangles(
 //}
 
 #ifdef IGL_STATIC_LIBRARY
-// Explicit template specialization
+// Explicit template instantiation
 template void igl::sort_triangles<Eigen::Matrix<double, -1, 4, 0, -1, 4>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, 4, 4, 0, 4, 4>, Eigen::Matrix<double, 4, 4, 0, 4, 4>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, 4, 0, -1, 4> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, 4, 4, 0, 4, 4> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, 4, 4, 0, 4, 4> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&);
 template void igl::sort_triangles<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, 4, 4, 0, 4, 4>, Eigen::Matrix<double, 4, 4, 0, 4, 4>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, 4, 4, 0, 4, 4> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, 4, 4, 0, 4, 4> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&);
 #endif

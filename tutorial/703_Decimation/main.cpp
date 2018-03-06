@@ -1,8 +1,9 @@
 #include <igl/circulation.h>
 #include <igl/collapse_edge.h>
 #include <igl/edge_flaps.h>
+#include <igl/shortest_edge_and_midpoint.h>
 #include <igl/read_triangle_mesh.h>
-#include <igl/viewer/Viewer.h>
+#include <igl/opengl/glfw/Viewer.h>
 #include <Eigen/Core>
 #include <iostream>
 #include <set>
@@ -27,7 +28,7 @@ int main(int argc, char * argv[])
   MatrixXi F,OF;
   read_triangle_mesh(filename,OV,OF);
 
-  igl::viewer::Viewer viewer;
+  igl::opengl::glfw::Viewer viewer;
 
   // Prepare array-based edge data structures and priority queue
   VectorXi EMAP;
@@ -39,24 +40,6 @@ int main(int argc, char * argv[])
   MatrixXd C;
   int num_collapsed;
 
-  // Function for computing cost of collapsing edge (lenght) and placement
-  // (midpoint)
-  const auto & shortest_edge_and_midpoint = [](
-    const int e,
-    const Eigen::MatrixXd & V,
-    const Eigen::MatrixXi & /*F*/,
-    const Eigen::MatrixXi & E,
-    const Eigen::VectorXi & /*EMAP*/,
-    const Eigen::MatrixXi & /*EF*/,
-    const Eigen::MatrixXi & /*EI*/,
-    double & cost,
-    RowVectorXd & p)
-  {
-    cost = (V.row(E(e,0))-V.row(E(e,1))).norm();
-    p = 0.5*(V.row(E(e,0))+V.row(E(e,1)));
-  };
-
-
   // Function to reset original mesh and data structures
   const auto & reset = [&]()
   {
@@ -67,6 +50,7 @@ int main(int argc, char * argv[])
 
     C.resize(E.rows(),V.cols());
     VectorXd costs(E.rows());
+    Q.clear();
     for(int e = 0;e<E.rows();e++)
     {
       double cost = e;
@@ -76,12 +60,12 @@ int main(int argc, char * argv[])
       Qit[e] = Q.insert(std::pair<double,int>(cost,e)).first;
     }
     num_collapsed = 0;
-    viewer.data.clear();
-    viewer.data.set_mesh(V,F);
-    viewer.data.set_face_based(true);
+    viewer.data().clear();
+    viewer.data().set_mesh(V,F);
+    viewer.data().set_face_based(true);
   };
 
-  const auto &pre_draw = [&](igl::viewer::Viewer & viewer)->bool
+  const auto &pre_draw = [&](igl::opengl::glfw::Viewer & viewer)->bool
   {
     // If animating then collapse 10% of edges
     if(viewer.core.is_animating && !Q.empty())
@@ -91,7 +75,8 @@ int main(int argc, char * argv[])
       const int max_iter = std::ceil(0.01*Q.size());
       for(int j = 0;j<max_iter;j++)
       {
-        if(!collapse_edge(shortest_edge_and_midpoint,V,F,E,EMAP,EF,EI,Q,Qit,C))
+        if(!collapse_edge(
+          shortest_edge_and_midpoint, V,F,E,EMAP,EF,EI,Q,Qit,C))
         {
           break;
         }
@@ -101,16 +86,16 @@ int main(int argc, char * argv[])
 
       if(something_collapsed)
       {
-        viewer.data.clear();
-        viewer.data.set_mesh(V,F);
-        viewer.data.set_face_based(true);
+        viewer.data().clear();
+        viewer.data().set_mesh(V,F);
+        viewer.data().set_face_based(true);
       }
     }
     return false;
   };
 
   const auto &key_down =
-    [&](igl::viewer::Viewer &viewer,unsigned char key,int mod)->bool
+    [&](igl::opengl::glfw::Viewer &viewer,unsigned char key,int mod)->bool
   {
     switch(key)
     {
@@ -128,6 +113,7 @@ int main(int argc, char * argv[])
   };
 
   reset();
+  viewer.core.background_color.setConstant(1);
   viewer.core.is_animating = true;
   viewer.callback_key_down = key_down;
   viewer.callback_pre_draw = pre_draw;

@@ -16,7 +16,7 @@
 //  Used const references rather than copying the entire mesh 
 //    Alec 9 October 2011
 //  removed cotan (uniform weights) optional parameter it was building a buggy
-//    half of the uniform laplacian, please see adjacency_matrix istead 
+//    half of the uniform laplacian, please see adjacency_matrix instead 
 //    Alec 9 October 2011
 
 namespace igl 
@@ -43,12 +43,10 @@ namespace igl
   // therefore in general negative and the matrix is **negative** semi-definite
   // (immediately, -L is **positive** semi-definite)
   //
-  // Known bugs: off by 1e-16 on regular grid. I think its a problem of
-  // arithmetic order in cotmatrix_entries.h: C(i,e) = (arithmetic)/dblA/4
   template <typename DerivedV, typename DerivedF, typename Scalar>
   IGL_INLINE void cotmatrix(
-    const Eigen::PlainObjectBase<DerivedV> & V, 
-    const Eigen::PlainObjectBase<DerivedF> & F, 
+    const Eigen::MatrixBase<DerivedV> & V, 
+    const Eigen::MatrixBase<DerivedF> & F, 
     Eigen::SparseMatrix<Scalar>& L);
 }
 

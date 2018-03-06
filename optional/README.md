@@ -111,20 +111,20 @@ Zip this directory without .git litter and binaries using:
 
     git archive -prefix=libigl/ -o libigl.zip master
 
-## Explicit specialization of templated functions
+## Explicit instantiations of templated functions
 
 Special care must be taken by the developers of each function and
 class in the libigl library that uses C++ templates. If this function
 is intended to be compiled into the statically linked libigl library
-then function is only compiled for each <i>explicitly</i> specialized
+then function is only compiled for each <i>explicitly</i> instantiated 
 declaration. These should be added at the bottom of the corresponding
 .cpp file surrounded by a
 
     #ifdef IGL_STATIC_LIBRARY
 
 Of course, a developer may not know ahead of time which
-specializations should be explicitly included in the igl static lib.
-One way to find out is to add one explicit specialization for each
+instantiations should be explicitly included in the igl static lib.
+One way to find out is to add one explicit instantiation for each
 call in one's own project. This only ever needs to be done once for
 each template.
 
@@ -132,7 +132,7 @@ The process is somewhat mechanical using a linker with reasonable error
 output.
 
 Supposed for example we have compiled the igl static lib, including the
-cat.h and cat.cpp functions, without any explicit instanciation. Say
+cat.h and cat.cpp functions, without any explicit instantiation. Say
 using the makefile in the `libigl` directory:
 
     cd $LIBIGL
@@ -155,13 +155,13 @@ all. Just copy the first part in quotes
     Eigen::Matrix<int, -1, -1, 0, -1, -1> igl::cat<Eigen::Matrix<int, -1, -1, 0, -1, -1> >(int, Eigen::Matrix<int, -1, -1, 0, -1, -1> const&, Eigen::Matrix<int, -1, -1, 0, -1, -1> const&)
 
 , then append it
-to the list of explicit template specializations at the end of
+to the list of explicit template instantiations at the end of
 `cat.cpp` after the word
 **template** and followed by a semi-colon.
 Like this:
 
     #ifdef IGL_STATIC_LIBRARY
-    // Explicit template specialization
+    // Explicit template instantiation
     template Eigen::Matrix<int, -1, -1, 0, -1, -1> igl::cat<Eigen::Matrix<int, -1, -1, 0, -1, -1> >(int, Eigen::Matrix<int, -1, -1, 0, -1, -1> const&, Eigen::Matrix<int, -1, -1, 0, -1, -1> const&);
     #endif
 
@@ -175,7 +175,7 @@ process until no more symbols are undefined.
 
 `It may be useful to check that you code compiles with
 no errors first using the headers-only version to be sure that all errors are from missing template
-specializations.`
+instantiations.`
 
 If you're using make then the following command will
 reveal each missing symbol on its own line:
@@ -184,7 +184,7 @@ reveal each missing symbol on its own line:
 
 Alternatively you can use the `autoexplicit.sh` function
 which (for well organized .h/.cpp pairs in libigl) automatically
-create explicit instanciations from your compiler's error messages.
+create explicit instantiations from your compiler's error messages.
 Repeat this process until convergence:
 
     cd /to/your/project
@@ -232,7 +232,7 @@ Alternatively, you can also compress everything into a single header file:
 
 * **Hard to debug/edit**: The compressed files are
   automatically generated. They're huge and should not be edited. Thus
-  debugging and editting are near impossible.
+  debugging and editing are near impossible.
 
 * **Compounded dependencies**:
   An immediate disadvantage of this
@@ -241,7 +241,7 @@ Alternatively, you can also compress everything into a single header file:
   `igl.cpp` will require linking to all of `libigl`'s
   dependencies (`OpenGL`, `GLUT`,
   `AntTweakBar`, `BLAS`). However, because all
-  depencies other than Eigen should be encapsulated between
+  dependencies other than Eigen should be encapsulated between
   `#ifndef` guards (e.g. `#ifndef IGL_NO_OPENGL`, it
   is possible to ignore certain functions that have such dependencies.
 

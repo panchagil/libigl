@@ -8,10 +8,9 @@
 #ifndef IGL_OPENGL2_LENS_FLARE_H
 #define IGL_OPENGL2_LENS_FLARE_H
 
-#include "../opengl/OpenGL_convenience.h"
 #include "../igl_inline.h"
+#include "gl.h"
 #include <Eigen/Core>
-
 #include <vector>
 
 namespace igl
@@ -22,7 +21,7 @@ namespace igl
     struct Flare{
       int type;             /* flare texture index, 0..5 */
       float scale;
-      float loc;            /* postion on axis */
+      float loc;            /* position on axis */
       float color[3];
       Flare():
         type(-1),

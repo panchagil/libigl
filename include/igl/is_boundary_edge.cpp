@@ -6,7 +6,7 @@
 // v. 2.0. If a copy of the MPL was not distributed with this file, You can 
 // obtain one at http://mozilla.org/MPL/2.0/.
 #include "is_boundary_edge.h"
-#include "unique.h"
+#include "unique_rows.h"
 #include "sort.h"
 
 template <
@@ -47,14 +47,14 @@ void igl::is_boundary_edge(
   MatrixXi uE;
   VectorXi EMAP;
   unique_rows(sorted_EallE,uE,_,EMAP);
-  // Counts of occurances
+  // Counts of occurrences
   VectorXi N = VectorXi::Zero(uE.rows());
   for(int e = 0;e<EMAP.rows();e++)
   {
     N(EMAP(e))++;
   }
   B.resize(E.rows());
-  // Look of occurances of 2: one for original and another for boundary
+  // Look of occurrences of 2: one for original and another for boundary
   for(int e = 0;e<E.rows();e++)
   {
     B(e) = (N(EMAP(e)) == 2);
@@ -97,14 +97,14 @@ void igl::is_boundary_edge(
   sort(allE,2,true,sorted_allE,_);
   // Determine unique undirected edges E and map to directed edges EMAP
   unique_rows(sorted_allE,E,_,EMAP);
-  // Counts of occurances
+  // Counts of occurrences
   VectorXi N = VectorXi::Zero(E.rows());
   for(int e = 0;e<EMAP.rows();e++)
   {
     N(EMAP(e))++;
   }
   B.resize(E.rows());
-  // Look of occurances of 1
+  // Look of occurrences of 1
   for(int e = 0;e<E.rows();e++)
   {
     B(e) = N(e) == 1;
@@ -112,7 +112,7 @@ void igl::is_boundary_edge(
 }
 
 #ifdef IGL_STATIC_LIBRARY
-// Explicit instanciation:
+// Explicit template instantiation:
 template void igl::is_boundary_edge<Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> >&);
 template void igl::is_boundary_edge<Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<bool, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<bool, -1, 1, 0, -1, 1> >&);
 template void igl::is_boundary_edge<Eigen::Matrix<unsigned int, -1, -1, 1, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<bool, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<unsigned int, -1, -1, 1, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<bool, -1, 1, 0, -1, 1> >&);

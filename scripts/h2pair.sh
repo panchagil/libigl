@@ -37,7 +37,7 @@ do
 
   if [[ `grep -c "^\#endif" "$i"` > 1 ]];
   then
-    echo "Warning $i contains multple matches to ^#endif"
+    echo "Warning $i contains multiple matches to ^#endif"
   fi
 
   before=`sed -n '/^\/\/ Implementation$/q;p' "$i"`;
@@ -72,7 +72,7 @@ $after" | sed '1,/endif/d'`;
     after=`echo "$after
 
 #ifdef IGL_STATIC_LIBRARY
-// Explicit template specialization
+// Explicit template instantiation
 #endif"` 
   fi
   echo "$before

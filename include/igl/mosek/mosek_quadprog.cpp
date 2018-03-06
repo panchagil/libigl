@@ -28,7 +28,10 @@ igl::mosek::MosekData::MosekData()
   // 1e-4 seems safe
   // 1e-8 MOSEK DEFAULT SOLUTION
   douparam[MSK_DPAR_INTPNT_TOL_REL_GAP]=1e-8;
-  // Force using multiple threads, not sure if MOSEK is properly destorying
+#if MSK_VERSION_MAJOR >= 8
+  douparam[MSK_DPAR_INTPNT_QO_TOL_REL_GAP]=1e-12;
+#endif
+  // Force using multiple threads, not sure if MOSEK is properly destroying
   //extra threads...
 #if MSK_VERSION_MAJOR >= 7
   intparam[MSK_IPAR_NUM_THREADS] = 6;
@@ -50,7 +53,7 @@ igl::mosek::MosekData::MosekData()
   //   choose the right ordering method when really any of them are
   //   instantaneous
   intparam[MSK_IPAR_INTPNT_ORDER_METHOD] = MSK_ORDER_METHOD_NONE;
-  // 1.0 means optimizer is very leniant about declaring model infeasible
+  // 1.0 means optimizer is very lenient about declaring model infeasible
   douparam[MSK_DPAR_INTPNT_TOL_INFEAS] = 1e-8;
   // Hard to say if this is doing anything, probably nothing dramatic
   douparam[MSK_DPAR_INTPNT_TOL_PSAFE]= 1e2;
@@ -111,7 +114,9 @@ IGL_INLINE bool igl::mosek::mosek_quadprog(
   //}
   //mosek_guarded(MSK_linkfunctoenvstream(env,MSK_STREAM_LOG,NULL,printstr));
   // initialize mosek environment
+#if MSK_VERSION_MAJOR <= 7
   mosek_guarded(MSK_initenv(env));
+#endif
   // Create the optimization task
   mosek_guarded(MSK_maketask(env,m,n,&task));
   verbose("Creating task with %ld linear constraints and %ld variables...\n",m,n);
@@ -282,6 +287,8 @@ IGL_INLINE bool igl::mosek::mosek_quadprog(
   using namespace Eigen;
   using namespace std;
 
+  typedef int Index;
+  typedef double Scalar;
   // Q should be square
   assert(Q.rows() == Q.cols());
   // Q should be symmetric
@@ -289,36 +296,36 @@ IGL_INLINE bool igl::mosek::mosek_quadprog(
   assert( (Q-Q.transpose()).sum() < FLOAT_EPS);
 #endif
   // Only keep lower triangular part of Q
-  SparseMatrix<double> QL;
+  SparseMatrix<Scalar> QL;
   //QL = Q.template triangularView<Lower>();
   QL = Q.triangularView<Lower>();
   VectorXi Qi,Qj;
   VectorXd Qv;
   find(QL,Qi,Qj,Qv);
-  vector<int> vQi = matrix_to_list(Qi);
-  vector<int> vQj = matrix_to_list(Qj);
-  vector<double> vQv = matrix_to_list(Qv);
+  vector<Index> vQi = matrix_to_list(Qi);
+  vector<Index> vQj = matrix_to_list(Qj);
+  vector<Scalar> vQv = matrix_to_list(Qv);
 
   // Convert linear term
-  vector<double> vc = matrix_to_list(c);
+  vector<Scalar> vc = matrix_to_list(c);
 
   assert(lc.size() == A.rows());
   assert(uc.size() == A.rows());
   // Convert A to harwell boeing format
-  vector<double> vAv;
-  vector<int> vAr,vAc;
-  int nr;
+  vector<Scalar> vAv;
+  vector<Index> vAr,vAc;
+  Index nr;
   harwell_boeing(A,nr,vAv,vAr,vAc);
 
   assert(lx.size() == Q.rows());
   assert(ux.size() == Q.rows());
-  vector<double> vlc = matrix_to_list(lc);
-  vector<double> vuc = matrix_to_list(uc);
-  vector<double> vlx = matrix_to_list(lx);
-  vector<double> vux = matrix_to_list(ux);
+  vector<Scalar> vlc = matrix_to_list(lc);
+  vector<Scalar> vuc = matrix_to_list(uc);
+  vector<Scalar> vlx = matrix_to_list(lx);
+  vector<Scalar> vux = matrix_to_list(ux);
 
-  vector<double> vx;
-  bool ret = mosek_quadprog(
+  vector<Scalar> vx;
+  bool ret = mosek_quadprog<Index,Scalar>(
     Q.rows(),vQi,vQj,vQv,
     vc,
     cf,

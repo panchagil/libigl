@@ -34,7 +34,7 @@
 // defined if no early exit is supported, i.e., always take a fixed number of iterations
 #define IGL_ARAP_DOF_FIXED_ITERATIONS_COUNT
 
-// A carefull derivation of this implementation is given in the corresponding
+// A careful derivation of this implementation is given in the corresponding
 // matlab function arap_dof.m
 template <typename LbsMatrixType, typename SSCALAR>
 IGL_INLINE bool igl::arap_dof_precomputation(
@@ -149,7 +149,7 @@ IGL_INLINE bool igl::arap_dof_precomputation(
   // Apply group sum to each dimension's block of covariance scatter matrix
   SparseMatrix<double> G_sum_dim;
   repdiag(G_sum,data.dim,G_sum_dim);
-  CSM = G_sum_dim * CSM;
+  CSM = (G_sum_dim * CSM).eval();
 #ifdef EXTREME_VERBOSE
   cout<<"CSMIJV=["<<endl;print_ijv(CSM,1);cout<<endl<<"];"<<
     endl<<"CSM=sparse(CSMIJV(:,1),CSMIJV(:,2),CSMIJV(:,3),"<<
@@ -339,7 +339,7 @@ namespace igl
   }
   
   // converts CSM_M_SSCALAR[0], CSM_M_SSCALAR[1], CSM_M_SSCALAR[2] into one
-  // "condensed" matrix CSM while checking we're not loosing any information by
+  // "condensed" matrix CSM while checking we're not losing any information by
   // this process; specifically, returns maximal difference from scaled 3x3
   // identity blocks, which should be pretty small number
   template <typename MatrixXS>
@@ -449,7 +449,7 @@ namespace igl
   }
   
   // converts "Solve1" the "rotations" part of FullSolve matrix (the first part)
-  // into one "condensed" matrix CSolve1 while checking we're not loosing any
+  // into one "condensed" matrix CSolve1 while checking we're not losing any
   // information by this process; specifically, returns maximal difference from
   // scaled 3x3 identity blocks, which should be pretty small number
   template <typename MatrixXS>
@@ -874,7 +874,7 @@ IGL_INLINE bool igl::arap_dof_update(
 }
 
 #ifdef IGL_STATIC_LIBRARY
-// Explicit instanciation
+// Explicit template instantiation
 template bool igl::arap_dof_update<Eigen::Matrix<double, -1, -1, 0, -1, -1>, double>(ArapDOFData<Eigen::Matrix<double, -1, -1, 0, -1, -1>, double> const&, Eigen::Matrix<double, -1, 1, 0, -1, 1> const&, Eigen::Matrix<double, -1, -1, 0, -1, -1> const&, int, double, Eigen::Matrix<double, -1, -1, 0, -1, -1>&);
 template bool igl::arap_dof_recomputation<Eigen::Matrix<double, -1, -1, 0, -1, -1>, double>(Eigen::Matrix<int, -1, 1, 0, -1, 1> const&, Eigen::SparseMatrix<double, 0, int> const&, ArapDOFData<Eigen::Matrix<double, -1, -1, 0, -1, -1>, double>&);
 template bool igl::arap_dof_precomputation<Eigen::Matrix<double, -1, -1, 0, -1, -1>, double>(Eigen::Matrix<double, -1, -1, 0, -1, -1> const&, Eigen::Matrix<int, -1, -1, 0, -1, -1> const&, Eigen::Matrix<double, -1, -1, 0, -1, -1> const&, Eigen::Matrix<int, -1, 1, 0, -1, 1> const&, ArapDOFData<Eigen::Matrix<double, -1, -1, 0, -1, -1>, double>&);

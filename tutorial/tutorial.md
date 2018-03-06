@@ -34,6 +34,7 @@ lecture notes links to a cross-platform example application.
     * [104 Scalar field visualization](#scalarfieldvisualization)
     * [105 Overlays](#overlays)
     * [106 Viewer Menu](#viewermenu)
+    * [107 Multiple Meshes](#multiplemeshes)
 * [Chapter 2: Discrete Geometric Quantities and
   Operators](#chapter2:discretegeometricquantitiesandoperators)
     * [201 Normals](#normals)
@@ -43,10 +44,11 @@ lecture notes links to a cross-platform example application.
     * [202 Gaussian Curvature](#gaussiancurvature)
     * [203 Curvature Directions](#curvaturedirections)
     * [204 Gradient](#gradient)
-    * [204 Laplacian](#laplacian)
+    * [205 Laplacian](#laplacian)
         * [Mass matrix](#massmatrix)
         * [Alternative construction of
           Laplacian](#alternativeconstructionoflaplacian)
+    * [206 Geodesic Distance](#geodesic)
 * [Chapter 3: Matrices and Linear Algebra](#chapter3:matricesandlinearalgebra)
     * [301 Slice](#slice)
     * [302 Sort](#sort)
@@ -102,6 +104,9 @@ lecture notes links to a cross-platform example application.
     * [707 Swept Volume](#sweptvolume)
     * [708 Picking Vertices and Faces](#pickingverticesandfaces)
     * [709 Vector Field Visualization](#vectorfieldvisualizer)
+    * [710 Scalable Locally Injective Maps](#slim)
+    * [711 Subdivision surfaces](#subdivision)
+    * [712 Data smoothing](#datasmoothing)
 * [Chapter 8: Outlook for continuing development](#future)
 
 # Chapter 1 [chapter1:introductiontolibigl]
@@ -173,7 +178,11 @@ sudo apt-get install libxrandr-dev
 sudo apt-get install libxi-dev
 sudo apt-get install libxmu-dev
 sudo apt-get install libblas-dev
+sudo apt-get install libxinerama-dev
+sudo apt-get install libxcursor-dev
 ```
+*Note for windows users*: libigl only supports the Microsoft Visual Studio 2015 compiler in 64bit mode. It will not work with a 32bit build and it will not work
+with older versions of visual studio.
 
 A few examples in Chapter 5 requires the [CoMiSo
 solver](http://www.graphics.rwth-aachen.de/software/comiso). We provide a
@@ -191,6 +200,10 @@ compile CoMISo.
 
 *Note 2*: CoMISo requires a blas implementation. We use the built-in blas in macosx and linux, and we bundle a precompiled binary for VS2015 64 bit. Do NOT compile the tutorials
 in 32 bit on windows.
+
+### libigl example project
+
+We provide a [blank project example](https://github.com/libigl/libigl-example-project) showing how to use libigl and cmake. Feel free and encouraged to copy or fork this project as a way of starting a new personal project using libigl.
 
 ## [Mesh representation](#meshrepresentation) [meshrepresentation]
 
@@ -247,7 +260,7 @@ converter from OFF to OBJ format.
 ## [Visualizing surfaces](#visualizingsurfaces) [visualizingsurfaces]
 
 Libigl provides an glfw-based OpenGL 3.2 viewer to visualize surfaces, their
-properties and additional debugging informations.
+properties and additional debugging information.
 
 The following code ([Example 102](102_DrawMesh/main.cpp)) is a basic skeleton
 for all the examples that will be used in the tutorial.
@@ -256,7 +269,7 @@ render it.
 
 ```cpp
 #include <igl/readOFF.h>
-#include <igl/viewer/Viewer.h>
+#include <igl/opengl/glfw/Viewer.h>
 
 Eigen::MatrixXd V;
 Eigen::MatrixXi F;
@@ -267,8 +280,8 @@ int main(int argc, char *argv[])
   igl::readOFF(TUTORIAL_SHARED_PATH "/bunny.off", V, F);
 
   // Plot the mesh
-  igl::viewer::Viewer viewer;
-  viewer.data.set_mesh(V, F);
+  igl::opengl::glfw::Viewer viewer;
+  viewer.data().set_mesh(V, F);
   viewer.launch();
 }
 ```
@@ -304,18 +317,18 @@ stages of an algorithm, as demonstrated in [Example 103](103_Events/main.cpp), w
 the keyboard callback changes the visualized mesh depending on the key pressed:
 
 ```cpp
-bool key_down(igl::viewer::Viewer& viewer, unsigned char key, int modifier)
+bool key_down(igl::opengl::glfw::Viewer& viewer, unsigned char key, int modifier)
 {
   if (key == '1')
   {
-    viewer.data.clear();
-    viewer.data.set_mesh(V1, F1);
+    viewer.data().clear();
+    viewer.data().set_mesh(V1, F1);
     viewer.core.align_camera_center(V1,F1);
   }
   else if (key == '2')
   {
-    viewer.data.clear();
-    viewer.data.set_mesh(V2, F2);
+    viewer.data().clear();
+    viewer.data().set_mesh(V2, F2);
     viewer.core.align_camera_center(V2,F2);
   }
   return false;
@@ -337,7 +350,7 @@ control the camera directly in your code.
 
 The viewer can be extended using plugins, which are classes that implements all
 the viewer's callbacks. See the
-[Viewer_plugin](../include/igl/viewer/ViewerPlugin.h) for more details.
+[Viewer_plugin](../include/igl/opengl/glfw/ViewerPlugin.h) for more details.
 
 ## [Scalar field visualization](#scalarfieldvisualization) [scalarfieldvisualization]
 
@@ -345,7 +358,7 @@ Colors and normals can be associated to faces or vertices using the
 set_colors function:
 
 ```cpp
-viewer.data.set_colors(C);
+viewer.data().set_colors(C);
 ```
 
 `C` is a #C by 3 matrix with one RGB color per row. `C` must have as many
@@ -378,22 +391,22 @@ heavy data structures types favors simplicity, ease of use and reusability.
 
 ## [Overlays](#overlays) [overlays]
 
-In addition to plotting the surface, the viewer supports the visualization of points, lines and text labels: these overlays can be very helpful while developing geometric processing algorithms to plot debug informations.
+In addition to plotting the surface, the viewer supports the visualization of points, lines and text labels: these overlays can be very helpful while developing geometric processing algorithms to plot debug information.
 
 ```cpp
-viewer.data.add_points(P,Eigen::RowVector3d(r,g,b));
+viewer.data().add_points(P,Eigen::RowVector3d(r,g,b));
 ```
 
 Draws a point of color r,g,b for each row of P. The point is placed at the coordinates specified in each row of P, which is a #P by 3 matrix.
 
 ```cpp
-viewer.data.add_edges(P1,P2,Eigen::RowVector3d(r,g,b);
+viewer.data().add_edges(P1,P2,Eigen::RowVector3d(r,g,b);
 ```
 
 Draws a line of color r,g,b for each row of P1 and P2, which connects the 3D point in to the point in P2. Both P1 and P2 are of size #P by 3.
 
 ```cpp
-viewer.data.add_label(p,str);
+viewer.data().add_label(p,str);
 ```
 
 Draws a label containing the string str at the position p, which is a vector of length 3.
@@ -422,14 +435,14 @@ viewer and to expose more user defined variables you have to define a callback
 function:
 
 ```cpp
-igl::viewer::Viewer viewer;
+igl::opengl::glfw::Viewer viewer;
 
 bool boolVariable = true;
 float floatVariable = 0.1f;
 enum Orientation { Up=0,Down,Left,Right } dir = Up;
 
 // Extend viewer menu
-viewer.callback_init = [&](igl::viewer::Viewer& viewer)
+viewer.callback_init = [&](igl::opengl::glfw::Viewer& viewer)
 {
   // Add new group
   viewer.ngui->addGroup("New Group");
@@ -444,7 +457,7 @@ viewer.callback_init = [&](igl::viewer::Viewer& viewer)
   viewer.ngui->addButton("Print Hello",[](){ std::cout << "Hello\n"; });
 
   // call to generate menu
-  viewer.ngui->layout();
+  viewer.screen->performLayout();
   return false;
 };
 
@@ -469,16 +482,34 @@ viewer.ngui->addVariable<bool>("bool",[&](bool val) {
 });
 ```
 
-![([Example 106](106_ViewerMenu/main.cpp)) The UI of the viewer can be easily customized.](images/106_ViewerMenu.png)
+![([Example 106](106_ViewerMenu/main.cpp)) The UI of the viewer can be easily
+customized.](images/106_ViewerMenu.png)
+
+## [Multiple Meshes](#multiplemeshes) [multiplemeshes]
+
+Libigl's `igl::opengl::glfw::Viewer` provides basic support for rendering
+multiple meshes.
+
+Which mesh is _selected_ is controlled via the `viewer.selected_data_index`
+field. By default it his is set to `0`, so in the typical case of a single mesh
+`viewer.data()` returns the `igl::ViewerData` corresponding to the one
+and only mesh.
+
+![([Example 107](107_MultipleMeshes/main.cpp)) The `igl::opengl::glfw::Viewer`
+can render multiple meshes, each with its own attributes like
+colors.](images/multiple-meshes.png)
 
 # Chapter 2: Discrete Geometric Quantities and Operators
 This chapter illustrates a few discrete quantities that libigl can compute on a
 mesh and the libigl functions that construct popular discrete differential
-geometry operators. It also provides an introduction to basic drawing and coloring routines of our viewer.
+geometry operators. It also provides an introduction to basic drawing and
+coloring routines of our viewer.
 
 ## Normals
 Surface normals are a basic quantity necessary for rendering a surface. There
-are a variety of ways to compute and store normals on a triangle mesh. [Example 201](201_Normals/main.cpp) demonstrates how to compute and visualize normals with libigl.
+are a variety of ways to compute and store normals on a triangle mesh. [Example
+201](201_Normals/main.cpp) demonstrates how to compute and visualize normals
+with libigl.
 
 ### Per-face
 Normals are well defined on each triangle of a mesh as the vector orthogonal to
@@ -760,6 +791,28 @@ since the Laplacian is the divergence of the gradient. Naturally, $\mathbf{G}^T$
 a $n \times md$ sparse matrix which takes vector values stored at triangle faces
 to scalar divergence values at vertices.
 
+## Geodesic
+
+The discrete geodesic distance between two points is the length of the shortest path between then restricted to the surface. For triangle meshes, such a path is made of a set of segments which can be either edges of the mesh or crossing a triangle.
+
+Libigl includes a wrapper for the exact geodesic algorithm [#mitchell_1987] developed by Danil Kirsanov (https://code.google.com/archive/p/geodesic/), exposing it through an Eigen-based API. The function 
+```cpp
+igl::exact_geodesic(V,F,VS,FS,VT,FT,d);
+```
+computes the closest geodesic distances of each vertex in VT or face in FT, from the source vertices VS or faces FS of the input mesh V,F. The output is writted in the vector d, which lists first the distances for the vertices in VT, and then for the faces in FT. For example, if you want to compute the distance from the vertex with id ```vid```, to all vertices of F you can use:
+```cpp
+Eigen::VectorXi VS,FS,VT,FT;
+// The selected vertex is the source
+VS.resize(1);
+VS << vid;
+// All vertices are the targets
+VT.setLinSpaced(V.rows(),0,V.rows()-1);
+Eigen::VectorXd d;
+igl::exact_geodesic(V,F,VS,FS,VT,FT,d);
+```
+![[Example 206](206_GeodesicDistance/main.cpp) allows to interactively pick the source vertex and displays the distance using a periodic color pattern.
+](images/geodesicdistance.jpg)
+
 # Chapter 3: Matrices and linear algebra
 Libigl relies heavily on the Eigen library for dense and sparse linear algebra
 routines. Besides geometry processing routines, libigl has linear algebra
@@ -856,29 +909,46 @@ functionality as common Matlab functions.
 
 | Name                     | Description                                                                         |
 | :----------------------- | :---------------------------------------------------------------------------------- |
-| `igl::any_of`            | Whether any elements are non-zero (true)                                            |
+| `igl::all`               | Whether all elements are non-zero (true)                                            |
+| `igl::any`               | Whether any elements are non-zero (true)                                            |
 | `igl::cat`               | Concatenate two matrices (especially useful for dealing with Eigen sparse matrices) |
 | `igl::ceil`              | Round entries up to nearest integer |
 | `igl::cumsum`            | Cumulative sum of matrix elements |
 | `igl::colon`             | Act like Matlab's `:`, similar to Eigen's `LinSpaced` |
+| `igl::components`        | Connected components of graph (cf. Matlab's `graphconncomp`) |
+| `igl::count`             | Count non-zeros in rows or columns |
 | `igl::cross`             | Cross product per-row |
+| `igl::cumsum`            | Cumulative summation |
 | `igl::dot`               | dot product per-row |
+| `igl::eigs`              | Solve sparse eigen value problem |
 | `igl::find`              | Find subscripts of non-zero entries |
 | `igl::floor`             | Round entries down to nearest integer |
 | `igl::histc`             | Counting occurrences for building a histogram |
 | `igl::hsv_to_rgb`        | Convert HSV colors to RGB (cf. Matlab's `hsv2rgb`) |
 | `igl::intersect`         | Set intersection of matrix elements. |
 | `igl::isdiag`            | Determine whether matrix is diagonal |
+| `igl::ismember`          | Determine whether elements in A occur in B |
 | `igl::jet`               | Quantized colors along the rainbow. |
+| `igl::max`               | Compute maximum entry per row or column |
 | `igl::median`            | Compute the median per column |
+| `igl::min`               | Compute minimum entry per row or column |
+| `igl::mod`               | Compute per element modulo |
 | `igl::mode`              | Compute the mode per column |
 | `igl::null`              | Compute the null space basis of a matrix |
 | `igl::nchoosek`          | Compute all k-size combinations of n-long vector |
 | `igl::orth`              | Orthogonalization of a basis |
 | `igl::parula`            | Generate a quantized colormap from blue to yellow |
+| `igl::pinv`              | Compute Moore-Penrose pseudoinverse |
 | `igl::randperm`          | Generate a random permutation of [0,...,n-1] |
 | `igl::rgb_to_hsv`        | Convert RGB colors to HSV (cf. Matlab's `rgb2hsv`) |
+| `igl::repmat`            | Repeat a matrix along columns and rows |
+| `igl::round`             | Per-element round to whole number |
 | `igl::setdiff`           | Set difference of matrix elements |
+| `igl::setunion`          | Set union of matrix elements |
+| `igl::setxor`            | Set exclusive "or" of matrix elements |
+| `igl::slice`             | Slice parts of matrix using index lists: (cf. Matlab's `B = A(I,J)`)
+| `igl::slice_mask`        | Slice parts of matrix using boolean masks: (cf. Matlab's `B = A(M,N)`)
+| `igl::slice_into`        | Slice left-hand side of matrix assignment using index lists (cf. Matlab's `B(I,J) = A`)
 | `igl::sort`              | Sort elements or rows of matrix |
 | `igl::speye`             | Identity as sparse matrix |
 | `igl::sum`               | Sum along columns or rows (of sparse matrix) |
@@ -1148,7 +1218,7 @@ where $A$ is a sparse symmetric matrix and $B$ is a sparse positive definite
 matrix. Most commonly in geometry processing, we let $A=L$ the cotangent
 Laplacian and $B=M$ the per-vertex mass matrix (e.g. [#vallet_2008][]).
 Typically applications will make use of the _low frequency_ eigen modes.
-Analagous to the Fourier decomposition, a function $f$ on a surface can be
+Analogous to the Fourier decomposition, a function $f$ on a surface can be
 represented via its spectral decomposition of the eigen modes of the
 Laplace-Beltrami:
 
@@ -1522,11 +1592,11 @@ Libigl, supports these common flavors. Selecting one is a matter of setting the
 energy type before the precompuation phase:
 
 ```cpp
-igl::ARAPData data;
+igl::ARAPData arap_data;
 arap_data.energy = igl::ARAP_ENERGY_TYPE_SPOKES;
 //arap_data.energy = igl::ARAP_ENERGY_TYPE_SPOKES_AND_RIMS;
 //arap_data.energy = igl::ARAP_ENERGY_TYPE_ELEMENTS; //triangles or tets
-igl::arap_precomputation(V,F,dim,b,data);
+igl::arap_precomputation(V,F,dim,b,arap_data);
 ```
 
 Just like `igl::min_quad_with_fixed_*`, this precomputation phase only depends
@@ -1534,7 +1604,7 @@ on the mesh, fixed vertex indices `b` and the energy parameters. To solve with
 certain constraints on the positions of vertices in `b`, we may call:
 
 ```cpp
-igl::arap_solve(bc,data,U);
+igl::arap_solve(bc,arap_data,U);
 ```
 
 which uses `U` as an initial guess and then computes the solution into it.
@@ -1659,7 +1729,7 @@ rotation edge sets (right of middle), to the very fast subpsace method
 ## Biharmonic Coordinates
 
 Linear blend skinning (as [above](#boundedbiharmonicweights)) deforms a mesh by
-propogating _full affine transformations_ at handles (bones, points, regions,
+propagating _full affine transformations_ at handles (bones, points, regions,
 etc.) to the rest of the shape via weights. Another deformation framework,
 called "generalized barycentric coordinates", is a special case of linear blend
 skinning [#jacobson_skinning_course_2014][]: transformations are restricted to
@@ -1798,7 +1868,7 @@ functions is designed to be reusable in other parametrization algorithms.
 A UV parametrization can be visualized in the viewer with:
 
 ```cpp
-viewer.data.set_uv(V_uv);
+viewer.data().set_uv(V_uv);
 ```
 
 The UV coordinates are then used to apply a procedural checkerboard texture to the
@@ -2103,42 +2173,90 @@ quads.](images/509_Planarization.png)
 
 ## [Integrable PolyVector Fields](#integrable) [integrable]
 
-Vector-field guided surface parameterization is based on the idea of designing the gradients
-of the parameterization functions (which are tangent vector fields on the surface) instead of the functions themselves. Thus, vector-set fields (N-Rosy, frame fields, and polyvector fields) that are to be used for parameterization (and subsequent remeshing) need to be integrable: it must be possible to break them down into individual vector fields that are gradients of scalar functions. Fields obtained by most smoothness-based design methods (eg. [#levy_2008][], [#knoppel_2013][], [#diamanti_2014][], [#bommes_2009][], [#panozzo_2014][]) do not have this property. In [#diamanti_2015][], a method for creating integrable polyvector fields was introduced. This method takes as input a given field and improves its integrability by removing the vector field curl, thus turning it into a gradient of a function ([Example 510](510_Integrable/main.cpp)).
+Vector-field guided surface parameterization is based on the idea of designing
+the gradients of the parameterization functions (which are tangent vector fields
+on the surface) instead of the functions themselves. Thus, vector-set fields
+(N-Rosy, frame fields, and polyvector fields) that are to be used for
+parameterization (and subsequent remeshing) need to be integrable: it must be
+possible to break them down into individual vector fields that are gradients of
+scalar functions. Fields obtained by most smoothness-based design methods (eg.
+[#levy_2008][], [#knoppel_2013][], [#diamanti_2014][], [#bommes_2009][],
+[#panozzo_2014][]) do not have this property. In [#diamanti_2015][], a method
+for creating integrable polyvector fields was introduced. This method takes as
+input a given field and improves its integrability by removing the vector field
+curl, thus turning it into a gradient of a function ([Example
+510](510_Integrable/main.cpp)).
 
-![Integration error is removed from a frame field to produce a field aligned parameterization free of triangle flips.](images/510_Integrable.png)
+![Integration error is removed from a frame field to produce a field aligned
+parameterization free of triangle flips.](images/510_Integrable.png)
 
-This method retains much of the core principles of the polyvector framework - it expresses the condition for zero discrete curl condition (which typically requires integers for the vector matchings) into a condition involving continuous variables only. This is done using coefficients of appropriately defined polynomials. The parameterizations generated by the resulting fields are exactly aligned to the field directions and contain no inverted triangles.
+This method retains much of the core principles of the polyvector framework - it
+expresses the condition for zero discrete curl condition (which typically
+requires integers for the vector matchings) into a condition involving
+continuous variables only. This is done using coefficients of appropriately
+defined polynomials. The parameterizations generated by the resulting fields are
+exactly aligned to the field directions and contain no inverted triangles.
 
 ## [General N-PolyVector fields](#npolyvectorfields_general) [npolyvectorfields_general]
 
-While mostly applicable for the design of symmetric fields (i.e. fields that comprise of vector sets with symmetries between them at each point, e.g. N-RoSy or frame-fields), the framework presented in [#diamanti_2014][] can be used to design completely general fields, with possibly no such symmetries. For example, one can design fields that at each point comprise of an arbitrary number of vectors, not required to be collinear - as opposed e.g. to the case of the 4 pairwise-collinear vectors designed in the example ([Example 507](507_PolyVectorField/main.cpp)). This capability is implemented in the function igl::n_polyvector_general, and is illustrated in the example ([Example 511](511_PolyVectorFieldGeneral/main.cpp)).
+While mostly applicable for the design of symmetric fields (i.e. fields that
+comprise of vector sets with symmetries between them at each point, e.g. N-RoSy
+or frame-fields), the framework presented in [#diamanti_2014][] can be used to
+design completely general fields, with possibly no such symmetries. For example,
+one can design fields that at each point comprise of an arbitrary number of
+vectors, not required to be collinear - as opposed e.g. to the case of the 4
+pairwise-collinear vectors designed in the example ([Example
+507](507_PolyVectorField/main.cpp)). This capability is implemented in the
+function igl::n_polyvector_general, and is illustrated in the example ([Example
+511](511_PolyVectorFieldGeneral/main.cpp)).
 
-![Interpolation of a general field with 3 (left) and 9 vectors per point field from a sparse set of random constraints (in red). The field is defined on all mesh faces, but is only shown on a subset for clarity. ](images/511_PolyVectorFieldGeneral.png)
+![Interpolation of a general field with 3 (left) and 9 vectors per point field
+from a sparse set of random constraints (in red). The field is defined on all
+mesh faces, but is only shown on a subset for clarity.
+](images/511_PolyVectorFieldGeneral.png)
 
-The design of these general directional fields (also called vector-set fields) is based on the same polynomial framework and includes the symmetric fields as a special case. Note that in the case that some symmetries do exist in the constraints, the final field is not guaranteed to have these symmetries everywhere else on the mesh. For example, designing a field with 3 vectors per point where, at the constrained faces, two of the vectors are on a line opposite to each other, we are not guaranteed to always have two pairwise-collinear vectors everywhere in the result, as can be seen in the picture. In some cases however (as is the case of the frame field in the previous example [Example 507](507_PolyVectorField/main.cpp)) these symmetries are in fact guaranteed due to the particular nature of the polynomial that applies in that case (two coefficients are 0).
+The design of these general directional fields (also called vector-set fields)
+is based on the same polynomial framework and includes the symmetric fields as a
+special case. Note that in the case that some symmetries do exist in the
+constraints, the final field is not guaranteed to have these symmetries
+everywhere else on the mesh. For example, designing a field with 3 vectors per
+point where, at the constrained faces, two of the vectors are on a line opposite
+to each other, we are not guaranteed to always have two pairwise-collinear
+vectors everywhere in the result, as can be seen in the picture. In some cases
+however (as is the case of the frame field in the previous example [Example
+507](507_PolyVectorField/main.cpp)) these symmetries are in fact guaranteed due
+to the particular nature of the polynomial that applies in that case (two
+coefficients are 0).
 
-For a complete categorization of fields used in various applications (including these general ones) see Vaxman et al. 2016 [#vaxman_2016].
+For a complete categorization of fields used in various applications (including
+these general ones) see Vaxman et al. 2016 [#vaxman_2016].
 
 # Chapter 6: External libraries [chapter6:externallibraries]
 
 An additional positive side effect of using matrices as basic types is that it
-is easy to exchange data between libigl and other softwares and libraries.
+is easy to exchange data between libigl and other software and libraries.
 
 ## [State serialization](#stateserialization) [stateserialization]
 
 Geometry processing applications often require a considerable amount of
-computational time and/or manual input. Serializing the state of the application is a simple strategy to greatly increase the development efficiency. It allows to quickly start debugging just
-before the crash happens, avoiding to wait for the precomputation to take place
-every time and it also makes your experiments reproducible, allowing to quickly test algorithms variants on the same input data.
+computational time and/or manual input. Serializing the state of the application
+is a simple strategy to greatly increase the development efficiency. It allows
+to quickly start debugging just before the crash happens, avoiding to wait for
+the precomputation to take place every time and it also makes your experiments
+reproducible, allowing to quickly test algorithms variants on the same input
+data.
 
-Serialization is often not considered in geometry processing due
-to the extreme difficulty in serializing pointer-based data structured, such as
-an half-edge data structure ([OpenMesh](http://openmesh.org), [CGAL](http://www.cgal.org)), or a pointer based indexed structure ([VCG](http://vcg.isti.cnr.it/~cignoni/newvcglib/html/)).
+Serialization is often not considered in geometry processing due to the extreme
+difficulty in serializing pointer-based data structured, such as an half-edge
+data structure ([OpenMesh](http://openmesh.org), [CGAL](http://www.cgal.org)),
+or a pointer based indexed structure
+([VCG](http://vcg.isti.cnr.it/~cignoni/newvcglib/html/)).
 
-In libigl, serialization is much simpler, since the majority of the functions use basic types, and pointers are used in very rare cases (usually to interface
-with external libraries). Libigl bundles a simple and self-contained binary and XML serialization framework, that drastically reduces the overhead required to add
-serialization to your applications.
+In libigl, serialization is much simpler, since the majority of the functions
+use basic types, and pointers are used in very rare cases (usually to interface
+with external libraries). Libigl bundles a simple and self-contained binary and
+XML serialization framework, that drastically reduces the overhead required to
+add serialization to your applications.
 
 To de-/serialize a set of variables use the following method:
 
@@ -2149,7 +2267,8 @@ bool b = true;
 unsigned int num = 10;
 std::vector<float> vec = {0.1,0.002,5.3};
 
-// use overwrite = true for the first serialization to create or overwrite an existing file
+// use overwrite = true for the first serialization to create or overwrite an
+// existing file
 igl::serialize(b,"B","filename",true);
 // append following serialization to existing file
 igl::serialize(num,"Number","filename");
@@ -2161,10 +2280,16 @@ igl::deserialize(num,"Number","filename");
 igl::deserialize(vec,"VectorName","filename");
 ```
 
-Currently all fundamental data types (bool, int, float, double, ...) are supported, as well as std::string, basic `STL` containers, dense and sparse Eigen matrices and nestings of those.
-Some limitations apply to pointers. Currently, loops or many to one type of link structures are not handled correctly. Each pointer is assumed to point to a different independent object.
-Uninitialized pointers must be set to `nullptr` before de-/serialization to avoid memory leaks. Cross-platform issues like little-, big-endianess is currently not supported.
-To make user defined types serializable, just derive from `igl::Serializable` and trivially implementing the `InitSerialization` method.
+Currently all fundamental data types (bool, int, float, double, ...) are
+supported, as well as std::string, basic `STL` containers, dense and sparse
+Eigen matrices and nestings of those.  Some limitations apply to pointers.
+Currently, loops or many to one type of link structures are not handled
+correctly. Each pointer is assumed to point to a different independent object.
+Uninitialized pointers must be set to `nullptr` before de-/serialization to
+avoid memory leaks. Cross-platform issues like little-, big-endianess is
+currently not supported.  To make user defined types serializable, just derive
+from `igl::Serializable` and trivially implementing the `InitSerialization`
+method.
 
 Assume that the state of your application is a mesh and a set of integer ids:
 
@@ -2186,7 +2311,9 @@ struct State : public igl::Serializable
 };
 ```
 
-If you need more control over the serialization of your types, you can override the following functions or directly inherit from the interface `igl::SerializableBase`.
+If you need more control over the serialization of your types, you can override
+the following functions or directly inherit from the interface
+`igl::SerializableBase`.
 
 ```cpp
 bool Serializable::PreSerialization() const;
@@ -2195,19 +2322,22 @@ bool Serializable::PreDeserialization();
 void Serializable::PostDeserialization();
 ```
 
-Alternatively, if you want a non-intrusive way of serializing your state you can overload the following functions:
+Alternatively, if you want a non-intrusive way of serializing your state you can
+overload the following functions:
 
 ```cpp
 namespace igl
 {
   namespace serialization
   {
-    template <> inline void serialize(const State& obj,std::vector<char>& buffer){
+    template <> inline void serialize(const State& obj,std::vector<char>& buffer)
+    {
       ::igl::serialize(obj.V,std::string("V"),buffer);
       ::igl::serialize(obj.F,std::string("F"),buffer);
       ::igl::serialize(obj.ids,std::string("ids"),buffer);
     }
-    template <> inline void deserialize(State& obj,const std::vector<char>& buffer){
+    template <> inline void deserialize(State& obj,const std::vector<char>& buffer)
+    {
       ::igl::deserialize(obj.V,std::string("V"),buffer);
       ::igl::deserialize(obj.F,std::string("F"),buffer);
       ::igl::deserialize(obj.ids,std::string("ids"),buffer);
@@ -2226,9 +2356,13 @@ SERIALIZE_TYPE(State,
 )
 ```
 
-All the former code is for binary serialization which is especially useful if you have to handle larger data where the loading and saving times become more important.
-For cases where you want to read and edit the serialized data by hand we provide a serialization to XML files which is based on the library [tinyxml2](https://github.com/leethomason/tinyxml2).
-There you also have the option to create a partial binary serialization of your data by using the binary parameter, exposed in the function `serialize_xml()`:
+All the former code is for binary serialization which is especially useful if
+you have to handle larger data where the loading and saving times become more
+important.  For cases where you want to read and edit the serialized data by
+hand we provide a serialization to XML files which is based on the library
+[tinyxml2](https://github.com/leethomason/tinyxml2).  There you also have the
+option to create a partial binary serialization of your data by using the binary
+parameter, exposed in the function `serialize_xml()`:
 
 ```cpp
 #include "igl/xml/serialize_xml.h"
@@ -2257,7 +2391,7 @@ before a submission deadline.
 
 Libigl can be interfaced with Matlab to offload numerically heavy computation
 to a Matlab script. The major advantage of this approach is that you will be
-able to develop efficient and complex user-interfaces in C++, while exploting
+able to develop efficient and complex user-interfaces in C++, while exploring
 the syntax and fast protototyping features of matlab. In particular, the use of
 an external Matlab script in a libigl application allows to change the Matlab
 code while the C++ application is running, greatly increasing coding
@@ -2407,7 +2541,7 @@ points contained in holes of the triangulation (#H by 2) and (`V2`,`F2`) is the
 generated triangulation. Additional parameters can be passed to `triangle`, to
 control the quality: `"a0.005q"` enforces a bound on the maximal area of the
 triangles and a minimal angle of 20 degrees. In [Example
-604](604_Triangle/main.m), the interior of a square (excluded a smaller square
+604](604_Triangle/main.cpp), the interior of a square (excluded a smaller square
 in its interior) is triangulated.
 
 ![Triangulation of the interior of a polygon.](images/604_Triangle.png)
@@ -2416,7 +2550,7 @@ in its interior) is triangulated.
 
 Similarly, the interior of a closed manifold surface can be tetrahedralized
 using the function `igl::tetrahedralize` which wraps the Tetgen library ([Example
-605](605_Tetgen/main.c)):
+605](605_Tetgen/main.cpp)):
 
 ```cpp
 igl::tetrahedralize(V,F,"pq1.414", TV,TT,TF);
@@ -2464,7 +2598,7 @@ Libigl supports read and writing to .png files via the
 [stb image](http://nothings.org/stb_image.h) code.
 
 With the viewer used in this tutorial, it is possible to render the scene in a
-memory buffer using the function, `igl::viewer::ViewerCore::draw_buffer`:
+memory buffer using the function, `igl::opengl::ViewerCore::draw_buffer`:
 
 ```cpp
 // Allocate temporary buffers for 1280x800 image
@@ -2613,13 +2747,6 @@ then the final composite.
 
 ![Example [610](610_CSGTree/main.cpp) computes  complex CSG Tree operation on 5
 input meshes.](images/cube-sphere-cylinders-csg.gif)
-
-# Miscellaneous [chapter7:miscellaneous]
-
-Libigl contains a _wide_ variety of geometry processing tools and functions for
-dealing with meshes and the linear algebra related to them: far too many to
-discuss in this introductory tutorial. We've pulled out a couple of the
-interesting functions in this chapter to highlight.
 
 ## [Mesh Statistics](#meshstatistics) [meshstatistics]
 
@@ -3079,7 +3206,7 @@ motion (gold).](images/bunny-swept-volume.gif)
 
 Picking vertices and faces using the mouse is very common in geometry
 processing applications. While this might seem a simple operation, its
-implementation is not straighforward. Libigl contains a function that solves this problem using the
+implementation is not straightforward. Libigl contains a function that solves this problem using the
 [Embree](https://software.intel.com/en-us/articles/embree-photo-realistic-ray-tracing-kernels)
 raycaster. Its usage is demonstrated in [Example 708](708_Picking/main.cpp):
 
@@ -3117,6 +3244,111 @@ each line by one triangle, allowing interactive rendering of the traced lines, a
 in [Example 709](709_VectorFieldVisualizer/main.cpp).
 
 ![([Example 709](709_VectorFieldVisualizer/main.cpp)) Interactive streamlines tracing.](images/streamlines.jpg)
+
+## [Scalable Locally Injective Maps](#slim) [slim]
+
+The Scalable Locally Injective Maps [#rabinovich_2016] algorithm allows to
+compute locally injective maps on massive datasets. The algorithm shares many
+similarities with ARAP, but uses a reweighting scheme to minimize arbitrary
+distortion energies, including those that prevent the introduction of flips.
+
+[Example 710](710_SLIM/main.cpp) contains three demos: (1) an example of large
+scale 2D parametrization, (2) an example of 2D deformation with soft
+constraints, and (3) an example of 3D deformation with soft constraints. The
+implementation in libigl is self-contained and relies on Eigen for the solution
+of the linear system used in the global step. An optimized version that relies
+on Pardiso is available
+[here](https://github.com/MichaelRabinovich/Scalable-Locally-Injective-Mappings).
+
+![A locally injective parametrization of a mesh with 50k faces is computed
+using the SLIM algorithm in 10 iterations.](images/slim.png)
+
+## [Subdivision surfaces](#subdivision) [subdivision]
+
+Given a coarse mesh (aka cage) with vertices `V` and faces `F`, one can createa
+higher-resolution mesh with more vertices and faces by _subdividing_ every
+face. That is, each coarse triangle in the input is replaced by many smaller
+triangles. Libigl has three different methods for subdividing a triangle mesh.
+
+An "in plane" subdivision method will not change the point set or carrier
+surface of the mesh. New vertices are added on the planes of existing triangles
+and vertices surviving from the original mesh are not moved.
+
+By adding new faces, a subdivision algorithm changes the _combinatorics_ of the
+mesh. The change in combinatorics and the formula for positioning the
+high-resolution vertices is called the "subdivision rule".
+
+For example, in the _in plane_ subdivision method of `igl::upsample`, vertices
+are added at the midpoint of every edge: $v_{ab} = \frac{1}{2}(v_a + v_b)$ and
+each triangle $(i_a,i_b,i_c)$ is replaced with four triangles:
+$(i_a,i_{ab},i_{ca})$, $(i_b,i_{bc},i_{ab})$, $(i_{ab},i_{bc},i_{ca})$, and
+$(i_{bc},i_{c},i_{ca})$. This process may be applied recursively, resulting in
+a finer and finer mesh.
+
+The subdivision method of `igl::loop` is not in plane. The vertices of the
+refined mesh are moved to weight combinations of their neighbors: the mesh is
+smoothed as it is refined [#loop_1987]. This and other _smooth subdivision_
+methods can be understood as generalizations of spline curves to surfaces. In
+particular the Loop subdivision method will converge to a $C^1$ surface as we
+consider the limit of recursive applications of subdivision. Away from
+"irregular" or "extraordinary" vertices (vertices of the original cage with
+valence not equal to 6), the surface is $C^2$. The combinatorics (connectivity
+and number of faces) of `igl::loop` and `igl::upsample` are identical: the only
+difference is that the vertices have been smoothed in `igl::loop`.
+
+Finally, libigl also implements a form of _in plane_ "false barycentric
+subdivision" in `igl::false_barycentric_subdivision`. This method simply adds
+the barycenter of every triangle as a new vertex $v_{abc}$ and replaces each
+triangle with three triangles $(i_a,i_b,i_{abc})$, $(i_b,i_c,i_{abc})$, and
+$(i_c,i_a,i_{abc})$. In contrast to `igl::upsample`, this method will create
+triangles with smaller and smaller internal angles and new vertices will sample
+the carrier surfaces with extreme bias.
+
+![The original coarse mesh and three different subdivision methods:
+`igl::upsample`, `igl::loop` and
+`igl::false_barycentric_subdivision`.](images/decimated-knight-subdivision.gif)
+
+## [Data smoothing](#datasmoothing) [datasmoothing]
+
+A noisy function $f$ defined on a surface $\Omega$ can be smoothed using an
+energy minimization that balances a smoothing term $E_S$ with a quadratic
+fitting term:
+
+$u = \operatorname{argmin}_u \alpha E_S(u) + (1-\alpha)\int_\Omega ||u-f||^2 dx$
+
+The parameter $\alpha$ determines how aggressively the function is smoothed.
+
+A classical choice for the smoothness energy is the Laplacian energy of the
+function with zero Neumann boundary conditions, which is a form of the
+biharmonic energy. It is constructed using the cotangent Laplacian `L` and
+the mass matrix `M`: `QL = L'*(M\L)`. Because of the implicit zero Neumann
+boundary conditions however, the function behavior is significantly warped at
+the boundary if $f$ does not have zero normal gradient at the boundary.
+
+In #[stein_2017] it is suggested to use the Biharmonic energy with natural
+Hessian boundary conditions instead, which corresponds to the hessian energy
+with the matrix `QH = H'*(M2\H)`, where `H` is a finite element Hessian and
+`M2` is a stacked mass matrix. The matrices `H` and `QH` are implemented in
+libigl as `igl::hessian` and `igl::hessian_energy` respectively. An example
+of how to use the function is given in [Example 712](712_DataSmoothing/main.cpp).
+
+In the following image the differences between the Laplacian energy with
+zero Neumann boundary conditions and the Hessian energy can be clearly seen:
+whereas the zero Neumann boundary condition in the third image bias the isolines
+of the function to be perpendicular to the boundary, the Hessian energy gives
+an unbiased result.
+
+![([Example 712](712_DataSmoothing/main.cpp)) From left to right: a function
+on the beetle mesh, the function with added noise, the result of smoothing
+with the Laplacian energy and zero Neumann boundary conditions, and the
+result of smoothing with the Hessian energy.](images/712_beetles.jpg)
+
+# Miscellaneous [chapter7:miscellaneous]
+
+Libigl contains a _wide_ variety of geometry processing tools and functions for
+dealing with meshes and the linear algebra related to them: far too many to
+discuss in this introductory tutorial. We've pulled out a couple of the
+interesting functions in this chapter to highlight.
 
 # Outlook for continuing development [future]
 
@@ -3242,6 +3474,9 @@ pseudonormal](https://www.google.com/search?q=Signed+distance+computation+using+
   Wang.  [General Planar Quadrilateral Mesh Design Using Conjugate Direction
   Field](http://research.microsoft.com/en-us/um/people/yangliu/publication/cdf.pdf),
   2008.
+[#loop_1987]: Charles Loop. [Smooth Subdivision Surfaces Based on
+  Triangles](https://www.google.com/search?q=smooth+subdivision+surfaces+based+on+triangles),
+  1987.
 [#lorensen_1987]: W.E. Lorensen and Harvey E. Cline. [Marching cubes: A high
   resolution 3d surface construction
   algorithm](https://www.google.com/search?q=Marching+cubes:+A+high+resolution+3d+surface+construction+algorithm),
@@ -3264,8 +3499,11 @@ pseudonormal](https://www.google.com/search?q=Signed+distance+computation+using+
   2010.
 [#panozzo_2014]: Daniele Panozzo, Enrico Puppo, Marco Tarini, Olga
   Sorkine-Hornung.  [Frame Fields: Anisotropic and Non-Orthogonal Cross
-  Fields](http://www.inf.ethz.ch/personal/dpanozzo/papers/frame-fields-2014.pdf),
+  Fields](http://cs.nyu.edu/~panozzo/papers/frame-fields-2014.pdf),
   2014.
+[#rabinovich_2016]: Michael Rabinovich, Roi Poranne, Daniele Panozzo, Olga
+  Sorkine-Hornung. [Scalable Locally Injective
+  Mappings](http://cs.nyu.edu/~panozzo/papers/SLIM-2016.pdf), 2016.
 [#rustamov_2011]: Raid M. Rustamov, [Multiscale Biharmonic
   Kernels](https://www.google.com/search?q=Multiscale+Biharmonic+Kernels), 2011.
 [#schroeder_1994]: William J. Schroeder, William E. Lorensen, and Steve
@@ -3284,6 +3522,9 @@ pseudonormal](https://www.google.com/search?q=Signed+distance+computation+using+
   Editing](https://www.google.com/search?q=Laplacian+Surface+Editing), 2004.
 [#sorkine_2007]: Olga Sorkine and Marc Alexa. [As-rigid-as-possible Surface
   Modeling](https://www.google.com/search?q=As-rigid-as-possible+Surface+Modeling), 2007.
+[#stein_2017]: Oded Stein, Eitan Grinspun, Max Wardetzky, Alec Jacobson.
+  [Natural Boundary Conditions for Smoothing in Geometry Processing](https://arxiv.org/abs/1707.04348),
+  2017.
 [#takayama14]: Kenshi Takayama, Alec Jacobson, Ladislav Kavan, Olga
   Sorkine-Hornung. [A Simple Method for Correcting Facet Orientations in
   Polygon Meshes Based on Ray
@@ -3293,6 +3534,11 @@ pseudonormal](https://www.google.com/search?q=Signed+distance+computation+using+
   Manifold
   Harmonics](https://www.google.com/search?q=Spectral+Geometry+Processing+with+Manifold+Harmonics),
   2008.
+[#vaxman_2016]: Amir Vaxman, Marcel Campen, Olga Diamanti, Daniele Panozzo,
+  David Bommes, Klaus Hildebrandt, Mirela Ben-Chen. [Directional Field
+  Synthesis, Design, and
+  Processing](https://www.google.com/search?q=Directional+Field+Synthesis+Design+and+Processing),
+  2016
 [#wang_bc_2015]: Yu Wang, Alec Jacobson, Jernej Barbic, Ladislav Kavan. [Linear
   Subspace Design for Real-Time Shape
   Deformation](https://www.google.com/search?q=Linear+Subspace+Design+for+Real-Time+Shape+Deformation),
@@ -3301,5 +3547,4 @@ pseudonormal](https://www.google.com/search?q=Signed+distance+computation+using+
   Solid
   Geometry](https://www.google.com/search?q=Mesh+Arrangements+for+Solid+Geometry),
   2016
-[#vaxman_2016]: Amir Vaxman, Marcel Campen, Olga Diamanti, Daniele Panozzo, David Bommes, Klaus Hildebrandt, Mirela Ben-Chen. [Directional Field Synthesis, Design, and Processing](https://www.google.com/search?q=Directional+Field+Synthesis+Design+and+Processing),
-  2016
+[#mitchell_1987]: Joseph S. B. Mitchell, David M. Mount, Christos H. Papadimitriou. [The Discrete Geodesic Problem](https://www.google.com/search?q=The+Discrete+Geodesic+Problem), 1987

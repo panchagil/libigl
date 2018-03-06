@@ -9,7 +9,7 @@
 
 #include "dirname.h"
 #include "basename.h"
-// Verbose should be removed once everythings working correctly
+// Verbose should be removed once everything working correctly
 #include "verbose.h"
 #include <algorithm>
 
@@ -43,5 +43,5 @@ IGL_INLINE void igl::pathinfo(
 }
 
 #ifdef IGL_STATIC_LIBRARY
-// Explicit template specialization
+// Explicit template instantiation
 #endif
