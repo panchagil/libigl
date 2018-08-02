@@ -33,8 +33,8 @@ include(pybind11Tools)
 include(numpyeigenTools)
 
 # A module for writing bindings with our framework
-npe_add_module(igl
+npe_add_module(pyigl
   BINDING_SOURCES
   matrix_add.cpp)
-target_link_libraries(igl PRIVATE igl::core)
-target_include_directories(igl PRIVATE ${PYBIND_11_DIR}/include)
+target_link_libraries(pyigl PRIVATE igl::core)
+target_include_directories(pyigl PRIVATE ${PYBIND_11_DIR}/include)
