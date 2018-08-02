@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 2.8.12)
+project(new_pyigl)
+
+set(NPE_DIR ${PROJECT_SOURCE_DIR}/../external/numpyeigen CACHE PATH "Path to numpyeigen")
+set(PYBIND_11_DIR ${PROJECT_SOURCE_DIR}/../external/numpyeigen/external/pybind11 CACHE PATH "Path to pybind11")
+message("INC DIR ${PYBIND11_DIR}/include")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${NPE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${NPE_DIR}/external/pybind11/tools)
+
+
+# libigl
+option(LIBIGL_USE_STATIC_LIBRARY "Use libigl as static library" OFF)
+option(LIBIGL_WITH_ANTTWEAKBAR      "Use AntTweakBar"    OFF)
+option(LIBIGL_WITH_CGAL             "Use CGAL"           OFF)
+option(LIBIGL_WITH_COMISO           "Use CoMiso"         OFF)
+option(LIBIGL_WITH_CORK             "Use Cork"           OFF)
+option(LIBIGL_WITH_EMBREE           "Use Embree"         OFF)
+option(LIBIGL_WITH_LIM              "Use LIM"            OFF)
+option(LIBIGL_WITH_MATLAB           "Use Matlab"         OFF)
+option(LIBIGL_WITH_MOSEK            "Use MOSEK"          OFF)
+option(LIBIGL_WITH_NANOGUI          "Use Nanogui menu"   OFF)
+option(LIBIGL_WITH_OPENGL           "Use OpenGL"         ON)
+option(LIBIGL_WITH_OPENGL_GLFW      "Use GLFW"           ON)
+option(LIBIGL_WITH_PNG              "Use PNG"            OFF)
+option(LIBIGL_WITH_PYTHON           "Use Python"         OFF)
+option(LIBIGL_WITH_TETGEN           "Use Tetgen"         OFF)
+option(LIBIGL_WITH_TRIANGLE         "Use Triangle"       OFF)
+option(LIBIGL_WITH_VIEWER           "Use OpenGL viewer"  ON)
+option(LIBIGL_WITH_XML              "Use XML"            OFF)
+
+find_package(LIBIGL REQUIRED QUIET)
+include(pybind11Tools)
+include(numpyeigenTools)
+
+# A module for writing bindings with our framework
+npe_add_module(igl
+  BINDING_SOURCES
+  matrix_add.cpp)
+target_link_libraries(igl PRIVATE igl::core)
+target_include_directories(igl PRIVATE ${PYBIND_11_DIR}/include)
