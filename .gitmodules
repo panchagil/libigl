@@ -31,3 +31,6 @@
 [submodule "external/pybind11"]
 	path = external/pybind11
 	url = https://github.com/pybind/pybind11
+[submodule "external/numpyeigen"]
+	path = external/numpyeigen
+	url = https://github.com/fwilliams/numpyeigen.git
