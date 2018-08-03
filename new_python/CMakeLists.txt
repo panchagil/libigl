@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 2.8.12)
 project(new_pyigl)
 
+set(Python_ADDITIONAL_VERSIONS 3.4 3.5 3.6)
+find_package(PythonLibs REQUIRED)
+find_package(PythonInterp REQUIRED)
+
+
 set(NPE_DIR ${PROJECT_SOURCE_DIR}/../external/numpyeigen CACHE PATH "Path to numpyeigen")
 set(PYBIND_11_DIR ${PROJECT_SOURCE_DIR}/../external/numpyeigen/external/pybind11 CACHE PATH "Path to pybind11")
 message("INC DIR ${PYBIND11_DIR}/include")
@@ -19,10 +24,10 @@ option(LIBIGL_WITH_LIM              "Use LIM"            OFF)
 option(LIBIGL_WITH_MATLAB           "Use Matlab"         OFF)
 option(LIBIGL_WITH_MOSEK            "Use MOSEK"          OFF)
 option(LIBIGL_WITH_NANOGUI          "Use Nanogui menu"   OFF)
-option(LIBIGL_WITH_OPENGL           "Use OpenGL"         ON)
-option(LIBIGL_WITH_OPENGL_GLFW      "Use GLFW"           ON)
+option(LIBIGL_WITH_OPENGL           "Use OpenGL"         OFF)
+option(LIBIGL_WITH_OPENGL_GLFW      "Use GLFW"           OFF)
 option(LIBIGL_WITH_PNG              "Use PNG"            OFF)
-option(LIBIGL_WITH_PYTHON           "Use Python"         OFF)
+option(LIBIGL_WITH_PYTHON           "Use Python"         ON)
 option(LIBIGL_WITH_TETGEN           "Use Tetgen"         OFF)
 option(LIBIGL_WITH_TRIANGLE         "Use Triangle"       OFF)
 option(LIBIGL_WITH_VIEWER           "Use OpenGL viewer"  ON)
@@ -38,3 +43,6 @@ npe_add_module(pyigl
   matrix_add.cpp)
 target_link_libraries(pyigl PRIVATE igl::core)
 target_include_directories(pyigl PRIVATE ${PYBIND_11_DIR}/include)
+
+#target_link_libraries(pyigl PRIVATE ${PYTHON_LIBRARIES})
+#set_target_properties(pyigl PROPERTIES LINK_FLAGS "-Wl,--no-undefined")

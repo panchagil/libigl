@@ -14,10 +14,10 @@
 #include "doublearea.h"
 
 template <typename DerivedV, typename DerivedF>
-IGL_INLINE void grad_tet(const Eigen::PlainObjectBase<DerivedV>&V,
-                     const Eigen::PlainObjectBase<DerivedF>&T,
-                            Eigen::SparseMatrix<typename DerivedV::Scalar> &G,
-                            bool uniform) {
+IGL_INLINE void grad_tet(const Eigen::MatrixBase<DerivedV>&V,
+                         const Eigen::MatrixBase<DerivedF>&T,
+                         Eigen::SparseMatrix<typename DerivedV::Scalar> &G,
+                         bool uniform) {
   using namespace Eigen;
   assert(T.cols() == 4);
   const int n = V.rows(); int m = T.rows();
@@ -115,8 +115,8 @@ IGL_INLINE void grad_tet(const Eigen::PlainObjectBase<DerivedV>&V,
 }
 
 template <typename DerivedV, typename DerivedF>
-IGL_INLINE void grad_tri(const Eigen::PlainObjectBase<DerivedV>&V,
-                     const Eigen::PlainObjectBase<DerivedF>&F,
+IGL_INLINE void grad_tri(const Eigen::MatrixBase<DerivedV>&V,
+                     const Eigen::MatrixBase<DerivedF>&F,
                     Eigen::SparseMatrix<typename DerivedV::Scalar> &G,
                     bool uniform)
 {
@@ -223,8 +223,8 @@ IGL_INLINE void grad_tri(const Eigen::PlainObjectBase<DerivedV>&V,
 }
 
 template <typename DerivedV, typename DerivedF>
-IGL_INLINE void igl::grad(const Eigen::PlainObjectBase<DerivedV>&V,
-                     const Eigen::PlainObjectBase<DerivedF>&F,
+IGL_INLINE void igl::grad(const Eigen::MatrixBase<DerivedV>&V,
+                     const Eigen::MatrixBase<DerivedF>&F,
                     Eigen::SparseMatrix<typename DerivedV::Scalar> &G,
                     bool uniform)
 {
