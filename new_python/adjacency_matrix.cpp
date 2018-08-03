@@ -9,7 +9,7 @@
 
 npe_function("adjacency_matrix")
 npe_arg("f", "type_i32", "type_i64")
-npe_arg("dtype", "pybind11::object")
+npe_default_arg("dtype", "pybind11::object", "pybind11::dtype(\"float64\")")
 npe_begin_code()
 
 npe::Map_f F((npe::Scalar_f*)f.data(), f.shape()[0], f.shape()[1]);
