@@ -27,10 +27,10 @@ option(LIBIGL_WITH_NANOGUI          "Use Nanogui menu"   OFF)
 option(LIBIGL_WITH_OPENGL           "Use OpenGL"         OFF)
 option(LIBIGL_WITH_OPENGL_GLFW      "Use GLFW"           OFF)
 option(LIBIGL_WITH_PNG              "Use PNG"            OFF)
-option(LIBIGL_WITH_PYTHON           "Use Python"         ON)
+option(LIBIGL_WITH_PYTHON           "Use Python"         OFF)
 option(LIBIGL_WITH_TETGEN           "Use Tetgen"         OFF)
 option(LIBIGL_WITH_TRIANGLE         "Use Triangle"       OFF)
-option(LIBIGL_WITH_VIEWER           "Use OpenGL viewer"  ON)
+option(LIBIGL_WITH_VIEWER           "Use OpenGL viewer"  OFF)
 option(LIBIGL_WITH_XML              "Use XML"            OFF)
 
 find_package(LIBIGL REQUIRED QUIET)
@@ -38,12 +38,14 @@ include(pybind11Tools)
 include(numpyeigenTools)
 
 # A module for writing bindings with our framework
-file(GLOB PYIGL_SOURCES *.cpp)
+file(GLOB PYIGL_SOURCES src/*.cpp)
 npe_add_module(pyigl
   BINDING_SOURCES
   ${PYIGL_SOURCES})
 target_link_libraries(pyigl PRIVATE igl::core)
 target_include_directories(pyigl PRIVATE ${PYBIND_11_DIR}/include)
 
+
 #target_link_libraries(pyigl PRIVATE ${PYTHON_LIBRARIES})
 #set_target_properties(pyigl PROPERTIES LINK_FLAGS "-Wl,--no-undefined")
+#set_target_properties(pyigl PROPERTIES COMPILE_FLAGS "-Os -fvisibility=hidden")
