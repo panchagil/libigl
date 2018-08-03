@@ -9,21 +9,29 @@
 
 npe_function("adjacency_matrix")
 npe_arg("f", "type_i32", "type_i64")
-npe_default_arg("dtype", "pybind11::object", "pybind11::dtype(\"float64\")")
+npe_default_arg("dtype", "pybind11::object", "pybind11::none()")
 npe_begin_code()
 
 npe::Map_f F((npe::Scalar_f*)f.data(), f.shape()[0], f.shape()[1]);
 
-switch(pybind11::dtype::from_args(dtype).type()) {
+typedef numpyeigen::detail::NumpyTypeChar TypeChar;
+TypeChar out_typechar;
+if (dtype.is_none()) {
+  out_typechar = TypeChar(pybind11::dtype::of<npe::Scalar_f>().type());
+} else {
+  out_typechar = TypeChar(pybind11::dtype::from_args(dtype).type());
+}
+
+switch(out_typechar) {
   case numpyeigen::detail::NumpyTypeChar::char_f32:
   {
-    Eigen::SparseMatrix<float> A;
+    Eigen::SparseMatrix<std::int32_t> A;
     igl::adjacency_matrix(F, A);
     return NPE_MOVE_SPARSE(A);
   }
   case numpyeigen::detail::NumpyTypeChar::char_f64:
   {
-    Eigen::SparseMatrix<double> A;
+    Eigen::SparseMatrix<std::int64_t> A;
     igl::adjacency_matrix(F, A);
     return NPE_MOVE_SPARSE(A);
   }
