@@ -1,11 +1,11 @@
 #include <tuple>
 #include <Eigen/Core>
 #include <Eigen/Sparse>
-#include <numpyeigen_utils.h>
+#include <npe.h>
 #include <igl/readOFF.h>
 
-npe_function("read_off")
-npe_arg("str", "std::string")
+npe_function(read_off)
+npe_arg(str, std::string)
 npe_begin_code()
 
 using namespace std;

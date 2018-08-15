@@ -8,8 +8,8 @@
 #include <exception>
 
 npe_function("all_pairs_distances")
-npe_arg("u", "type_f32", "type_f64", "type_c64", "type_c128", "type_i32", "type_i64")
-npe_arg("v", "type_f32", "type_f64", "type_c64", "type_c128", "type_i32", "type_i64")
+npe_arg("u", "dense_f32", "dense_f64", "dense_c64", "dense_c128", "dense_i32", "dense_i64")
+npe_arg("v", "dense_f32", "dense_f64", "dense_c64", "dense_c128", "dense_i32", "dense_i64")
 npe_default_arg("squared", "bool", "true")
 npe_default_arg("dtype", "pybind11::object", "pybind11::dtype(\"float64\")")
 

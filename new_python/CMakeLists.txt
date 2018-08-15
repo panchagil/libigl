@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.2)
 project(new_pyigl)
 
 set(Python_ADDITIONAL_VERSIONS 3.4 3.5 3.6)
@@ -6,14 +6,23 @@ find_package(PythonLibs REQUIRED)
 find_package(PythonInterp REQUIRED)
 
 
-set(NPE_DIR ${PROJECT_SOURCE_DIR}/../external/numpyeigen CACHE PATH "Path to numpyeigen")
-set(PYBIND_11_DIR ${PROJECT_SOURCE_DIR}/../external/numpyeigen/external/pybind11 CACHE PATH "Path to pybind11")
-message("INC DIR ${PYBIND11_DIR}/include")
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${NPE_DIR}/cmake)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${NPE_DIR}/external/pybind11/tools)
+#set(NPE_DIR ${PROJECT_SOURCE_DIR}/../external/numpyeigen CACHE PATH "Path to numpyeigen")
+#set(PYBIND_11_DIR ${PROJECT_SOURCE_DIR}/../external/numpyeigen/external/pybind11 CACHE PATH "Path to pybind11")
+#message("INC DIR ${PYBIND11_DIR}/include")
+#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${NPE_DIR}/cmake)
+#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${NPE_DIR}/external/pybind11/tools)
+
+# We need C++ 14
+set(CMAKE_CXX_STANDARD 14)
 
 
-# libigl
+# NumpyEigen
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/../external/numpyeigen/cmake)
+include(numpyeigen)
+
+
+
+# LibIGL
 option(LIBIGL_USE_STATIC_LIBRARY "Use libigl as static library" OFF)
 option(LIBIGL_WITH_ANTTWEAKBAR      "Use AntTweakBar"    OFF)
 option(LIBIGL_WITH_CGAL             "Use CGAL"           OFF)
@@ -33,9 +42,11 @@ option(LIBIGL_WITH_TRIANGLE         "Use Triangle"       OFF)
 option(LIBIGL_WITH_VIEWER           "Use OpenGL viewer"  OFF)
 option(LIBIGL_WITH_XML              "Use XML"            OFF)
 
-find_package(LIBIGL REQUIRED QUIET)
-include(pybind11Tools)
-include(numpyeigenTools)
+if(NOT TARGET igl::core)
+  list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/../shared/cmake")
+  include(libigl)
+endif()
+
 
 # A module for writing bindings with our framework
 file(GLOB PYIGL_SOURCES src/*.cpp)
