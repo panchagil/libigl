@@ -1,25 +1,9 @@
 cmake_minimum_required(VERSION 3.2)
 project(new_pyigl)
 
-set(Python_ADDITIONAL_VERSIONS 3.4 3.5 3.6)
-find_package(PythonLibs REQUIRED)
-find_package(PythonInterp REQUIRED)
-
-
-#set(NPE_DIR ${PROJECT_SOURCE_DIR}/../external/numpyeigen CACHE PATH "Path to numpyeigen")
-#set(PYBIND_11_DIR ${PROJECT_SOURCE_DIR}/../external/numpyeigen/external/pybind11 CACHE PATH "Path to pybind11")
-#message("INC DIR ${PYBIND11_DIR}/include")
-#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${NPE_DIR}/cmake)
-#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${NPE_DIR}/external/pybind11/tools)
-
-# We need C++ 14
-set(CMAKE_CXX_STANDARD 14)
-
-
 # NumpyEigen
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/../external/numpyeigen/cmake)
 include(numpyeigen)
-
 
 
 # LibIGL
@@ -57,6 +41,9 @@ target_link_libraries(pyigl PRIVATE igl::core)
 target_include_directories(pyigl PRIVATE ${PYBIND_11_DIR}/include)
 
 
+#set(Python_ADDITIONAL_VERSIONS 3.4 3.5 3.6)
+#find_package(PythonLibs REQUIRED)
+#find_package(PythonInterp REQUIRED)
 #target_link_libraries(pyigl PRIVATE ${PYTHON_LIBRARIES})
 #set_target_properties(pyigl PROPERTIES LINK_FLAGS "-Wl,--no-undefined")
 #set_target_properties(pyigl PROPERTIES COMPILE_FLAGS "-Os -fvisibility=hidden")
