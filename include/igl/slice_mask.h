@@ -30,13 +30,13 @@ namespace igl
     const Eigen::DenseBase<DerivedX> & X,
     const Eigen::Array<bool,Eigen::Dynamic,1> & R,
     const Eigen::Array<bool,Eigen::Dynamic,1> & C,
-    Eigen::PlainObjectBase<DerivedY> & Y);
+    Eigen::MatrixBase<DerivedY> & Y);
   template <typename DerivedX,typename DerivedY>
   IGL_INLINE void slice_mask(
     const Eigen::DenseBase<DerivedX> & X,
     const Eigen::Array<bool,Eigen::Dynamic,1> & R,
     const int dim,
-    Eigen::PlainObjectBase<DerivedY> & Y);
+    Eigen::MatrixBase<DerivedY> & Y);
   //
   // This templating is bad because the return type might not have the same
   // size as `DerivedX`. This will probably only work if DerivedX has Dynamic

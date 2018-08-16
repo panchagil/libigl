@@ -37,12 +37,12 @@ namespace igl
     typename DerivedI,
     typename DerivedC>
   IGL_INLINE void point_mesh_squared_distance(
-    const Eigen::PlainObjectBase<DerivedP> & P,
-    const Eigen::PlainObjectBase<DerivedV> & V,
+    const Eigen::MatrixBase<DerivedP> & P,
+    const Eigen::MatrixBase<DerivedV> & V,
     const Eigen::MatrixXi & Ele, 
-    Eigen::PlainObjectBase<DerivedsqrD> & sqrD,
-    Eigen::PlainObjectBase<DerivedI> & I,
-    Eigen::PlainObjectBase<DerivedC> & C);
+    Eigen::MatrixBase<DerivedsqrD> & sqrD,
+    Eigen::MatrixBase<DerivedI> & I,
+    Eigen::MatrixBase<DerivedC> & C);
 }
 
 #ifndef IGL_STATIC_LIBRARY

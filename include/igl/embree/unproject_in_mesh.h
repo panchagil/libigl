@@ -53,7 +53,7 @@ namespace igl
       const Eigen::Matrix4f& proj,
       const Eigen::Vector4f& viewport,
       const EmbreeIntersector & ei,
-      Eigen::PlainObjectBase<Derivedobj> & obj,
+      Eigen::MatrixBase<Derivedobj> & obj,
       std::vector<igl::Hit > & hits);
     template < typename Derivedobj>
     IGL_INLINE int unproject_in_mesh(
@@ -62,7 +62,7 @@ namespace igl
       const Eigen::Matrix4f& proj,
       const Eigen::Vector4f& viewport,
       const EmbreeIntersector & ei,
-      Eigen::PlainObjectBase<Derivedobj> & obj);
+      Eigen::MatrixBase<Derivedobj> & obj);
 
   }
 }

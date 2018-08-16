@@ -30,10 +30,10 @@ namespace igl
   // See also: transpose_blocks
   template <typename DerivedA, typename DerivedB>
   IGL_INLINE void columnize(
-    const Eigen::PlainObjectBase<DerivedA> & A,
+    const Eigen::MatrixBase<DerivedA> & A,
     const int k,
     const int dim,
-    Eigen::PlainObjectBase<DerivedB> & B);
+    Eigen::MatrixBase<DerivedB> & B);
 }
 #ifndef IGL_STATIC_LIBRARY
 #  include "columnize.cpp"

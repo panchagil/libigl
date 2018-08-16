@@ -36,8 +36,8 @@ namespace igl
   //     reveals the edge _opposite_ corner c of face f
 template <typename DerivedV, typename DerivedF>
   IGL_INLINE void edge_topology(
-    const Eigen::PlainObjectBase<DerivedV>& V,
-    const Eigen::PlainObjectBase<DerivedF>& F, 
+    const Eigen::MatrixBase<DerivedV>& V,
+    const Eigen::MatrixBase<DerivedF>& F, 
     Eigen::MatrixXi& EV, 
     Eigen::MatrixXi& FE, 
     Eigen::MatrixXi& EF);

@@ -31,8 +31,8 @@ namespace igl
     typename DerivedEle, 
     typename Scalar>
   IGL_INLINE void normal_derivative(
-    const Eigen::PlainObjectBase<DerivedV> & V,
-    const Eigen::PlainObjectBase<DerivedEle> & Ele,
+    const Eigen::MatrixBase<DerivedV> & V,
+    const Eigen::MatrixBase<DerivedEle> & Ele,
     Eigen::SparseMatrix<Scalar>& DD);
 }
 

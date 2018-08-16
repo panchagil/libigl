@@ -9,7 +9,7 @@
 #include <algorithm>
 template <typename DerivedV>
 IGL_INLINE void igl::matlab::prepare_lhs_double(
-  const Eigen::PlainObjectBase<DerivedV> & V,
+  const Eigen::MatrixBase<DerivedV> & V,
   mxArray *plhs[])
 {
   using namespace std;
@@ -24,7 +24,7 @@ IGL_INLINE void igl::matlab::prepare_lhs_double(
 
 template <typename DerivedV>
 IGL_INLINE void igl::matlab::prepare_lhs_logical(
-  const Eigen::PlainObjectBase<DerivedV> & V,
+  const Eigen::MatrixBase<DerivedV> & V,
   mxArray *plhs[])
 {
   using namespace std;
@@ -40,7 +40,7 @@ IGL_INLINE void igl::matlab::prepare_lhs_logical(
 
 template <typename DerivedV>
 IGL_INLINE void igl::matlab::prepare_lhs_index(
-  const Eigen::PlainObjectBase<DerivedV> & V,
+  const Eigen::MatrixBase<DerivedV> & V,
   mxArray *plhs[])
 {
   // Treat indices as reals
@@ -85,15 +85,15 @@ IGL_INLINE void igl::matlab::prepare_lhs_double(
 }
 
 #ifdef IGL_STATIC_LIBRARY
-template void igl::matlab::prepare_lhs_index<Eigen::Matrix<double, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> > const&, mxArray_tag**);
-template void igl::matlab::prepare_lhs_index<Eigen::Matrix<int, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> > const&, mxArray_tag**);
-template void igl::matlab::prepare_lhs_double<Eigen::Matrix<double, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, mxArray_tag**);
-template void igl::matlab::prepare_lhs_index<Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, mxArray_tag**);
-template void igl::matlab::prepare_lhs_logical<Eigen::Matrix<int, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> > const&, mxArray_tag**);
-template void igl::matlab::prepare_lhs_double<Eigen::Matrix<double, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> > const&, mxArray_tag**);
-template void igl::matlab::prepare_lhs_logical<Eigen::Matrix<bool, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<bool, -1, 1, 0, -1, 1> > const&, mxArray_tag**);
-template void igl::matlab::prepare_lhs_index<Eigen::Matrix<int, -1, 3, 1, -1, 3> >(Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 3, 1, -1, 3> > const&, mxArray_tag**);
-template void igl::matlab::prepare_lhs_double<Eigen::Matrix<double, -1, 3, 1, -1, 3> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, 3, 1, -1, 3> > const&, mxArray_tag**);
-template void igl::matlab::prepare_lhs_double<Eigen::Matrix<int, 1, -1, 1, 1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<int, 1, -1, 1, 1, -1> > const&, mxArray_tag**);
-template void igl::matlab::prepare_lhs_double<Eigen::Matrix<int, 1, 3, 1, 1, 3> >(Eigen::PlainObjectBase<Eigen::Matrix<int, 1, 3, 1, 1, 3> > const&, mxArray_tag**);
+template void igl::matlab::prepare_lhs_index<Eigen::Matrix<double, -1, 1, 0, -1, 1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> > const&, mxArray_tag**);
+template void igl::matlab::prepare_lhs_index<Eigen::Matrix<int, -1, 1, 0, -1, 1> >(Eigen::MatrixBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> > const&, mxArray_tag**);
+template void igl::matlab::prepare_lhs_double<Eigen::Matrix<double, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, mxArray_tag**);
+template void igl::matlab::prepare_lhs_index<Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, mxArray_tag**);
+template void igl::matlab::prepare_lhs_logical<Eigen::Matrix<int, -1, 1, 0, -1, 1> >(Eigen::MatrixBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> > const&, mxArray_tag**);
+template void igl::matlab::prepare_lhs_double<Eigen::Matrix<double, -1, 1, 0, -1, 1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> > const&, mxArray_tag**);
+template void igl::matlab::prepare_lhs_logical<Eigen::Matrix<bool, -1, 1, 0, -1, 1> >(Eigen::MatrixBase<Eigen::Matrix<bool, -1, 1, 0, -1, 1> > const&, mxArray_tag**);
+template void igl::matlab::prepare_lhs_index<Eigen::Matrix<int, -1, 3, 1, -1, 3> >(Eigen::MatrixBase<Eigen::Matrix<int, -1, 3, 1, -1, 3> > const&, mxArray_tag**);
+template void igl::matlab::prepare_lhs_double<Eigen::Matrix<double, -1, 3, 1, -1, 3> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, 3, 1, -1, 3> > const&, mxArray_tag**);
+template void igl::matlab::prepare_lhs_double<Eigen::Matrix<int, 1, -1, 1, 1, -1> >(Eigen::MatrixBase<Eigen::Matrix<int, 1, -1, 1, 1, -1> > const&, mxArray_tag**);
+template void igl::matlab::prepare_lhs_double<Eigen::Matrix<int, 1, 3, 1, 1, 3> >(Eigen::MatrixBase<Eigen::Matrix<int, 1, 3, 1, 1, 3> > const&, mxArray_tag**);
 #endif

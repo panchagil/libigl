@@ -44,13 +44,13 @@ namespace igl
       typename Derivedvertices, 
       typename DerivedF>
       IGL_INLINE void marching_cubes(
-        const Eigen::PlainObjectBase<Derivedvalues> &values,
-        const Eigen::PlainObjectBase<Derivedpoints> &points,
+        const Eigen::MatrixBase<Derivedvalues> &values,
+        const Eigen::MatrixBase<Derivedpoints> &points,
         const unsigned x_res,
         const unsigned y_res,
         const unsigned z_res,
-        Eigen::PlainObjectBase<Derivedvertices> &vertices,
-        Eigen::PlainObjectBase<DerivedF> &faces);
+        Eigen::MatrixBase<Derivedvertices> &vertices,
+        Eigen::MatrixBase<DerivedF> &faces);
   }
 }
 

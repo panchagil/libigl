@@ -50,12 +50,12 @@ template <
   typename DerivedPV1, 
   typename DerivedPV2>
 IGL_INLINE void principal_curvature(
-  const Eigen::PlainObjectBase<DerivedV>& V,
-  const Eigen::PlainObjectBase<DerivedF>& F,
-  Eigen::PlainObjectBase<DerivedPD1>& PD1,
-  Eigen::PlainObjectBase<DerivedPD2>& PD2,
-  Eigen::PlainObjectBase<DerivedPV1>& PV1,
-  Eigen::PlainObjectBase<DerivedPV2>& PV2,
+  const Eigen::MatrixBase<DerivedV>& V,
+  const Eigen::MatrixBase<DerivedF>& F,
+  Eigen::MatrixBase<DerivedPD1>& PD1,
+  Eigen::MatrixBase<DerivedPD2>& PD2,
+  Eigen::MatrixBase<DerivedPV1>& PV1,
+  Eigen::MatrixBase<DerivedPV2>& PV2,
   unsigned radius = 5,
   bool useKring = true);
 }

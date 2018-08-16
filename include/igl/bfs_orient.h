@@ -25,9 +25,9 @@ namespace igl
   //
   template <typename DerivedF, typename DerivedFF, typename DerivedC>
   IGL_INLINE void bfs_orient(
-    const Eigen::PlainObjectBase<DerivedF> & F,
-    Eigen::PlainObjectBase<DerivedFF> & FF,
-    Eigen::PlainObjectBase<DerivedC> & C);
+    const Eigen::MatrixBase<DerivedF> & F,
+    Eigen::MatrixBase<DerivedFF> & FF,
+    Eigen::MatrixBase<DerivedC> & C);
 };
 #ifndef IGL_STATIC_LIBRARY
 #  include "bfs_orient.cpp"

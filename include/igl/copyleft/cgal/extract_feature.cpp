@@ -16,10 +16,10 @@ template<
   typename DerivedF,
   typename DerivedE >
 IGL_INLINE void igl::copyleft::cgal::extract_feature(
-    const Eigen::PlainObjectBase<DerivedV>& V,
-    const Eigen::PlainObjectBase<DerivedF>& F,
+    const Eigen::MatrixBase<DerivedV>& V,
+    const Eigen::MatrixBase<DerivedF>& F,
     const double tol,
-    Eigen::PlainObjectBase<DerivedE>& feature_edges) {
+    Eigen::MatrixBase<DerivedE>& feature_edges) {
 
   using IndexType = typename DerivedE::Scalar;
   DerivedE E, uE;
@@ -35,13 +35,13 @@ template<
   typename DerivedF,
   typename DerivedE >
 IGL_INLINE void igl::copyleft::cgal::extract_feature(
-    const Eigen::PlainObjectBase<DerivedV>& V,
-    const Eigen::PlainObjectBase<DerivedF>& F,
+    const Eigen::MatrixBase<DerivedV>& V,
+    const Eigen::MatrixBase<DerivedF>& F,
     const double tol,
-    const Eigen::PlainObjectBase<DerivedE>& E,
-    const Eigen::PlainObjectBase<DerivedE>& uE,
+    const Eigen::MatrixBase<DerivedE>& E,
+    const Eigen::MatrixBase<DerivedE>& uE,
     const std::vector<std::vector<typename DerivedE::Scalar> >& uE2E,
-    Eigen::PlainObjectBase<DerivedE>& feature_edges) {
+    Eigen::MatrixBase<DerivedE>& feature_edges) {
 
   assert(V.cols() == 3);
   assert(F.cols() == 3);

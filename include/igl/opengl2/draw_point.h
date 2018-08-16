@@ -34,7 +34,7 @@ namespace igl
       const bool selected = false);
     template <typename DerivedP>
     IGL_INLINE void draw_point(
-      const Eigen::PlainObjectBase<DerivedP> & P,
+      const Eigen::MatrixBase<DerivedP> & P,
       const double requested_r = 7,
       const bool selected = false);
   }

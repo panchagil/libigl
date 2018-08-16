@@ -21,14 +21,14 @@ namespace igl
   template <typename DerivedV, typename DerivedBV, typename DerivedBF>
   IGL_INLINE void bounding_box(
     const Eigen::MatrixBase<DerivedV>& V,
-    Eigen::PlainObjectBase<DerivedBV>& BV,
-    Eigen::PlainObjectBase<DerivedBF>& BF);
+    Eigen::MatrixBase<DerivedBV>& BV,
+    Eigen::MatrixBase<DerivedBF>& BF);
   template <typename DerivedV, typename DerivedBV, typename DerivedBF>
   IGL_INLINE void bounding_box(
     const Eigen::MatrixBase<DerivedV>& V,
     const typename DerivedV::Scalar pad,
-    Eigen::PlainObjectBase<DerivedBV>& BV,
-    Eigen::PlainObjectBase<DerivedBF>& BF);
+    Eigen::MatrixBase<DerivedBV>& BV,
+    Eigen::MatrixBase<DerivedBF>& BF);
 }
 
 #ifndef IGL_STATIC_LIBRARY

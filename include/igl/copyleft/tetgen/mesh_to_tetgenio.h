@@ -40,8 +40,8 @@ namespace igl
       //   DerivedF  integer-value: i.e. from MatrixXi
       template <typename DerivedV, typename DerivedF>
       IGL_INLINE bool mesh_to_tetgenio(
-        const Eigen::PlainObjectBase<DerivedV>& V,
-        const Eigen::PlainObjectBase<DerivedF>& F,
+        const Eigen::MatrixBase<DerivedV>& V,
+        const Eigen::MatrixBase<DerivedF>& F,
         tetgenio & in);
     }
   }

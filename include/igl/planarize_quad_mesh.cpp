@@ -20,8 +20,8 @@ namespace igl
     // number of faces, number of vertices
     long numV, numF;
     // references to the input faces and vertices
-    const Eigen::PlainObjectBase<DerivedV> &Vin;
-    const Eigen::PlainObjectBase<DerivedF> &Fin;
+    const Eigen::MatrixBase<DerivedV> &Vin;
+    const Eigen::MatrixBase<DerivedF> &Fin;
     
     // vector consisting of the vertex positions stacked: [x;y;z;x;y;z...]
     // vector consisting of a weight per face (currently all set to 1)
@@ -50,20 +50,20 @@ namespace igl
     
   public:
     // Init - assemble stacked vector and lhs matrix, factorize
-    inline PlanarizerShapeUp(const Eigen::PlainObjectBase<DerivedV> &V_,
-                             const Eigen::PlainObjectBase<DerivedF> &F_,
+    inline PlanarizerShapeUp(const Eigen::MatrixBase<DerivedV> &V_,
+                             const Eigen::MatrixBase<DerivedF> &F_,
                              const int maxIter_,
                              const double &threshold_);
     // Planarization - output to Vout
-    inline void planarize(Eigen::PlainObjectBase<DerivedV> &Vout);
+    inline void planarize(Eigen::MatrixBase<DerivedV> &Vout);
   };
 }
 
 //Implementation
 
 template <typename DerivedV, typename DerivedF>
-inline igl::PlanarizerShapeUp<DerivedV, DerivedF>::PlanarizerShapeUp(const Eigen::PlainObjectBase<DerivedV> &V_,
-                                                                     const Eigen::PlainObjectBase<DerivedF> &F_,
+inline igl::PlanarizerShapeUp<DerivedV, DerivedF>::PlanarizerShapeUp(const Eigen::MatrixBase<DerivedV> &V_,
+                                                                     const Eigen::MatrixBase<DerivedF> &F_,
                                                                      const int maxIter_,
                                                                      const double &threshold_):
 numV(V_.rows()),
@@ -196,7 +196,7 @@ inline void igl::PlanarizerShapeUp<DerivedV, DerivedF>::assembleP()
 
 
 template <typename DerivedV, typename DerivedF>
-inline void igl::PlanarizerShapeUp<DerivedV, DerivedF>::planarize(Eigen::PlainObjectBase<DerivedV> &Vout)
+inline void igl::PlanarizerShapeUp<DerivedV, DerivedF>::planarize(Eigen::MatrixBase<DerivedV> &Vout)
 {
   Eigen::Matrix<typename DerivedV::Scalar, Eigen::Dynamic, 1> planarity;
   Vout = Vin;
@@ -229,11 +229,11 @@ inline void igl::PlanarizerShapeUp<DerivedV, DerivedF>::planarize(Eigen::PlainOb
   
 
 template <typename DerivedV, typename DerivedF>
-IGL_INLINE void igl::planarize_quad_mesh(const Eigen::PlainObjectBase<DerivedV> &Vin,
-                                    const Eigen::PlainObjectBase<DerivedF> &Fin,
+IGL_INLINE void igl::planarize_quad_mesh(const Eigen::MatrixBase<DerivedV> &Vin,
+                                    const Eigen::MatrixBase<DerivedF> &Fin,
                                     const int maxIter,
                                     const double &threshold,
-                                    Eigen::PlainObjectBase<DerivedV> &Vout)
+                                    Eigen::MatrixBase<DerivedV> &Vout)
 {
   PlanarizerShapeUp<DerivedV, DerivedF> planarizer(Vin, Fin, maxIter, threshold);
   planarizer.planarize(Vout);
@@ -241,5 +241,5 @@ IGL_INLINE void igl::planarize_quad_mesh(const Eigen::PlainObjectBase<DerivedV> 
 
 #ifdef IGL_STATIC_LIBRARY
 // Explicit template instantiation
-template void igl::planarize_quad_mesh<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, int, double const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&);
+template void igl::planarize_quad_mesh<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, int, double const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&);
 #endif

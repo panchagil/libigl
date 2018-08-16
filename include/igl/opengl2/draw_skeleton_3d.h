@@ -29,21 +29,21 @@ namespace igl
       typename DerivedT,
       typename Derivedcolor>
     IGL_INLINE void draw_skeleton_3d(
-      const Eigen::PlainObjectBase<DerivedC> & C,
-      const Eigen::PlainObjectBase<DerivedBE> & BE,
-      const Eigen::PlainObjectBase<DerivedT> & T,
-      const Eigen::PlainObjectBase<Derivedcolor> & color,
+      const Eigen::MatrixBase<DerivedC> & C,
+      const Eigen::MatrixBase<DerivedBE> & BE,
+      const Eigen::MatrixBase<DerivedT> & T,
+      const Eigen::MatrixBase<Derivedcolor> & color,
       const double half_bbd=0.5);
     // Default color
     template <typename DerivedC, typename DerivedBE, typename DerivedT>
     IGL_INLINE void draw_skeleton_3d(
-      const Eigen::PlainObjectBase<DerivedC> & C,
-      const Eigen::PlainObjectBase<DerivedBE> & BE,
-      const Eigen::PlainObjectBase<DerivedT> & T);
+      const Eigen::MatrixBase<DerivedC> & C,
+      const Eigen::MatrixBase<DerivedBE> & BE,
+      const Eigen::MatrixBase<DerivedT> & T);
     template <typename DerivedC, typename DerivedBE>
     IGL_INLINE void draw_skeleton_3d(
-      const Eigen::PlainObjectBase<DerivedC> & C,
-      const Eigen::PlainObjectBase<DerivedBE> & BE);
+      const Eigen::MatrixBase<DerivedC> & C,
+      const Eigen::MatrixBase<DerivedBE> & BE);
   }
 }
   

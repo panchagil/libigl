@@ -29,11 +29,11 @@ namespace igl
       double* objZ);
     template <typename Derivedwin, typename Derivedobj>
     IGL_INLINE void unproject(
-      const Eigen::PlainObjectBase<Derivedwin> & win,
-      Eigen::PlainObjectBase<Derivedobj> & obj);
+      const Eigen::MatrixBase<Derivedwin> & win,
+      Eigen::MatrixBase<Derivedobj> & obj);
     template <typename Derivedwin>
     IGL_INLINE Derivedwin unproject(
-      const Eigen::PlainObjectBase<Derivedwin> & win);
+      const Eigen::MatrixBase<Derivedwin> & win);
   }
 }
 

@@ -81,18 +81,18 @@ IGL_INLINE void igl::opengl2::draw_skeleton_vector_graphics(
 
 template <typename DerivedC, typename DerivedBE, typename DerivedT>
 IGL_INLINE void igl::opengl2::draw_skeleton_vector_graphics(
-  const Eigen::PlainObjectBase<DerivedC> & C,
-  const Eigen::PlainObjectBase<DerivedBE> & BE,
-  const Eigen::PlainObjectBase<DerivedT> & T)
+  const Eigen::MatrixBase<DerivedC> & C,
+  const Eigen::MatrixBase<DerivedBE> & BE,
+  const Eigen::MatrixBase<DerivedT> & T)
 {
   return draw_skeleton_vector_graphics(C,BE,T,BBW_POINT_COLOR,BBW_LINE_COLOR);
 }
 
 template <typename DerivedC, typename DerivedBE, typename DerivedT>
 IGL_INLINE void igl::opengl2::draw_skeleton_vector_graphics(
-  const Eigen::PlainObjectBase<DerivedC> & C,
-  const Eigen::PlainObjectBase<DerivedBE> & BE,
-  const Eigen::PlainObjectBase<DerivedT> & T,
+  const Eigen::MatrixBase<DerivedC> & C,
+  const Eigen::MatrixBase<DerivedBE> & BE,
+  const Eigen::MatrixBase<DerivedT> & T,
   const float * point_color,
   const float * line_color)
 {
@@ -118,5 +118,5 @@ IGL_INLINE void igl::opengl2::draw_skeleton_vector_graphics(
 
 #ifdef IGL_STATIC_LIBRARY
 // Explicit template instantiation
-template void igl::opengl2::draw_skeleton_vector_graphics<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&);
+template void igl::opengl2::draw_skeleton_vector_graphics<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&);
 #endif

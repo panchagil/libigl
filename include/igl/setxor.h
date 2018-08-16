@@ -31,9 +31,9 @@ namespace igl
   IGL_INLINE void setxor(
     const Eigen::DenseBase<DerivedA> & A,
     const Eigen::DenseBase<DerivedB> & B,
-    Eigen::PlainObjectBase<DerivedC> & C,
-    Eigen::PlainObjectBase<DerivedIA> & IA,
-    Eigen::PlainObjectBase<DerivedIB> & IB);
+    Eigen::MatrixBase<DerivedC> & C,
+    Eigen::MatrixBase<DerivedIA> & IA,
+    Eigen::MatrixBase<DerivedIB> & IB);
 }
 
 #ifndef IGL_STATIC_LIBRARY

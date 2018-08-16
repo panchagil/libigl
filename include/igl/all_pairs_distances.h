@@ -8,6 +8,7 @@
 #ifndef IGL_ALL_PAIRS_DISTANCES_H
 #define IGL_ALL_PAIRS_DISTANCES_H
 #include "igl_inline.h"
+#include <Eigen/Dense>
 
 namespace igl
 {

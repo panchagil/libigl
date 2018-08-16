@@ -24,12 +24,12 @@ namespace igl
   template <typename AScalar, typename DerivedC, typename Derivedcounts>
   IGL_INLINE void components(
     const Eigen::SparseMatrix<AScalar> & A,
-    Eigen::PlainObjectBase<DerivedC> & C,
-    Eigen::PlainObjectBase<Derivedcounts> & counts);
+    Eigen::MatrixBase<DerivedC> & C,
+    Eigen::MatrixBase<Derivedcounts> & counts);
   template <typename AScalar, typename DerivedC>
   IGL_INLINE void components(
     const Eigen::SparseMatrix<AScalar> & A,
-    Eigen::PlainObjectBase<DerivedC> & C);
+    Eigen::MatrixBase<DerivedC> & C);
   // Ditto but for mesh faces as input. This computes connected components of
   // **vertices** where **edges** establish connectivity.
   //
@@ -40,7 +40,7 @@ namespace igl
   template <typename DerivedF, typename DerivedC>
   IGL_INLINE void components(
     const Eigen::MatrixBase<DerivedF> & F,
-    Eigen::PlainObjectBase<DerivedC> & C);
+    Eigen::MatrixBase<DerivedC> & C);
 
 }
 

@@ -49,9 +49,9 @@ namespace igl
     const Eigen::MatrixBase<DerivedEMAP> & EMAP,
     const Eigen::MatrixBase<Derivedq> & q,
     const int f,
-    Eigen::PlainObjectBase<Derivedc> & c,
+    Eigen::MatrixBase<Derivedc> & c,
     Scalar & s,
-    Eigen::PlainObjectBase<Derivedn> & n);
+    Eigen::MatrixBase<Derivedn> & n);
   template <
     typename DerivedV,
     typename DerivedF,
@@ -68,9 +68,9 @@ namespace igl
     const Eigen::MatrixBase<DerivedVN> & VN,
     const Eigen::MatrixBase<Derivedq> & q,
     const int e,
-    Eigen::PlainObjectBase<Derivedc> & c,
+    Eigen::MatrixBase<Derivedc> & c,
     Scalar & s,
-    Eigen::PlainObjectBase<Derivedn> & n);
+    Eigen::MatrixBase<Derivedn> & n);
 }
 #ifndef IGL_STATIC_LIBRARY
 #  include "pseudonormal_test.cpp"

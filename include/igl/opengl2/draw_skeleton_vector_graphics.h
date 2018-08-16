@@ -34,16 +34,16 @@ namespace igl
     //   T  #BE*(dim+1) by dim  matrix of stacked transposed bone transformations
     template <typename DerivedC, typename DerivedBE, typename DerivedT>
     IGL_INLINE void draw_skeleton_vector_graphics(
-      const Eigen::PlainObjectBase<DerivedC> & C,
-      const Eigen::PlainObjectBase<DerivedBE> & BE,
-      const Eigen::PlainObjectBase<DerivedT> & T,
+      const Eigen::MatrixBase<DerivedC> & C,
+      const Eigen::MatrixBase<DerivedBE> & BE,
+      const Eigen::MatrixBase<DerivedT> & T,
       const float * point_color,
       const float * line_color);
     template <typename DerivedC, typename DerivedBE, typename DerivedT>
     IGL_INLINE void draw_skeleton_vector_graphics(
-      const Eigen::PlainObjectBase<DerivedC> & C,
-      const Eigen::PlainObjectBase<DerivedBE> & BE,
-      const Eigen::PlainObjectBase<DerivedT> & T);
+      const Eigen::MatrixBase<DerivedC> & C,
+      const Eigen::MatrixBase<DerivedBE> & BE,
+      const Eigen::MatrixBase<DerivedT> & T);
   }
 }
 #ifndef IGL_STATIC_LIBRARY

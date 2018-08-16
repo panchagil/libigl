@@ -10,8 +10,8 @@ template <
 IGL_INLINE void igl::bfs(
   const AType & A,
   const size_t s,
-  Eigen::PlainObjectBase<DerivedD> & D,
-  Eigen::PlainObjectBase<DerivedP> & P)
+  Eigen::MatrixBase<DerivedD> & D,
+  Eigen::MatrixBase<DerivedP> & P)
 {
   std::vector<typename DerivedD::Scalar> vD;
   std::vector<typename DerivedP::Scalar> vP;

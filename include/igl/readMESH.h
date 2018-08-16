@@ -56,9 +56,9 @@ namespace igl
   template <typename DerivedV, typename DerivedF, typename DerivedT>
   IGL_INLINE bool readMESH(
     const std::string mesh_file_name,
-    Eigen::PlainObjectBase<DerivedV>& V,
-    Eigen::PlainObjectBase<DerivedT>& T,
-    Eigen::PlainObjectBase<DerivedF>& F);
+    Eigen::MatrixBase<DerivedV>& V,
+    Eigen::MatrixBase<DerivedT>& T,
+    Eigen::MatrixBase<DerivedF>& F);
   // Inputs:
   //   mesh_file  pointer to already opened .mesh file 
   // Outputs:
@@ -66,9 +66,9 @@ namespace igl
   template <typename DerivedV, typename DerivedF, typename DerivedT>
   IGL_INLINE bool readMESH(
     FILE * mesh_file,
-    Eigen::PlainObjectBase<DerivedV>& V,
-    Eigen::PlainObjectBase<DerivedT>& T,
-    Eigen::PlainObjectBase<DerivedF>& F);
+    Eigen::MatrixBase<DerivedV>& V,
+    Eigen::MatrixBase<DerivedT>& T,
+    Eigen::MatrixBase<DerivedF>& F);
 }
 
 #ifndef IGL_STATIC_LIBRARY

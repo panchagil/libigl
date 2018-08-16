@@ -12,9 +12,9 @@
 
 template <typename DerivedF, typename DerivedFF, typename DerivedC>
 IGL_INLINE void igl::bfs_orient(
-  const Eigen::PlainObjectBase<DerivedF> & F,
-  Eigen::PlainObjectBase<DerivedFF> & FF,
-  Eigen::PlainObjectBase<DerivedC> & C)
+  const Eigen::MatrixBase<DerivedF> & F,
+  Eigen::MatrixBase<DerivedFF> & FF,
+  Eigen::MatrixBase<DerivedC> & C)
 {
   using namespace Eigen;
   using namespace std;
@@ -96,5 +96,5 @@ IGL_INLINE void igl::bfs_orient(
 
 #ifdef IGL_STATIC_LIBRARY
 // Explicit template instantiation
-template void igl::bfs_orient<Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&);
+template void igl::bfs_orient<Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&);
 #endif

@@ -37,10 +37,10 @@ namespace igl
         const Eigen::Vector3f&,
         const Eigen::Vector3f&)
         > & shoot_ray,
-    const Eigen::PlainObjectBase<DerivedP> & P,
-    const Eigen::PlainObjectBase<DerivedN> & N,
+    const Eigen::MatrixBase<DerivedP> & P,
+    const Eigen::MatrixBase<DerivedN> & N,
     const int num_samples,
-    Eigen::PlainObjectBase<DerivedS> & S);
+    Eigen::MatrixBase<DerivedS> & S);
   // Inputs:
   //   AABB  axis-aligned bounding box hierarchy around (V,F)
   template <
@@ -52,12 +52,12 @@ namespace igl
     typename DerivedS >
   IGL_INLINE void shape_diameter_function(
     const igl::AABB<DerivedV,DIM> & aabb,
-    const Eigen::PlainObjectBase<DerivedV> & V,
-    const Eigen::PlainObjectBase<DerivedF> & F,
-    const Eigen::PlainObjectBase<DerivedP> & P,
-    const Eigen::PlainObjectBase<DerivedN> & N,
+    const Eigen::MatrixBase<DerivedV> & V,
+    const Eigen::MatrixBase<DerivedF> & F,
+    const Eigen::MatrixBase<DerivedP> & P,
+    const Eigen::MatrixBase<DerivedN> & N,
     const int num_samples,
-    Eigen::PlainObjectBase<DerivedS> & S);
+    Eigen::MatrixBase<DerivedS> & S);
   // Inputs:
   //    V  #V by 3 list of mesh vertex positions
   //    F  #F by 3 list of mesh face indices into V
@@ -68,12 +68,12 @@ namespace igl
     typename DerivedN,
     typename DerivedS >
   IGL_INLINE void shape_diameter_function(
-    const Eigen::PlainObjectBase<DerivedV> & V,
-    const Eigen::PlainObjectBase<DerivedF> & F,
-    const Eigen::PlainObjectBase<DerivedP> & P,
-    const Eigen::PlainObjectBase<DerivedN> & N,
+    const Eigen::MatrixBase<DerivedV> & V,
+    const Eigen::MatrixBase<DerivedF> & F,
+    const Eigen::MatrixBase<DerivedP> & P,
+    const Eigen::MatrixBase<DerivedN> & N,
     const int num_samples,
-    Eigen::PlainObjectBase<DerivedS> & S);
+    Eigen::MatrixBase<DerivedS> & S);
   //   per_face  whether to compute per face (S is #F by 1) or per vertex (S is
   //     #V by 1)
   template <
@@ -81,11 +81,11 @@ namespace igl
     typename DerivedF,
     typename DerivedS>
   IGL_INLINE void shape_diameter_function(
-    const Eigen::PlainObjectBase<DerivedV> & V,
-    const Eigen::PlainObjectBase<DerivedF> & F,
+    const Eigen::MatrixBase<DerivedV> & V,
+    const Eigen::MatrixBase<DerivedF> & F,
     const bool per_face,
     const int num_samples,
-    Eigen::PlainObjectBase<DerivedS> & S);
+    Eigen::MatrixBase<DerivedS> & S);
 };
 #ifndef IGL_STATIC_LIBRARY
 #  include "shape_diameter_function.cpp"

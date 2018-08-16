@@ -33,20 +33,20 @@ namespace igl
     typename DerivedS,
     typename DerivedV>
   IGL_INLINE void polar_svd(
-    const Eigen::PlainObjectBase<DerivedA> & A,
-    Eigen::PlainObjectBase<DerivedR> & R,
-    Eigen::PlainObjectBase<DerivedT> & T,
-    Eigen::PlainObjectBase<DerivedU> & U,
-    Eigen::PlainObjectBase<DerivedS> & S,
-    Eigen::PlainObjectBase<DerivedV> & V);
+    const Eigen::MatrixBase<DerivedA> & A,
+    Eigen::MatrixBase<DerivedR> & R,
+    Eigen::MatrixBase<DerivedT> & T,
+    Eigen::MatrixBase<DerivedU> & U,
+    Eigen::MatrixBase<DerivedS> & S,
+    Eigen::MatrixBase<DerivedV> & V);
   template <
     typename DerivedA,
     typename DerivedR,
     typename DerivedT>
   IGL_INLINE void polar_svd(
-    const Eigen::PlainObjectBase<DerivedA> & A,
-    Eigen::PlainObjectBase<DerivedR> & R,
-    Eigen::PlainObjectBase<DerivedT> & T);
+    const Eigen::MatrixBase<DerivedA> & A,
+    Eigen::MatrixBase<DerivedR> & R,
+    Eigen::MatrixBase<DerivedT> & T);
 }
 #ifndef IGL_STATIC_LIBRARY
 #  include "polar_svd.cpp"

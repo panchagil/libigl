@@ -27,8 +27,8 @@ namespace igl
   //
   template <typename DerivedC, typename DerivedE>
   IGL_INLINE void directed_edge_orientations(
-    const Eigen::PlainObjectBase<DerivedC> & C,
-    const Eigen::PlainObjectBase<DerivedE> & E,
+    const Eigen::MatrixBase<DerivedC> & C,
+    const Eigen::MatrixBase<DerivedE> & E,
     std::vector<
       Eigen::Quaterniond,Eigen::aligned_allocator<Eigen::Quaterniond> > & Q);
 }

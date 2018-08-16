@@ -15,10 +15,10 @@
 template <typename DerivedV, typename DerivedF, typename DerivedB, typename DerivedFI>
 IGL_INLINE void igl::random_points_on_mesh(
   const int n,
-  const Eigen::PlainObjectBase<DerivedV > & V,
-  const Eigen::PlainObjectBase<DerivedF > & F,
-  Eigen::PlainObjectBase<DerivedB > & B,
-  Eigen::PlainObjectBase<DerivedFI > & FI)
+  const Eigen::MatrixBase<DerivedV > & V,
+  const Eigen::MatrixBase<DerivedF > & F,
+  Eigen::MatrixBase<DerivedB > & B,
+  Eigen::MatrixBase<DerivedFI > & FI)
 {
   using namespace Eigen;
   using namespace std;
@@ -50,10 +50,10 @@ IGL_INLINE void igl::random_points_on_mesh(
 template <typename DerivedV, typename DerivedF, typename ScalarB, typename DerivedFI>
 IGL_INLINE void igl::random_points_on_mesh(
   const int n,
-  const Eigen::PlainObjectBase<DerivedV > & V,
-  const Eigen::PlainObjectBase<DerivedF > & F,
+  const Eigen::MatrixBase<DerivedV > & V,
+  const Eigen::MatrixBase<DerivedF > & F,
   Eigen::SparseMatrix<ScalarB > & B,
-  Eigen::PlainObjectBase<DerivedFI > & FI)
+  Eigen::MatrixBase<DerivedFI > & FI)
 {
   using namespace Eigen;
   using namespace std;
@@ -78,6 +78,6 @@ IGL_INLINE void igl::random_points_on_mesh(
 
 #ifdef IGL_STATIC_LIBRARY
 // Explicit template instantiation
-template void igl::random_points_on_mesh<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, double, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(int, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::SparseMatrix<double, 0, int>&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&);
-template void igl::random_points_on_mesh<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, double, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(int, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::SparseMatrix<double, 0, int>&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&);
+template void igl::random_points_on_mesh<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, double, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(int, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::SparseMatrix<double, 0, int>&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&);
+template void igl::random_points_on_mesh<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, double, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(int, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::SparseMatrix<double, 0, int>&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&);
 #endif

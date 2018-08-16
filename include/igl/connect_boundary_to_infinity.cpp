@@ -10,16 +10,16 @@
 
 template <typename DerivedF, typename DerivedFO>
 IGL_INLINE void igl::connect_boundary_to_infinity(
-  const Eigen::PlainObjectBase<DerivedF> & F,
-  Eigen::PlainObjectBase<DerivedFO> & FO)
+  const Eigen::MatrixBase<DerivedF> & F,
+  Eigen::MatrixBase<DerivedFO> & FO)
 {
   return connect_boundary_to_infinity(F,F.maxCoeff(),FO);
 }
 template <typename DerivedF, typename DerivedFO>
 IGL_INLINE void igl::connect_boundary_to_infinity(
-  const Eigen::PlainObjectBase<DerivedF> & F,
+  const Eigen::MatrixBase<DerivedF> & F,
   const typename DerivedF::Scalar inf_index,
-  Eigen::PlainObjectBase<DerivedFO> & FO)
+  Eigen::MatrixBase<DerivedFO> & FO)
 {
   // Determine boundary edges
   Eigen::Matrix<typename DerivedFO::Scalar,Eigen::Dynamic,Eigen::Dynamic> O;
@@ -37,10 +37,10 @@ template <
   typename DerivedVO, 
   typename DerivedFO>
 IGL_INLINE void igl::connect_boundary_to_infinity(
-  const Eigen::PlainObjectBase<DerivedV> & V,
-  const Eigen::PlainObjectBase<DerivedF> & F,
-  Eigen::PlainObjectBase<DerivedVO> & VO,
-  Eigen::PlainObjectBase<DerivedFO> & FO)
+  const Eigen::MatrixBase<DerivedV> & V,
+  const Eigen::MatrixBase<DerivedF> & F,
+  Eigen::MatrixBase<DerivedVO> & VO,
+  Eigen::MatrixBase<DerivedFO> & FO)
 {
   typename DerivedV::Index inf_index = V.rows();
   connect_boundary_to_infinity(F,inf_index,FO);
@@ -51,5 +51,5 @@ IGL_INLINE void igl::connect_boundary_to_infinity(
 }
 
 #ifdef IGL_STATIC_LIBRARY
-template void igl::connect_boundary_to_infinity<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&);
+template void igl::connect_boundary_to_infinity<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&);
 #endif

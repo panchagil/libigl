@@ -28,19 +28,19 @@ namespace igl
   template <typename DerivedV, typename DerivedF, typename DerivedB, typename DerivedFI>
   IGL_INLINE void random_points_on_mesh(
     const int n,
-    const Eigen::PlainObjectBase<DerivedV > & V,
-    const Eigen::PlainObjectBase<DerivedF > & F,
-    Eigen::PlainObjectBase<DerivedB > & B,
-    Eigen::PlainObjectBase<DerivedFI > & FI);
+    const Eigen::MatrixBase<DerivedV > & V,
+    const Eigen::MatrixBase<DerivedF > & F,
+    Eigen::MatrixBase<DerivedB > & B,
+    Eigen::MatrixBase<DerivedFI > & FI);
   // Outputs:
   //   B n by #V sparse matrix so that  B*V produces a list of sample points
   template <typename DerivedV, typename DerivedF, typename ScalarB, typename DerivedFI>
   IGL_INLINE void random_points_on_mesh(
     const int n,
-    const Eigen::PlainObjectBase<DerivedV > & V,
-    const Eigen::PlainObjectBase<DerivedF > & F,
+    const Eigen::MatrixBase<DerivedV > & V,
+    const Eigen::MatrixBase<DerivedF > & F,
     Eigen::SparseMatrix<ScalarB > & B,
-    Eigen::PlainObjectBase<DerivedFI > & FI);
+    Eigen::MatrixBase<DerivedFI > & FI);
 }
 
 #ifndef IGL_STATIC_LIBRARY

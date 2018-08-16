@@ -40,15 +40,15 @@ namespace igl
     typename DerivedIC>
   IGL_INLINE void unique(
       const Eigen::DenseBase<DerivedA> & A,
-      Eigen::PlainObjectBase<DerivedC> & C,
-      Eigen::PlainObjectBase<DerivedIA> & IA,
-      Eigen::PlainObjectBase<DerivedIC> & IC);
+      Eigen::MatrixBase<DerivedC> & C,
+      Eigen::MatrixBase<DerivedIA> & IA,
+      Eigen::MatrixBase<DerivedIC> & IC);
   template <
     typename DerivedA,
     typename DerivedC>
   IGL_INLINE void unique(
       const Eigen::DenseBase<DerivedA> & A,
-      Eigen::PlainObjectBase<DerivedC> & C);
+      Eigen::MatrixBase<DerivedC> & C);
 }
 
 #ifndef IGL_STATIC_LIBRARY

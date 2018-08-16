@@ -31,8 +31,8 @@ namespace igl
         typename DerivedF>
       IGL_INLINE void polyhedron_to_mesh(
         const Polyhedron & poly,
-        Eigen::PlainObjectBase<DerivedV> & V,
-        Eigen::PlainObjectBase<DerivedF> & F);
+        Eigen::MatrixBase<DerivedV> & V,
+        Eigen::MatrixBase<DerivedF> & F);
     }
   }
 }

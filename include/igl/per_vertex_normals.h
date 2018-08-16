@@ -40,7 +40,7 @@ namespace igl
     const Eigen::MatrixBase<DerivedV>& V,
     const Eigen::MatrixBase<DerivedF>& F,
     const igl::PerVertexNormalsWeightingType weighting,
-    Eigen::PlainObjectBase<DerivedN> & N);
+    Eigen::MatrixBase<DerivedN> & N);
   // Without weighting
   template <
     typename DerivedV, 
@@ -49,7 +49,7 @@ namespace igl
   IGL_INLINE void per_vertex_normals(
     const Eigen::MatrixBase<DerivedV>& V,
     const Eigen::MatrixBase<DerivedF>& F,
-    Eigen::PlainObjectBase<DerivedN> & N);
+    Eigen::MatrixBase<DerivedN> & N);
   // Inputs:
   //   FN  #F by 3 matrix of face (triangle) normals
   template <typename DerivedV, typename DerivedF, typename DerivedFN, typename DerivedN>
@@ -58,7 +58,7 @@ namespace igl
     const Eigen::MatrixBase<DerivedF>& F,
     const PerVertexNormalsWeightingType weighting,
     const Eigen::MatrixBase<DerivedFN>& FN,
-    Eigen::PlainObjectBase<DerivedN> & N);
+    Eigen::MatrixBase<DerivedN> & N);
   // Without weighting
   template <
     typename DerivedV, 
@@ -69,7 +69,7 @@ namespace igl
     const Eigen::MatrixBase<DerivedV>& V,
     const Eigen::MatrixBase<DerivedF>& F,
     const Eigen::MatrixBase<DerivedFN>& FN,
-    Eigen::PlainObjectBase<DerivedN> & N);
+    Eigen::MatrixBase<DerivedN> & N);
 
 }
 

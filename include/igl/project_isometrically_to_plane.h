@@ -33,10 +33,10 @@ namespace igl
     typename DerivedUF,
     typename Scalar>
   IGL_INLINE void project_isometrically_to_plane(
-    const Eigen::PlainObjectBase<DerivedV> & V, 
-    const Eigen::PlainObjectBase<DerivedF> & F, 
-    Eigen::PlainObjectBase<DerivedU> & U,
-    Eigen::PlainObjectBase<DerivedUF> & UF, 
+    const Eigen::MatrixBase<DerivedV> & V, 
+    const Eigen::MatrixBase<DerivedF> & F, 
+    Eigen::MatrixBase<DerivedU> & U,
+    Eigen::MatrixBase<DerivedUF> & UF, 
     Eigen::SparseMatrix<Scalar>& I);
 }
 

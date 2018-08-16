@@ -9,8 +9,8 @@
 
 template <typename DerivedC, typename DerivedE>
 IGL_INLINE void igl::directed_edge_orientations(
-  const Eigen::PlainObjectBase<DerivedC> & C,
-  const Eigen::PlainObjectBase<DerivedE> & E,
+  const Eigen::MatrixBase<DerivedC> & C,
+  const Eigen::MatrixBase<DerivedE> & E,
   std::vector<
       Eigen::Quaterniond,Eigen::aligned_allocator<Eigen::Quaterniond> > & Q)
 {
@@ -25,5 +25,5 @@ IGL_INLINE void igl::directed_edge_orientations(
 
 #ifdef IGL_STATIC_LIBRARY
 // Explicit template instantiation
-template void igl::directed_edge_orientations<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, std::vector<Eigen::Quaternion<double, 0>, Eigen::aligned_allocator<Eigen::Quaternion<double, 0> > >&);
+template void igl::directed_edge_orientations<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, std::vector<Eigen::Quaternion<double, 0>, Eigen::aligned_allocator<Eigen::Quaternion<double, 0> > >&);
 #endif

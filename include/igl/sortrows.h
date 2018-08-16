@@ -30,8 +30,8 @@ namespace igl
   IGL_INLINE void sortrows(
     const Eigen::DenseBase<DerivedX>& X,
     const bool ascending,
-    Eigen::PlainObjectBase<DerivedX>& Y,
-    Eigen::PlainObjectBase<DerivedI>& I);
+    Eigen::MatrixBase<DerivedX>& Y,
+    Eigen::MatrixBase<DerivedI>& I);
 }
 
 #ifndef IGL_STATIC_LIBRARY

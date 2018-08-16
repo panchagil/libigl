@@ -28,8 +28,8 @@ namespace igl
   IGL_INLINE void setdiff(
     const Eigen::DenseBase<DerivedA> & A,
     const Eigen::DenseBase<DerivedB> & B,
-    Eigen::PlainObjectBase<DerivedC> & C,
-    Eigen::PlainObjectBase<DerivedIA> & IA);
+    Eigen::MatrixBase<DerivedC> & C,
+    Eigen::MatrixBase<DerivedIA> & IA);
 }
 
 #ifndef IGL_STATIC_LIBRARY

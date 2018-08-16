@@ -37,13 +37,13 @@ namespace igl
         typename DerivedVC,
         typename DerivedFC>
       IGL_INLINE void mesh_boolean(
-        const Eigen::PlainObjectBase<DerivedVA > & VA,
-        const Eigen::PlainObjectBase<DerivedFA > & FA,
-        const Eigen::PlainObjectBase<DerivedVB > & VB,
-        const Eigen::PlainObjectBase<DerivedFB > & FB,
+        const Eigen::MatrixBase<DerivedVA > & VA,
+        const Eigen::MatrixBase<DerivedFA > & FA,
+        const Eigen::MatrixBase<DerivedVB > & VB,
+        const Eigen::MatrixBase<DerivedFB > & FB,
         const MeshBooleanType & type,
-        Eigen::PlainObjectBase<DerivedVC > & VC,
-        Eigen::PlainObjectBase<DerivedFC > & FC);
+        Eigen::MatrixBase<DerivedVC > & VC,
+        Eigen::MatrixBase<DerivedFC > & FC);
     }
   }
 }

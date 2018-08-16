@@ -18,12 +18,12 @@ template <
   typename DerivedI,
   typename DerivedC>
 IGL_INLINE void igl::copyleft::cgal::point_mesh_squared_distance(
-  const Eigen::PlainObjectBase<DerivedP> & P,
-  const Eigen::PlainObjectBase<DerivedV> & V,
-  const Eigen::PlainObjectBase<DerivedF> & F,
-        Eigen::PlainObjectBase<DerivedsqrD> & sqrD,
-        Eigen::PlainObjectBase<DerivedI> & I,
-        Eigen::PlainObjectBase<DerivedC> & C)
+  const Eigen::MatrixBase<DerivedP> & P,
+  const Eigen::MatrixBase<DerivedV> & V,
+  const Eigen::MatrixBase<DerivedF> & F,
+        Eigen::MatrixBase<DerivedsqrD> & sqrD,
+        Eigen::MatrixBase<DerivedI> & I,
+        Eigen::MatrixBase<DerivedC> & C)
 {
   using namespace std;
   typedef CGAL::Triangle_3<Kernel> Triangle_3; 
@@ -39,8 +39,8 @@ IGL_INLINE void igl::copyleft::cgal::point_mesh_squared_distance(
 
 template <typename Kernel, typename DerivedV, typename DerivedF>
 IGL_INLINE void igl::copyleft::cgal::point_mesh_squared_distance_precompute(
-  const Eigen::PlainObjectBase<DerivedV> & V,
-  const Eigen::PlainObjectBase<DerivedF> & F,
+  const Eigen::MatrixBase<DerivedV> & V,
+  const Eigen::MatrixBase<DerivedF> & F,
   CGAL::AABB_tree<
     CGAL::AABB_traits<Kernel, 
       CGAL::AABB_triangle_primitive<Kernel, 
@@ -92,7 +92,7 @@ template <
   typename DerivedI,
   typename DerivedC>
 IGL_INLINE void igl::copyleft::cgal::point_mesh_squared_distance(
-  const Eigen::PlainObjectBase<DerivedP> & P,
+  const Eigen::MatrixBase<DerivedP> & P,
   const CGAL::AABB_tree<
     CGAL::AABB_traits<Kernel, 
       CGAL::AABB_triangle_primitive<Kernel, 
@@ -101,9 +101,9 @@ IGL_INLINE void igl::copyleft::cgal::point_mesh_squared_distance(
     >
   > & tree,
   const std::vector<CGAL::Triangle_3<Kernel> > & T,
-  Eigen::PlainObjectBase<DerivedsqrD> & sqrD,
-  Eigen::PlainObjectBase<DerivedI> & I,
-  Eigen::PlainObjectBase<DerivedC> & C)
+  Eigen::MatrixBase<DerivedsqrD> & sqrD,
+  Eigen::MatrixBase<DerivedI> & I,
+  Eigen::MatrixBase<DerivedC> & C)
 {
   typedef CGAL::Triangle_3<Kernel> Triangle_3; 
   typedef typename std::vector<Triangle_3>::iterator Iterator;
@@ -133,6 +133,6 @@ IGL_INLINE void igl::copyleft::cgal::point_mesh_squared_distance(
 
 #ifdef IGL_STATIC_LIBRARY
 // Explicit template instantiation
-template void igl::copyleft::cgal::point_mesh_squared_distance<CGAL::Epeck, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, 1, 0, -1, 1>, Eigen::Matrix<int, -1, 1, 0, -1, 1>, Eigen::Matrix<double, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> >&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&);
-template void igl::copyleft::cgal::point_mesh_squared_distance<CGAL::Epeck,   Eigen::Matrix<CGAL::Lazy_exact_nt<CGAL::Gmpq>, -1, 3, 0, -1, 3>,   Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1,   -1>, Eigen::Matrix<CGAL::Lazy_exact_nt<CGAL::Gmpq>, -1, 1, 0, -1, 1>,   Eigen::Matrix<int, -1, 1, 0, -1, 1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>   >(Eigen::PlainObjectBase<Eigen::Matrix<CGAL::Lazy_exact_nt<CGAL::Gmpq>, -1, 3,   0, -1, 3> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0,   -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1>   > const&,   Eigen::PlainObjectBase<Eigen::Matrix<CGAL::Lazy_exact_nt<CGAL::Gmpq>, -1, 1,   0, -1, 1> >&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&,   Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&);
+template void igl::copyleft::cgal::point_mesh_squared_distance<CGAL::Epeck, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, 1, 0, -1, 1>, Eigen::Matrix<int, -1, 1, 0, -1, 1>, Eigen::Matrix<double, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> >&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&);
+template void igl::copyleft::cgal::point_mesh_squared_distance<CGAL::Epeck,   Eigen::Matrix<CGAL::Lazy_exact_nt<CGAL::Gmpq>, -1, 3, 0, -1, 3>,   Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1,   -1>, Eigen::Matrix<CGAL::Lazy_exact_nt<CGAL::Gmpq>, -1, 1, 0, -1, 1>,   Eigen::Matrix<int, -1, 1, 0, -1, 1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>   >(Eigen::MatrixBase<Eigen::Matrix<CGAL::Lazy_exact_nt<CGAL::Gmpq>, -1, 3,   0, -1, 3> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0,   -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1>   > const&,   Eigen::MatrixBase<Eigen::Matrix<CGAL::Lazy_exact_nt<CGAL::Gmpq>, -1, 1,   0, -1, 1> >&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&,   Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&);
 #endif

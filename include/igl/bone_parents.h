@@ -20,8 +20,8 @@ namespace igl
   //
   template <typename DerivedBE, typename DerivedP>
   IGL_INLINE void bone_parents(
-    const Eigen::PlainObjectBase<DerivedBE>& BE,
-    Eigen::PlainObjectBase<DerivedP>& P);
+    const Eigen::MatrixBase<DerivedBE>& BE,
+    Eigen::MatrixBase<DerivedP>& P);
 }
 
 #ifndef IGL_STATIC_LIBRARY

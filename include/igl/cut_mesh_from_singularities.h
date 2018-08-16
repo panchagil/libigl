@@ -30,10 +30,10 @@ namespace igl
     typename DerivedM, 
     typename DerivedO> 
   IGL_INLINE void cut_mesh_from_singularities(
-    const Eigen::PlainObjectBase<DerivedV> &V, 
-    const Eigen::PlainObjectBase<DerivedF> &F, 
-    const Eigen::PlainObjectBase<DerivedM> &MMatch,
-    Eigen::PlainObjectBase<DerivedO> &seams);
+    const Eigen::MatrixBase<DerivedV> &V, 
+    const Eigen::MatrixBase<DerivedF> &F, 
+    const Eigen::MatrixBase<DerivedM> &MMatch,
+    Eigen::MatrixBase<DerivedO> &seams);
 }
 #ifndef IGL_STATIC_LIBRARY
 #include "cut_mesh_from_singularities.cpp"

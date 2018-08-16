@@ -48,12 +48,12 @@ namespace igl
 
     template <typename DerivedV, typename DerivedF, typename DerivedU>
     IGL_INLINE void miq(
-      const Eigen::PlainObjectBase<DerivedV> &V,
-      const Eigen::PlainObjectBase<DerivedF> &F,
-      const Eigen::PlainObjectBase<DerivedV> &PD1,
-      const Eigen::PlainObjectBase<DerivedV> &PD2,
-      Eigen::PlainObjectBase<DerivedU> &UV,
-      Eigen::PlainObjectBase<DerivedF> &FUV,
+      const Eigen::MatrixBase<DerivedV> &V,
+      const Eigen::MatrixBase<DerivedF> &F,
+      const Eigen::MatrixBase<DerivedV> &PD1,
+      const Eigen::MatrixBase<DerivedV> &PD2,
+      Eigen::MatrixBase<DerivedU> &UV,
+      Eigen::MatrixBase<DerivedF> &FUV,
       double scale = 30.0,
       double stiffness = 5.0,
       bool direct_round = false,
@@ -73,15 +73,15 @@ namespace igl
     // Seams:                      #F by 3 list of per-corner flag that denotes seams
 
     template <typename DerivedV, typename DerivedF, typename DerivedU>
-    IGL_INLINE void miq(const Eigen::PlainObjectBase<DerivedV> &V,
-      const Eigen::PlainObjectBase<DerivedF> &F,
-      const Eigen::PlainObjectBase<DerivedV> &PD1_combed,
-      const Eigen::PlainObjectBase<DerivedV> &PD2_combed,
+    IGL_INLINE void miq(const Eigen::MatrixBase<DerivedV> &V,
+      const Eigen::MatrixBase<DerivedF> &F,
+      const Eigen::MatrixBase<DerivedV> &PD1_combed,
+      const Eigen::MatrixBase<DerivedV> &PD2_combed,
       const Eigen::Matrix<int, Eigen::Dynamic, 3> &MMatch,
       const Eigen::Matrix<int, Eigen::Dynamic, 1> &Singular,
       const Eigen::Matrix<int, Eigen::Dynamic, 3> &Seams,
-      Eigen::PlainObjectBase<DerivedU> &UV,
-      Eigen::PlainObjectBase<DerivedF> &FUV,
+      Eigen::MatrixBase<DerivedU> &UV,
+      Eigen::MatrixBase<DerivedF> &FUV,
       double GradientSize = 30.0,
       double Stiffness = 5.0,
       bool DirectRound = false,

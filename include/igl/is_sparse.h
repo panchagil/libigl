@@ -25,7 +25,7 @@ namespace igl
     const Eigen::SparseMatrix<T> & A);
   template <typename DerivedA>
   IGL_INLINE bool is_sparse(
-    const Eigen::PlainObjectBase<DerivedA>& A);
+    const Eigen::MatrixBase<DerivedA>& A);
 }
 
 #ifndef IGL_STATIC_LIBRARY

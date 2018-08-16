@@ -38,8 +38,8 @@ namespace igl
       const Eigen::MatrixBase<DerivedE> & E,
       const Eigen::MatrixBase<DerivedH> & H,
       const std::string flags,
-      Eigen::PlainObjectBase<DerivedV2> & V2,
-      Eigen::PlainObjectBase<DerivedF2> & F2);
+      Eigen::MatrixBase<DerivedV2> & V2,
+      Eigen::MatrixBase<DerivedF2> & F2);
         
 		// Triangulate the interior of a polygon using the triangle library.
     //
@@ -73,10 +73,10 @@ namespace igl
       const Eigen::MatrixBase<DerivedVM> & VM,
       const Eigen::MatrixBase<DerivedEM> & EM,
       const std::string flags,
-      Eigen::PlainObjectBase<DerivedV2> & V2,
-      Eigen::PlainObjectBase<DerivedF2> & F2,
-      Eigen::PlainObjectBase<DerivedVM2> & VM2,
-      Eigen::PlainObjectBase<DerivedEM2> & EM2);
+      Eigen::MatrixBase<DerivedV2> & V2,
+      Eigen::MatrixBase<DerivedF2> & F2,
+      Eigen::MatrixBase<DerivedVM2> & VM2,
+      Eigen::MatrixBase<DerivedEM2> & EM2);
   }
 }
 

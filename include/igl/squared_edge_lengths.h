@@ -38,7 +38,7 @@ namespace igl
   IGL_INLINE void squared_edge_lengths(
     const Eigen::MatrixBase<DerivedV>& V,
     const Eigen::MatrixBase<DerivedF>& F,
-    Eigen::PlainObjectBase<DerivedL>& L);
+    Eigen::MatrixBase<DerivedL>& L);
 }
 
 #ifndef IGL_STATIC_LIBRARY

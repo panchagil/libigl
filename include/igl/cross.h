@@ -30,9 +30,9 @@ namespace igl
     typename DerivedB,
     typename DerivedC>
   IGL_INLINE void cross(
-    const Eigen::PlainObjectBase<DerivedA> & A,
-    const Eigen::PlainObjectBase<DerivedB> & B,
-    Eigen::PlainObjectBase<DerivedC> & C);
+    const Eigen::MatrixBase<DerivedA> & A,
+    const Eigen::MatrixBase<DerivedB> & B,
+    Eigen::MatrixBase<DerivedC> & C);
 }
 
 #ifndef IGL_STATIC_LIBRARY

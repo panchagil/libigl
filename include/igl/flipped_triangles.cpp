@@ -11,9 +11,9 @@
 #include <vector>
 template <typename DerivedV, typename DerivedF, typename DerivedX>
 IGL_INLINE void igl::flipped_triangles(
-  const Eigen::PlainObjectBase<DerivedV> & V,
-  const Eigen::PlainObjectBase<DerivedF> & F,
-  Eigen::PlainObjectBase<DerivedX> & X)
+  const Eigen::MatrixBase<DerivedV> & V,
+  const Eigen::MatrixBase<DerivedF> & F,
+  Eigen::MatrixBase<DerivedX> & X)
 {
   assert(V.cols() == 2 && "V should contain 2D positions");
   std::vector<typename DerivedX::Scalar> flip_idx;
@@ -40,8 +40,8 @@ IGL_INLINE void igl::flipped_triangles(
 
 template <typename DerivedV, typename DerivedF>
 IGL_INLINE Eigen::VectorXi igl::flipped_triangles(
-  const Eigen::PlainObjectBase<DerivedV> & V,
-  const Eigen::PlainObjectBase<DerivedF> & F)
+  const Eigen::MatrixBase<DerivedV> & V,
+  const Eigen::MatrixBase<DerivedF> & F)
 {
   Eigen::VectorXi X;
   flipped_triangles(V,F,X);
@@ -50,6 +50,6 @@ IGL_INLINE Eigen::VectorXi igl::flipped_triangles(
 
 #ifdef IGL_STATIC_LIBRARY
 // Explicit template instantiation
-template void igl::flipped_triangles<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&);
-template Eigen::Matrix<int, -1, 1, 0, -1, 1> igl::flipped_triangles<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&);
+template void igl::flipped_triangles<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&);
+template Eigen::Matrix<int, -1, 1, 0, -1, 1> igl::flipped_triangles<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&);
 #endif

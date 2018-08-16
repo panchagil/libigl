@@ -32,8 +32,8 @@ namespace igl
         typename DerivedF
         >
       IGL_INLINE void delaunay_triangulation(
-          const Eigen::PlainObjectBase<DerivedV>& V,
-          Eigen::PlainObjectBase<DerivedF>& F);
+          const Eigen::MatrixBase<DerivedV>& V,
+          Eigen::MatrixBase<DerivedF>& F);
     }
   }
 }

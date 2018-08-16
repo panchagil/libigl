@@ -20,12 +20,12 @@ namespace igl
   //    B  m by n matrix
   template <typename DerivedA, typename DerivedB>
   IGL_INLINE void mod(
-    const Eigen::PlainObjectBase<DerivedA> & A,
+    const Eigen::MatrixBase<DerivedA> & A,
     const int base,
-    Eigen::PlainObjectBase<DerivedB> & B);
+    Eigen::MatrixBase<DerivedB> & B);
   template <typename DerivedA>
   IGL_INLINE DerivedA mod(
-    const Eigen::PlainObjectBase<DerivedA> & A, const int base);
+    const Eigen::MatrixBase<DerivedA> & A, const int base);
 }
 #ifndef IGL_STATIC_LIBRARY
 #include "mod.cpp"

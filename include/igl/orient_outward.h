@@ -29,11 +29,11 @@ namespace igl
     typename DerivedFF, 
     typename DerivedI>
   IGL_INLINE void orient_outward(
-    const Eigen::PlainObjectBase<DerivedV> & V,
-    const Eigen::PlainObjectBase<DerivedF> & F,
-    const Eigen::PlainObjectBase<DerivedC> & C,
-    Eigen::PlainObjectBase<DerivedFF> & FF,
-    Eigen::PlainObjectBase<DerivedI> & I);
+    const Eigen::MatrixBase<DerivedV> & V,
+    const Eigen::MatrixBase<DerivedF> & F,
+    const Eigen::MatrixBase<DerivedC> & C,
+    Eigen::MatrixBase<DerivedFF> & FF,
+    Eigen::MatrixBase<DerivedI> & I);
 };
 
 #ifndef IGL_STATIC_LIBRARY

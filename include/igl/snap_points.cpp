@@ -16,11 +16,11 @@ template <
   typename DerivedminD, 
   typename DerivedVI>
 IGL_INLINE void igl::snap_points(
-  const Eigen::PlainObjectBase<DerivedC > & C,
-  const Eigen::PlainObjectBase<DerivedV > & V,
-  Eigen::PlainObjectBase<DerivedI > & I,
-  Eigen::PlainObjectBase<DerivedminD > & minD,
-  Eigen::PlainObjectBase<DerivedVI > & VI)
+  const Eigen::MatrixBase<DerivedC > & C,
+  const Eigen::MatrixBase<DerivedV > & V,
+  Eigen::MatrixBase<DerivedI > & I,
+  Eigen::MatrixBase<DerivedminD > & minD,
+  Eigen::MatrixBase<DerivedVI > & VI)
 {
   snap_points(C,V,I,minD);
   const int m = C.rows();
@@ -37,10 +37,10 @@ template <
   typename DerivedI, 
   typename DerivedminD>
 IGL_INLINE void igl::snap_points(
-  const Eigen::PlainObjectBase<DerivedC > & C,
-  const Eigen::PlainObjectBase<DerivedV > & V,
-  Eigen::PlainObjectBase<DerivedI > & I,
-  Eigen::PlainObjectBase<DerivedminD > & minD)
+  const Eigen::MatrixBase<DerivedC > & C,
+  const Eigen::MatrixBase<DerivedV > & V,
+  Eigen::MatrixBase<DerivedI > & I,
+  Eigen::MatrixBase<DerivedminD > & minD)
 {
   using namespace std;
   const int n = V.rows();
@@ -72,9 +72,9 @@ template <
   typename DerivedV, 
   typename DerivedI>
 IGL_INLINE void igl::snap_points(
-  const Eigen::PlainObjectBase<DerivedC > & C,
-  const Eigen::PlainObjectBase<DerivedV > & V,
-  Eigen::PlainObjectBase<DerivedI > & I)
+  const Eigen::MatrixBase<DerivedC > & C,
+  const Eigen::MatrixBase<DerivedV > & V,
+  Eigen::MatrixBase<DerivedI > & I)
 {
   Eigen::Matrix<typename DerivedC::Scalar,DerivedC::RowsAtCompileTime,1> minD;
   return igl::snap_points(C,V,I,minD);
@@ -83,7 +83,7 @@ IGL_INLINE void igl::snap_points(
 
 #ifdef IGL_STATIC_LIBRARY
 // Explicit template instantiation
-template void igl::snap_points<Eigen::Matrix<double, 1, 3, 1, 1, 3>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 1, 0, -1, 1>, Eigen::Matrix<double, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, 1, 3, 1, 1, 3> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> >&);
-template void igl::snap_points<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&);
+template void igl::snap_points<Eigen::Matrix<double, 1, 3, 1, 1, 3>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 1, 0, -1, 1>, Eigen::Matrix<double, -1, 1, 0, -1, 1> >(Eigen::MatrixBase<Eigen::Matrix<double, 1, 3, 1, 1, 3> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&, Eigen::MatrixBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> >&);
+template void igl::snap_points<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&);
 #endif
 

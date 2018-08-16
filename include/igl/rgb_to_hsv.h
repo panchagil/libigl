@@ -25,8 +25,8 @@ namespace igl
   IGL_INLINE void rgb_to_hsv(const R * rgb, H * hsv);
   template <typename DerivedR,typename DerivedH>
   IGL_INLINE void rgb_to_hsv(
-    const Eigen::PlainObjectBase<DerivedR> & R,
-    Eigen::PlainObjectBase<DerivedH> & H);
+    const Eigen::MatrixBase<DerivedR> & R,
+    Eigen::MatrixBase<DerivedH> & H);
 };
 
 #ifndef IGL_STATIC_LIBRARY

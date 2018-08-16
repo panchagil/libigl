@@ -14,8 +14,8 @@
 
 template <typename DerivedF, typename DerivedC, typename AScalar>
 IGL_INLINE void igl::orientable_patches(
-  const Eigen::PlainObjectBase<DerivedF> & F,
-  Eigen::PlainObjectBase<DerivedC> & C,
+  const Eigen::MatrixBase<DerivedF> & F,
+  Eigen::MatrixBase<DerivedC> & C,
   Eigen::SparseMatrix<AScalar> & A)
 {
   using namespace Eigen;
@@ -91,8 +91,8 @@ IGL_INLINE void igl::orientable_patches(
 
 template <typename DerivedF, typename DerivedC>
 IGL_INLINE void igl::orientable_patches(
-  const Eigen::PlainObjectBase<DerivedF> & F,
-  Eigen::PlainObjectBase<DerivedC> & C)
+  const Eigen::MatrixBase<DerivedF> & F,
+  Eigen::MatrixBase<DerivedC> & C)
 {
   Eigen::SparseMatrix<typename DerivedF::Scalar> A;
   return orientable_patches(F,C,A);
@@ -100,6 +100,6 @@ IGL_INLINE void igl::orientable_patches(
 
 #ifdef IGL_STATIC_LIBRARY
 // Explicit template instantiation
-template void igl::orientable_patches<Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 1, 0, -1, 1>, int>(Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&, Eigen::SparseMatrix<int, 0, int>&);
-template void igl::orientable_patches<Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&);
+template void igl::orientable_patches<Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 1, 0, -1, 1>, int>(Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&, Eigen::SparseMatrix<int, 0, int>&);
+template void igl::orientable_patches<Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&);
 #endif

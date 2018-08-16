@@ -79,10 +79,10 @@ namespace igl
     typename DerivedF,
     typename Derivedb>
   IGL_INLINE bool arap_precomputation(
-    const Eigen::PlainObjectBase<DerivedV> & V,
-    const Eigen::PlainObjectBase<DerivedF> & F,
+    const Eigen::MatrixBase<DerivedV> & V,
+    const Eigen::MatrixBase<DerivedF> & F,
     const int dim,
-    const Eigen::PlainObjectBase<Derivedb> & b,
+    const Eigen::MatrixBase<Derivedb> & b,
     ARAPData & data);
   // Inputs:
   //   bc  #b by dim list of boundary conditions
@@ -92,9 +92,9 @@ namespace igl
     typename Derivedbc,
     typename DerivedU>
   IGL_INLINE bool arap_solve(
-    const Eigen::PlainObjectBase<Derivedbc> & bc,
+    const Eigen::MatrixBase<Derivedbc> & bc,
     ARAPData & data,
-    Eigen::PlainObjectBase<DerivedU> & U);
+    Eigen::MatrixBase<DerivedU> & U);
 };
 
 #ifndef IGL_STATIC_LIBRARY

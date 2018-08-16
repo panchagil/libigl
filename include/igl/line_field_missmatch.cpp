@@ -27,10 +27,10 @@ class MissMatchCalculatorLine
 {
 public:
 
-    const Eigen::PlainObjectBase<DerivedV> &V;
-    const Eigen::PlainObjectBase<DerivedF> &F;
-    const Eigen::PlainObjectBase<DerivedV> &PD1;
-    const Eigen::PlainObjectBase<DerivedV> &PD2;
+    const Eigen::MatrixBase<DerivedV> &V;
+    const Eigen::MatrixBase<DerivedF> &F;
+    const Eigen::MatrixBase<DerivedV> &PD1;
+    const Eigen::MatrixBase<DerivedV> &PD2;
     DerivedV N;
 
 private:
@@ -80,10 +80,10 @@ private:
 
 public:
 
-    inline MissMatchCalculatorLine(const Eigen::PlainObjectBase<DerivedV> &_V,
-                               const Eigen::PlainObjectBase<DerivedF> &_F,
-                               const Eigen::PlainObjectBase<DerivedV> &_PD1,
-                               const Eigen::PlainObjectBase<DerivedV> &_PD2
+    inline MissMatchCalculatorLine(const Eigen::MatrixBase<DerivedV> &_V,
+                               const Eigen::MatrixBase<DerivedF> &_F,
+                               const Eigen::MatrixBase<DerivedV> &_PD1,
+                               const Eigen::MatrixBase<DerivedV> &_PD2
                                ):
         V(_V),
         F(_F),
@@ -96,7 +96,7 @@ public:
         igl::triangle_triangle_adjacency(F,TT,TTi);
     }
 
-    inline void calculateMissmatchLine(Eigen::PlainObjectBase<DerivedO> &Handle_MMatch)
+    inline void calculateMissmatchLine(Eigen::MatrixBase<DerivedO> &Handle_MMatch)
     {
         Handle_MMatch.setConstant(F.rows(),3,-1);
         for (unsigned int i=0;i<F.rows();i++)
@@ -116,11 +116,11 @@ public:
 
 
 template <typename DerivedV, typename DerivedF, typename DerivedO>
-IGL_INLINE void igl::line_field_missmatch(const Eigen::PlainObjectBase<DerivedV> &V,
-                                const Eigen::PlainObjectBase<DerivedF> &F,
-                                const Eigen::PlainObjectBase<DerivedV> &PD1,
+IGL_INLINE void igl::line_field_missmatch(const Eigen::MatrixBase<DerivedV> &V,
+                                const Eigen::MatrixBase<DerivedF> &F,
+                                const Eigen::MatrixBase<DerivedV> &PD1,
                                 const bool isCombed,
-                                Eigen::PlainObjectBase<DerivedO> &missmatch)
+                                Eigen::MatrixBase<DerivedO> &missmatch)
 {
     DerivedV PD1_combed;
     DerivedV PD2_combed;

@@ -17,8 +17,8 @@ typename DerivedF,
 typename DerivedEMAP,
 typename uE2EType >
 IGL_INLINE void igl::extract_non_manifold_edge_curves(
-        const Eigen::PlainObjectBase<DerivedF>& F,
-        const Eigen::PlainObjectBase<DerivedEMAP>& /*EMAP*/,
+        const Eigen::MatrixBase<DerivedF>& F,
+        const Eigen::MatrixBase<DerivedEMAP>& /*EMAP*/,
         const std::vector<std::vector<uE2EType> >& uE2E,
         std::vector<std::vector<size_t> >& curves) {
     const size_t num_faces = F.rows();

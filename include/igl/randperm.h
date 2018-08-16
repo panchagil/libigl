@@ -20,7 +20,7 @@ namespace igl
   template <typename DerivedI>
   IGL_INLINE void randperm(
     const int n,
-    Eigen::PlainObjectBase<DerivedI> & I);
+    Eigen::MatrixBase<DerivedI> & I);
 }
 #ifndef IGL_STATIC_LIBRARY
 #  include "randperm.cpp"

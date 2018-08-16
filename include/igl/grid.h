@@ -24,7 +24,7 @@ namespace igl
     typename DerivedGV>
   IGL_INLINE void grid(
     const Eigen::MatrixBase<Derivedres> & res, 
-    Eigen::PlainObjectBase<DerivedGV> & GV);
+    Eigen::MatrixBase<DerivedGV> & GV);
 }
 #ifndef IGL_STATIC_LIBRARY
 #  include "grid.cpp"

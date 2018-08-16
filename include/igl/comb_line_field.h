@@ -27,10 +27,10 @@ namespace igl
 
 
   template <typename DerivedV, typename DerivedF>
-  IGL_INLINE void comb_line_field(const Eigen::PlainObjectBase<DerivedV> &V,
-                                  const Eigen::PlainObjectBase<DerivedF> &F,
-                                  const Eigen::PlainObjectBase<DerivedV> &PD1in,
-                                  Eigen::PlainObjectBase<DerivedV> &PD1out);
+  IGL_INLINE void comb_line_field(const Eigen::MatrixBase<DerivedV> &V,
+                                  const Eigen::MatrixBase<DerivedF> &F,
+                                  const Eigen::MatrixBase<DerivedV> &PD1in,
+                                  Eigen::MatrixBase<DerivedV> &PD1out);
 }
 #ifndef IGL_STATIC_LIBRARY
 #include "comb_line_field.cpp"

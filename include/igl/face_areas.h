@@ -26,7 +26,7 @@ namespace igl
   IGL_INLINE void face_areas(
     const Eigen::MatrixBase<DerivedV>& V,
     const Eigen::MatrixBase<DerivedT>& T,
-    Eigen::PlainObjectBase<DerivedA>& A);
+    Eigen::MatrixBase<DerivedA>& A);
   // Compute tet-mesh face areas from edge lengths.
   //
   // Inputs:
@@ -40,13 +40,13 @@ namespace igl
   template <typename DerivedL, typename DerivedA>
   IGL_INLINE void face_areas(
     const Eigen::MatrixBase<DerivedL>& L,
-    Eigen::PlainObjectBase<DerivedA>& A);
+    Eigen::MatrixBase<DerivedA>& A);
   // doublearea_nan_replacement  See doublearea.h
   template <typename DerivedL, typename DerivedA>
   IGL_INLINE void face_areas(
     const Eigen::MatrixBase<DerivedL>& L,
     const typename DerivedL::Scalar doublearea_nan_replacement,
-    Eigen::PlainObjectBase<DerivedA>& A);
+    Eigen::MatrixBase<DerivedA>& A);
 }
 
 #ifndef IGL_STATIC_LIBRARY

@@ -20,9 +20,9 @@ template <
   typename DerivedNF>
 IGL_INLINE void igl::loop(
   const int n_verts,
-  const Eigen::PlainObjectBase<DerivedF> & F,
+  const Eigen::MatrixBase<DerivedF> & F,
   Eigen::SparseMatrix<SType>& S,
-  Eigen::PlainObjectBase<DerivedNF> & NF)
+  Eigen::MatrixBase<DerivedNF> & NF)
 {
   typedef Eigen::SparseMatrix<SType> SparseMat;
   typedef Eigen::Triplet<SType> Triplet_t;
@@ -150,10 +150,10 @@ template <
   typename DerivedNV,
   typename DerivedNF>
 IGL_INLINE void igl::loop(
-  const Eigen::PlainObjectBase<DerivedV>& V,
-  const Eigen::PlainObjectBase<DerivedF>& F,
-  Eigen::PlainObjectBase<DerivedNV>& NV,
-  Eigen::PlainObjectBase<DerivedNF>& NF,
+  const Eigen::MatrixBase<DerivedV>& V,
+  const Eigen::MatrixBase<DerivedF>& F,
+  Eigen::MatrixBase<DerivedNV>& NV,
+  Eigen::MatrixBase<DerivedNF>& NF,
   const int number_of_subdivs)
 {
   NV = V;
@@ -169,5 +169,5 @@ IGL_INLINE void igl::loop(
 }
 
 #ifdef IGL_STATIC_LIBRARY
-template void igl::loop<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&, int);
+template void igl::loop<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&, int);
 #endif

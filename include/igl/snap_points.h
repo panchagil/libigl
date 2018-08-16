@@ -31,29 +31,29 @@ namespace igl
     typename DerivedminD, 
     typename DerivedVI>
   IGL_INLINE void snap_points(
-    const Eigen::PlainObjectBase<DerivedC > & C,
-    const Eigen::PlainObjectBase<DerivedV > & V,
-    Eigen::PlainObjectBase<DerivedI > & I,
-    Eigen::PlainObjectBase<DerivedminD > & minD,
-    Eigen::PlainObjectBase<DerivedVI > & VI);
+    const Eigen::MatrixBase<DerivedC > & C,
+    const Eigen::MatrixBase<DerivedV > & V,
+    Eigen::MatrixBase<DerivedI > & I,
+    Eigen::MatrixBase<DerivedminD > & minD,
+    Eigen::MatrixBase<DerivedVI > & VI);
   template <
     typename DerivedC, 
     typename DerivedV, 
     typename DerivedI, 
     typename DerivedminD>
   IGL_INLINE void snap_points(
-    const Eigen::PlainObjectBase<DerivedC > & C,
-    const Eigen::PlainObjectBase<DerivedV > & V,
-    Eigen::PlainObjectBase<DerivedI > & I,
-    Eigen::PlainObjectBase<DerivedminD > & minD);
+    const Eigen::MatrixBase<DerivedC > & C,
+    const Eigen::MatrixBase<DerivedV > & V,
+    Eigen::MatrixBase<DerivedI > & I,
+    Eigen::MatrixBase<DerivedminD > & minD);
   template <
     typename DerivedC, 
     typename DerivedV, 
     typename DerivedI >
   IGL_INLINE void snap_points(
-    const Eigen::PlainObjectBase<DerivedC > & C,
-    const Eigen::PlainObjectBase<DerivedV > & V,
-    Eigen::PlainObjectBase<DerivedI > & I);
+    const Eigen::MatrixBase<DerivedC > & C,
+    const Eigen::MatrixBase<DerivedV > & V,
+    Eigen::MatrixBase<DerivedI > & I);
 }
 
 #ifndef IGL_STATIC_LIBRARY

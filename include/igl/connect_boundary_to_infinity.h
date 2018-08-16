@@ -22,15 +22,15 @@ namespace igl
   //     edge-manifold).
   template <typename DerivedF, typename DerivedFO>
   IGL_INLINE void connect_boundary_to_infinity(
-    const Eigen::PlainObjectBase<DerivedF> & F,
-    Eigen::PlainObjectBase<DerivedFO> & FO);
+    const Eigen::MatrixBase<DerivedF> & F,
+    Eigen::MatrixBase<DerivedFO> & FO);
   // Inputs:
   //   inf_index  index of point at infinity (usually V.rows() or F.maxCoeff())
   template <typename DerivedF, typename DerivedFO>
   IGL_INLINE void connect_boundary_to_infinity(
-    const Eigen::PlainObjectBase<DerivedF> & F,
+    const Eigen::MatrixBase<DerivedF> & F,
     const typename DerivedF::Scalar inf_index,
-    Eigen::PlainObjectBase<DerivedFO> & FO);
+    Eigen::MatrixBase<DerivedFO> & FO);
   // Inputs:
   //   V  #V by 3 list of vertex positions
   //   F  #F by 3 list of face indices into some V
@@ -45,10 +45,10 @@ namespace igl
     typename DerivedVO, 
     typename DerivedFO>
   IGL_INLINE void connect_boundary_to_infinity(
-    const Eigen::PlainObjectBase<DerivedV> & V,
-    const Eigen::PlainObjectBase<DerivedF> & F,
-    Eigen::PlainObjectBase<DerivedVO> & VO,
-    Eigen::PlainObjectBase<DerivedFO> & FO);
+    const Eigen::MatrixBase<DerivedV> & V,
+    const Eigen::MatrixBase<DerivedF> & F,
+    Eigen::MatrixBase<DerivedVO> & VO,
+    Eigen::MatrixBase<DerivedFO> & FO);
 }
 #ifndef IGL_STATIC_LIBRARY
 #  include "connect_boundary_to_infinity.cpp"

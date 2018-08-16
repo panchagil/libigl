@@ -54,24 +54,24 @@ namespace igl
     typename DerivedTT, 
     typename DerivedC>
   IGL_INLINE void cut_mesh(
-    const Eigen::PlainObjectBase<DerivedV> &V,
-    const Eigen::PlainObjectBase<DerivedF> &F,
+    const Eigen::MatrixBase<DerivedV> &V,
+    const Eigen::MatrixBase<DerivedF> &F,
     const std::vector<std::vector<VFType> >& VF,
     const std::vector<std::vector<VFType> >& VFi,
-    const Eigen::PlainObjectBase<DerivedTT>& TT,
-    const Eigen::PlainObjectBase<DerivedTT>& TTi,
+    const Eigen::MatrixBase<DerivedTT>& TT,
+    const Eigen::MatrixBase<DerivedTT>& TTi,
     const std::vector<bool> &V_border,
-    const Eigen::PlainObjectBase<DerivedC> &cuts,
-    Eigen::PlainObjectBase<DerivedV> &Vcut,
-    Eigen::PlainObjectBase<DerivedF> &Fcut);
+    const Eigen::MatrixBase<DerivedC> &cuts,
+    Eigen::MatrixBase<DerivedV> &Vcut,
+    Eigen::MatrixBase<DerivedF> &Fcut);
   //Wrapper of the above with only vertices and faces as mesh input
   template <typename DerivedV, typename DerivedF, typename DerivedC>
   IGL_INLINE void cut_mesh(
-    const Eigen::PlainObjectBase<DerivedV> &V,
-    const Eigen::PlainObjectBase<DerivedF> &F,
-    const Eigen::PlainObjectBase<DerivedC> &cuts,
-    Eigen::PlainObjectBase<DerivedV> &Vcut,
-    Eigen::PlainObjectBase<DerivedF> &Fcut);
+    const Eigen::MatrixBase<DerivedV> &V,
+    const Eigen::MatrixBase<DerivedF> &F,
+    const Eigen::MatrixBase<DerivedC> &cuts,
+    Eigen::MatrixBase<DerivedV> &Vcut,
+    Eigen::MatrixBase<DerivedF> &Fcut);
 };
 
 

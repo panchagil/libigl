@@ -20,9 +20,9 @@ namespace igl
   //   Aout #V by #A eigen Matrix of mesh vertex attributes
   template <typename DerivedV, typename DerivedF>
   IGL_INLINE void per_vertex_attribute_smoothing(
-    const Eigen::PlainObjectBase<DerivedV>& Ain,
-    const Eigen::PlainObjectBase<DerivedF>& F,
-    Eigen::PlainObjectBase<DerivedV> & Aout);
+    const Eigen::MatrixBase<DerivedV>& Ain,
+    const Eigen::MatrixBase<DerivedF>& F,
+    Eigen::MatrixBase<DerivedV> & Aout);
 }
 
 #ifndef IGL_STATIC_LIBRARY

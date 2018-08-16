@@ -32,7 +32,7 @@ namespace igl
   IGL_INLINE void doublearea(
     const Eigen::MatrixBase<DerivedV> & V,
     const Eigen::MatrixBase<DerivedF> & F,
-    Eigen::PlainObjectBase<DeriveddblA> & dblA);
+    Eigen::MatrixBase<DeriveddblA> & dblA);
   // Stream of triangles, computes signed area...
   template <
     typename DerivedA,
@@ -43,7 +43,7 @@ namespace igl
     const Eigen::MatrixBase<DerivedA> & A,
     const Eigen::MatrixBase<DerivedB> & B,
     const Eigen::MatrixBase<DerivedC> & C,
-    Eigen::PlainObjectBase<DerivedD> & D);
+    Eigen::MatrixBase<DerivedD> & D);
   // Single triangle in 2D!
   //
   // This should handle streams of corners not just single corners
@@ -75,12 +75,12 @@ namespace igl
   IGL_INLINE void doublearea(
     const Eigen::MatrixBase<Derivedl> & l,
     const typename Derivedl::Scalar nan_replacement,
-    Eigen::PlainObjectBase<DeriveddblA> & dblA);
+    Eigen::MatrixBase<DeriveddblA> & dblA);
   // default behavior is to assert on NaNs and leave them in place
   template <typename Derivedl, typename DeriveddblA>
   IGL_INLINE void doublearea(
     const Eigen::MatrixBase<Derivedl> & l,
-    Eigen::PlainObjectBase<DeriveddblA> & dblA);
+    Eigen::MatrixBase<DeriveddblA> & dblA);
   // DOUBLEAREA_QUAD computes twice the area for each input quadrilateral
   //
   // Inputs:
@@ -93,7 +93,7 @@ namespace igl
   IGL_INLINE void doublearea_quad(
   const Eigen::MatrixBase<DerivedV> & V,
   const Eigen::MatrixBase<DerivedF> & F,
-  Eigen::PlainObjectBase<DeriveddblA> & dblA);
+  Eigen::MatrixBase<DeriveddblA> & dblA);
 
 }
 

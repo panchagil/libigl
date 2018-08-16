@@ -11,8 +11,8 @@ template <typename IndexType, typename DerivedD, typename DerivedP>
 IGL_INLINE int igl::dijkstra_compute_paths(const IndexType &source,
                                            const std::set<IndexType> &targets,
                                            const std::vector<std::vector<IndexType> >& VV,
-                                           Eigen::PlainObjectBase<DerivedD> &min_distance,
-                                           Eigen::PlainObjectBase<DerivedP> &previous)
+                                           Eigen::MatrixBase<DerivedD> &min_distance,
+                                           Eigen::MatrixBase<DerivedP> &previous)
 {
   int numV = VV.size();
   min_distance.setConstant(numV, 1, std::numeric_limits<typename DerivedD::Scalar>::infinity());
@@ -55,7 +55,7 @@ IGL_INLINE int igl::dijkstra_compute_paths(const IndexType &source,
 
 template <typename IndexType, typename DerivedP>
 IGL_INLINE void igl::dijkstra_get_shortest_path_to(const IndexType &vertex,
-                                                   const Eigen::PlainObjectBase<DerivedP> &previous,
+                                                   const Eigen::MatrixBase<DerivedP> &previous,
                                                    std::vector<IndexType> &path)
 {
   IndexType source = vertex;
@@ -66,6 +66,6 @@ IGL_INLINE void igl::dijkstra_get_shortest_path_to(const IndexType &vertex,
 
 #ifdef IGL_STATIC_LIBRARY
 // Explicit template instantiation
-template int igl::dijkstra_compute_paths<int, Eigen::Matrix<double, -1, 1, 0, -1, 1>, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(int const&, std::set<int, std::less<int>, std::allocator<int> > const&, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> >&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&);
-template void igl::dijkstra_get_shortest_path_to<int, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(int const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> > const&, std::vector<int, std::allocator<int> >&);
+template int igl::dijkstra_compute_paths<int, Eigen::Matrix<double, -1, 1, 0, -1, 1>, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(int const&, std::set<int, std::less<int>, std::allocator<int> > const&, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> >&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> >&);
+template void igl::dijkstra_get_shortest_path_to<int, Eigen::Matrix<int, -1, 1, 0, -1, 1> >(int const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 1, 0, -1, 1> > const&, std::vector<int, std::allocator<int> >&);
 #endif

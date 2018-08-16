@@ -24,9 +24,9 @@ namespace igl
     typename DerivedF,
     typename DerivedR>
   IGL_INLINE void circumradius(
-    const Eigen::PlainObjectBase<DerivedV> & V, 
-    const Eigen::PlainObjectBase<DerivedF> & F,
-    Eigen::PlainObjectBase<DerivedR> & R);
+    const Eigen::MatrixBase<DerivedV> & V, 
+    const Eigen::MatrixBase<DerivedF> & F,
+    Eigen::MatrixBase<DerivedR> & R);
 }
 #ifndef IGL_STATIC_LIBRARY
 #  include "circumradius.cpp"

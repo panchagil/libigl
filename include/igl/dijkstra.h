@@ -33,8 +33,8 @@ namespace igl {
   IGL_INLINE int dijkstra_compute_paths(const IndexType &source,
                                         const std::set<IndexType> &targets,
                                         const std::vector<std::vector<IndexType> >& VV,
-                                        Eigen::PlainObjectBase<DerivedD> &min_distance,
-                                        Eigen::PlainObjectBase<DerivedP> &previous);
+                                        Eigen::MatrixBase<DerivedD> &min_distance,
+                                        Eigen::MatrixBase<DerivedP> &previous);
 
   // Backtracking after Dijstra's algorithm, to find shortest path.
   //
@@ -47,7 +47,7 @@ namespace igl {
   //
   template <typename IndexType, typename DerivedP>
   IGL_INLINE void dijkstra_get_shortest_path_to(const IndexType &vertex,
-                                                const Eigen::PlainObjectBase<DerivedP> &previous,
+                                                const Eigen::MatrixBase<DerivedP> &previous,
                                                 std::vector<IndexType> &path);
 };
 

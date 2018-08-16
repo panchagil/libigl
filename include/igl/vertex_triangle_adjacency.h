@@ -60,8 +60,8 @@ namespace igl
   IGL_INLINE void vertex_triangle_adjacency(
     const Eigen::MatrixBase<DerivedF> & F,
     const int n,
-    Eigen::PlainObjectBase<DerivedVF> & VF,
-    Eigen::PlainObjectBase<DerivedNI> & NI);
+    Eigen::MatrixBase<DerivedVF> & VF,
+    Eigen::MatrixBase<DerivedNI> & NI);
 }
 
 #ifndef IGL_STATIC_LIBRARY

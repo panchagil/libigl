@@ -61,12 +61,12 @@ namespace igl
         typename DerivedTT, 
         typename DerivedTF>
       IGL_INLINE int tetrahedralize(
-        const Eigen::PlainObjectBase<DerivedV>& V,
-        const Eigen::PlainObjectBase<DerivedF>& F,
+        const Eigen::MatrixBase<DerivedV>& V,
+        const Eigen::MatrixBase<DerivedF>& F,
         const std::string switches,
-        Eigen::PlainObjectBase<DerivedTV>& TV,
-        Eigen::PlainObjectBase<DerivedTT>& TT,
-        Eigen::PlainObjectBase<DerivedTF>& TF);
+        Eigen::MatrixBase<DerivedTV>& TV,
+        Eigen::MatrixBase<DerivedTT>& TT,
+        Eigen::MatrixBase<DerivedTF>& TF);
       
 			// Mesh the interior of a surface mesh (V,F) using tetgen
       //
@@ -114,15 +114,15 @@ namespace igl
         typename DerivedTF, 
         typename DerivedTM>
       IGL_INLINE int tetrahedralize(
-        const Eigen::PlainObjectBase<DerivedV>& V,
-        const Eigen::PlainObjectBase<DerivedF>& F,
-        const Eigen::PlainObjectBase<DerivedVM>& VM,
-        const Eigen::PlainObjectBase<DerivedFM>& FM,
+        const Eigen::MatrixBase<DerivedV>& V,
+        const Eigen::MatrixBase<DerivedF>& F,
+        const Eigen::MatrixBase<DerivedVM>& VM,
+        const Eigen::MatrixBase<DerivedFM>& FM,
         const std::string switches,
-        Eigen::PlainObjectBase<DerivedTV>& TV,
-        Eigen::PlainObjectBase<DerivedTT>& TT,
-        Eigen::PlainObjectBase<DerivedTF>& TF,
-        Eigen::PlainObjectBase<DerivedTM>& TM);
+        Eigen::MatrixBase<DerivedTV>& TV,
+        Eigen::MatrixBase<DerivedTT>& TT,
+        Eigen::MatrixBase<DerivedTF>& TF,
+        Eigen::MatrixBase<DerivedTM>& TM);
     }
   }
 }

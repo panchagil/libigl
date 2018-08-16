@@ -26,15 +26,15 @@ namespace igl
     typename DerivedIC>
   IGL_INLINE void unique_simplices(
     const Eigen::MatrixBase<DerivedF>& F,
-    Eigen::PlainObjectBase<DerivedFF>& FF,
-    Eigen::PlainObjectBase<DerivedIA>& IA,
-    Eigen::PlainObjectBase<DerivedIC>& IC);
+    Eigen::MatrixBase<DerivedFF>& FF,
+    Eigen::MatrixBase<DerivedIA>& IA,
+    Eigen::MatrixBase<DerivedIC>& IC);
   template <
     typename DerivedF,
     typename DerivedFF>
   IGL_INLINE void unique_simplices(
     const Eigen::MatrixBase<DerivedF>& F,
-    Eigen::PlainObjectBase<DerivedFF>& FF);
+    Eigen::MatrixBase<DerivedFF>& FF);
 }
 
 #ifndef IGL_STATIC_LIBRARY

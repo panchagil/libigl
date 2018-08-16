@@ -20,10 +20,10 @@ template <
   typename DerivedT,
   typename Derivedcolor>
 IGL_INLINE void igl::opengl2::draw_skeleton_3d(
-  const Eigen::PlainObjectBase<DerivedC> & C,
-  const Eigen::PlainObjectBase<DerivedBE> & BE,
-  const Eigen::PlainObjectBase<DerivedT> & T,
-  const Eigen::PlainObjectBase<Derivedcolor> & color,
+  const Eigen::MatrixBase<DerivedC> & C,
+  const Eigen::MatrixBase<DerivedBE> & BE,
+  const Eigen::MatrixBase<DerivedT> & T,
+  const Eigen::MatrixBase<Derivedcolor> & color,
   const double half_bbd)
 {
   // Note: Maya's skeleton *does* scale with the mesh suggesting a scale
@@ -142,25 +142,25 @@ IGL_INLINE void igl::opengl2::draw_skeleton_3d(
 
 template <typename DerivedC, typename DerivedBE, typename DerivedT>
 IGL_INLINE void igl::opengl2::draw_skeleton_3d(
-  const Eigen::PlainObjectBase<DerivedC> & C,
-  const Eigen::PlainObjectBase<DerivedBE> & BE,
-  const Eigen::PlainObjectBase<DerivedT> & T)
+  const Eigen::MatrixBase<DerivedC> & C,
+  const Eigen::MatrixBase<DerivedBE> & BE,
+  const Eigen::MatrixBase<DerivedT> & T)
 {
   return draw_skeleton_3d(C,BE,T,MAYA_SEA_GREEN);
 }
 
 template <typename DerivedC, typename DerivedBE>
 IGL_INLINE void igl::opengl2::draw_skeleton_3d(
-  const Eigen::PlainObjectBase<DerivedC> & C,
-  const Eigen::PlainObjectBase<DerivedBE> & BE)
+  const Eigen::MatrixBase<DerivedC> & C,
+  const Eigen::MatrixBase<DerivedBE> & BE)
 {
   return draw_skeleton_3d(C,BE,Eigen::MatrixXd(),MAYA_SEA_GREEN);
 }
 
 #ifdef IGL_STATIC_LIBRARY
 // Explicit template instantiation
-template void igl::opengl2::draw_skeleton_3d<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&);
-template void igl::opengl2::draw_skeleton_3d<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&);
-template void igl::opengl2::draw_skeleton_3d<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<float, 4, 1, 0, 4, 1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<float, 4, 1, 0, 4, 1> > const&, double);
-template void igl::opengl2::draw_skeleton_3d<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<float, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<float, -1, -1, 0, -1, -1> > const&, double);
+template void igl::opengl2::draw_skeleton_3d<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&);
+template void igl::opengl2::draw_skeleton_3d<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&);
+template void igl::opengl2::draw_skeleton_3d<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<float, 4, 1, 0, 4, 1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<float, 4, 1, 0, 4, 1> > const&, double);
+template void igl::opengl2::draw_skeleton_3d<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<float, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<float, -1, -1, 0, -1, -1> > const&, double);
 #endif

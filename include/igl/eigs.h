@@ -51,8 +51,8 @@ namespace igl
     const Eigen::SparseMatrix<Btype> & B,
     const size_t k,
     const EigsType type,
-    Eigen::PlainObjectBase<DerivedU> & sU,
-    Eigen::PlainObjectBase<DerivedS> & sS);
+    Eigen::MatrixBase<DerivedU> & sU,
+    Eigen::MatrixBase<DerivedS> & sS);
 }
 
 #ifndef IGL_STATIC_LIBRARY

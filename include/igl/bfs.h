@@ -25,8 +25,8 @@ namespace igl
   IGL_INLINE void bfs(
     const AType & A,
     const size_t s,
-    Eigen::PlainObjectBase<DerivedD> & D,
-    Eigen::PlainObjectBase<DerivedP> & P);
+    Eigen::MatrixBase<DerivedD> & D,
+    Eigen::MatrixBase<DerivedP> & P);
 
   template <
     typename AType,

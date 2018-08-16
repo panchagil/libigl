@@ -52,12 +52,12 @@ namespace igl
         typename DerivedTT, 
         typename DerivedTF>
       IGL_INLINE bool cdt(
-        const Eigen::PlainObjectBase<DerivedV>& V,
-        const Eigen::PlainObjectBase<DerivedF>& F,
+        const Eigen::MatrixBase<DerivedV>& V,
+        const Eigen::MatrixBase<DerivedF>& F,
         const CDTParam & param,
-        Eigen::PlainObjectBase<DerivedTV>& TV,
-        Eigen::PlainObjectBase<DerivedTT>& TT,
-        Eigen::PlainObjectBase<DerivedTF>& TF);
+        Eigen::MatrixBase<DerivedTV>& TV,
+        Eigen::MatrixBase<DerivedTT>& TT,
+        Eigen::MatrixBase<DerivedTF>& TF);
     }
   }
 }

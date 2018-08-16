@@ -37,7 +37,7 @@ namespace igl
     const Eigen::MatrixBase<DerivedV> & V,
     const Eigen::MatrixBase<DerivedF> & F,
     const Eigen::MatrixBase<DerivedO> & O,
-    Eigen::PlainObjectBase<DerivedW> & W);
+    Eigen::MatrixBase<DerivedW> & W);
   // Compute winding number of a single point
   //
   // Inputs:

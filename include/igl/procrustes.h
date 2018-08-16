@@ -49,13 +49,13 @@ namespace igl
     typename DerivedR, 
     typename DerivedT>
   IGL_INLINE void procrustes(
-    const Eigen::PlainObjectBase<DerivedX>& X,
-    const Eigen::PlainObjectBase<DerivedY>& Y,
+    const Eigen::MatrixBase<DerivedX>& X,
+    const Eigen::MatrixBase<DerivedY>& Y,
     bool includeScaling,
     bool includeReflections,
     Scalar& scale,
-    Eigen::PlainObjectBase<DerivedR>& R,
-    Eigen::PlainObjectBase<DerivedT>& t);
+    Eigen::MatrixBase<DerivedR>& R,
+    Eigen::MatrixBase<DerivedT>& t);
   // Same as above but returns Eigen transformation object.
   //
   // Templates:
@@ -84,8 +84,8 @@ namespace igl
     int DIM, 
     int TType>
   IGL_INLINE void procrustes(
-    const Eigen::PlainObjectBase<DerivedX>& X,
-    const Eigen::PlainObjectBase<DerivedY>& Y,
+    const Eigen::MatrixBase<DerivedX>& X,
+    const Eigen::MatrixBase<DerivedY>& Y,
     bool includeScaling,
     bool includeReflections,
     Eigen::Transform<Scalar,DIM,TType>& T);
@@ -98,12 +98,12 @@ namespace igl
     typename DerivedR, 
     typename DerivedT>
   IGL_INLINE void procrustes(
-    const Eigen::PlainObjectBase<DerivedX>& X,
-    const Eigen::PlainObjectBase<DerivedY>& Y,
+    const Eigen::MatrixBase<DerivedX>& X,
+    const Eigen::MatrixBase<DerivedY>& Y,
     bool includeScaling,
     bool includeReflections,
-    Eigen::PlainObjectBase<DerivedR>& S,
-    Eigen::PlainObjectBase<DerivedT>& t);
+    Eigen::MatrixBase<DerivedR>& S,
+    Eigen::MatrixBase<DerivedT>& t);
 
   // Convenient wrapper for rigid case (no scaling, no reflections)
   template <
@@ -112,10 +112,10 @@ namespace igl
     typename DerivedR, 
     typename DerivedT>
   IGL_INLINE void procrustes(
-    const Eigen::PlainObjectBase<DerivedX>& X,
-    const Eigen::PlainObjectBase<DerivedY>& Y,
-    Eigen::PlainObjectBase<DerivedR>& R,
-    Eigen::PlainObjectBase<DerivedT>& t);
+    const Eigen::MatrixBase<DerivedX>& X,
+    const Eigen::MatrixBase<DerivedY>& Y,
+    Eigen::MatrixBase<DerivedR>& R,
+    Eigen::MatrixBase<DerivedT>& t);
 
   // Convenient wrapper for 2D case.
   template <
@@ -124,10 +124,10 @@ namespace igl
     typename Scalar, 
     typename DerivedT>
   IGL_INLINE void procrustes(
-    const Eigen::PlainObjectBase<DerivedX>& X,
-    const Eigen::PlainObjectBase<DerivedY>& Y,
+    const Eigen::MatrixBase<DerivedX>& X,
+    const Eigen::MatrixBase<DerivedY>& Y,
     Eigen::Rotation2D<Scalar>& R,
-    Eigen::PlainObjectBase<DerivedT>& t);
+    Eigen::MatrixBase<DerivedT>& t);
 }
 
 #ifndef IGL_STATIC_LIBRARY

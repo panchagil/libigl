@@ -35,10 +35,10 @@ namespace igl
     const Eigen::Matrix4f& model,
     const Eigen::Matrix4f& proj,
     const Eigen::Vector4f& viewport,
-    const Eigen::PlainObjectBase<DerivedV> & V,
-    const Eigen::PlainObjectBase<DerivedF> & F,
+    const Eigen::MatrixBase<DerivedV> & V,
+    const Eigen::MatrixBase<DerivedF> & F,
     int & fid,
-    Eigen::PlainObjectBase<Derivedbc> & bc);
+    Eigen::MatrixBase<Derivedbc> & bc);
   //
   // Inputs:
   //    pos        screen space coordinates
@@ -64,7 +64,7 @@ namespace igl
         igl::Hit  &)
         > & shoot_ray,
     int & fid,
-    Eigen::PlainObjectBase<Derivedbc> & bc);
+    Eigen::MatrixBase<Derivedbc> & bc);
 }
 #ifndef IGL_STATIC_LIBRARY
 #  include "unproject_onto_mesh.cpp"

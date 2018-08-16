@@ -22,14 +22,14 @@ template<
   typename FT,
   typename DerivedW>
 IGL_INLINE void igl::copyleft::cgal::relabel_small_immersed_cells(
-    const Eigen::PlainObjectBase<DerivedV>& V,
-    const Eigen::PlainObjectBase<DerivedF>& F,
+    const Eigen::MatrixBase<DerivedV>& V,
+    const Eigen::MatrixBase<DerivedF>& F,
     const size_t num_patches,
-    const Eigen::PlainObjectBase<DerivedP>& P,
+    const Eigen::MatrixBase<DerivedP>& P,
     const size_t num_cells,
-    const Eigen::PlainObjectBase<DerivedC>& C,
+    const Eigen::MatrixBase<DerivedC>& C,
     const FT vol_threashold,
-    Eigen::PlainObjectBase<DerivedW>& W)
+    Eigen::MatrixBase<DerivedW>& W)
 {
   const size_t num_vertices = V.rows();
   const size_t num_faces = F.rows();

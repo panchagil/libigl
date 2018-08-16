@@ -20,10 +20,10 @@ template <
   typename DerivedBE>
 IGL_INLINE bool igl::is_edge_manifold(
   const Eigen::MatrixBase<DerivedF>& F,
-  Eigen::PlainObjectBase<DerivedBF>& BF,
-  Eigen::PlainObjectBase<DerivedE>& E,
-  Eigen::PlainObjectBase<DerivedEMAP>& EMAP,
-  Eigen::PlainObjectBase<DerivedBE>& BE)
+  Eigen::MatrixBase<DerivedBF>& BF,
+  Eigen::MatrixBase<DerivedE>& E,
+  Eigen::MatrixBase<DerivedEMAP>& EMAP,
+  Eigen::MatrixBase<DerivedBE>& BE)
 {
   using namespace Eigen;
   typedef typename DerivedF::Index Index;

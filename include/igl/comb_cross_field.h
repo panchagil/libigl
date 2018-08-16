@@ -27,12 +27,12 @@ namespace igl
   
   
   template <typename DerivedV, typename DerivedF>
-  IGL_INLINE void comb_cross_field(const Eigen::PlainObjectBase<DerivedV> &V,
-                                   const Eigen::PlainObjectBase<DerivedF> &F,
-                                   const Eigen::PlainObjectBase<DerivedV> &PD1in,
-                                   const Eigen::PlainObjectBase<DerivedV> &PD2in,
-                                   Eigen::PlainObjectBase<DerivedV> &PD1out,
-                                   Eigen::PlainObjectBase<DerivedV> &PD2out);
+  IGL_INLINE void comb_cross_field(const Eigen::MatrixBase<DerivedV> &V,
+                                   const Eigen::MatrixBase<DerivedF> &F,
+                                   const Eigen::MatrixBase<DerivedV> &PD1in,
+                                   const Eigen::MatrixBase<DerivedV> &PD2in,
+                                   Eigen::MatrixBase<DerivedV> &PD1out,
+                                   Eigen::MatrixBase<DerivedV> &PD2out);
 }
 #ifndef IGL_STATIC_LIBRARY
 #include "comb_cross_field.cpp"

@@ -16,8 +16,8 @@ void igl::crouzeix_raviart_cotmatrix(
   const Eigen::MatrixBase<DerivedV> & V, 
   const Eigen::MatrixBase<DerivedF> & F, 
   Eigen::SparseMatrix<LT> & L,
-  Eigen::PlainObjectBase<DerivedE> & E,
-  Eigen::PlainObjectBase<DerivedEMAP> & EMAP)
+  Eigen::MatrixBase<DerivedE> & E,
+  Eigen::MatrixBase<DerivedEMAP> & EMAP)
 {
   // All occurrences of directed "facets"
   Eigen::MatrixXi allE;

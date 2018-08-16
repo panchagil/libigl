@@ -55,13 +55,13 @@ namespace igl
     const Eigen::DenseBase<DerivedX> & X,
     const Eigen::DenseBase<DerivedR> & R,
     const Eigen::DenseBase<DerivedC> & C,
-    Eigen::PlainObjectBase<DerivedY> & Y);
+    Eigen::MatrixBase<DerivedY> & Y);
 
   template <typename DerivedX, typename DerivedY>
   IGL_INLINE void slice(
     const Eigen::DenseBase<DerivedX> & X,
     const Eigen::Matrix<int,Eigen::Dynamic,1> & R,
-    Eigen::PlainObjectBase<DerivedY> & Y);
+    Eigen::MatrixBase<DerivedY> & Y);
   // VectorXi Y = slice(X,R);
   //
   // This templating is bad because the return type might not have the same

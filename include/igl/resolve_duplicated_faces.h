@@ -39,9 +39,9 @@ namespace igl {
     typename DerivedF2,
     typename DerivedJ >
   IGL_INLINE void resolve_duplicated_faces(
-      const Eigen::PlainObjectBase<DerivedF1>& F1,
-      Eigen::PlainObjectBase<DerivedF2>& F2,
-      Eigen::PlainObjectBase<DerivedJ>& J);
+      const Eigen::MatrixBase<DerivedF1>& F1,
+      Eigen::MatrixBase<DerivedF2>& F2,
+      Eigen::MatrixBase<DerivedJ>& J);
 
 }
 

@@ -9,9 +9,9 @@
 
 template <typename DerivedA, typename DerivedB>
 IGL_INLINE void igl::mod(
-  const Eigen::PlainObjectBase<DerivedA> & A,
+  const Eigen::MatrixBase<DerivedA> & A,
   const int base,
-  Eigen::PlainObjectBase<DerivedB> & B)
+  Eigen::MatrixBase<DerivedB> & B)
 {
   B.resizeLike(A);
   for(int i = 0;i<A.rows();i++)
@@ -24,7 +24,7 @@ IGL_INLINE void igl::mod(
 }
 template <typename DerivedA>
 IGL_INLINE DerivedA igl::mod(
-  const Eigen::PlainObjectBase<DerivedA> & A, const int base)
+  const Eigen::MatrixBase<DerivedA> & A, const int base)
 {
   DerivedA B;
   mod(A,base,B);

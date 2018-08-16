@@ -23,17 +23,17 @@ namespace igl
     //   V  M by N matrix 
     template <typename DerivedV>
     IGL_INLINE void prepare_lhs_double(
-      const Eigen::PlainObjectBase<DerivedV> & V,
+      const Eigen::MatrixBase<DerivedV> & V,
       mxArray *plhs[]);
     // Casts to logical
     template <typename DerivedV>
     IGL_INLINE void prepare_lhs_logical(
-      const Eigen::PlainObjectBase<DerivedV> & V,
+      const Eigen::MatrixBase<DerivedV> & V,
       mxArray *plhs[]);
     // Writes out a matrix and adds 1
     template <typename DerivedV>
     IGL_INLINE void prepare_lhs_index(
-      const Eigen::PlainObjectBase<DerivedV> & V,
+      const Eigen::MatrixBase<DerivedV> & V,
       mxArray *plhs[]);
     // SparseMatrix
     template <typename Vtype>

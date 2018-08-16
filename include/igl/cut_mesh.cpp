@@ -23,16 +23,16 @@ namespace igl {
   public:
     // Input
     //mesh
-    const Eigen::PlainObjectBase<DerivedV> &V;
-    const Eigen::PlainObjectBase<DerivedF> &F;
+    const Eigen::MatrixBase<DerivedV> &V;
+    const Eigen::MatrixBase<DerivedF> &F;
     // TT is the same type as TTi? This is likely to break at some point
-    const Eigen::PlainObjectBase<DerivedTT> &TT;
-    const Eigen::PlainObjectBase<DerivedTT> &TTi;
+    const Eigen::MatrixBase<DerivedTT> &TT;
+    const Eigen::MatrixBase<DerivedTT> &TTi;
     const std::vector<std::vector<VFType> >& VF;
     const std::vector<std::vector<VFType> >& VFi;
     const std::vector<bool> &V_border; // bool
     //edges to cut
-    const Eigen::PlainObjectBase<DerivedC> &Handle_Seams; // 3 bool
+    const Eigen::MatrixBase<DerivedC> &Handle_Seams; // 3 bool
 
     // total number of scalar variables
     int num_scalar_variables;
@@ -44,14 +44,14 @@ namespace igl {
     std::vector<std::vector<int> > HandleV_Integer;
 
     IGL_INLINE MeshCutterMini(
-      const Eigen::PlainObjectBase<DerivedV> &_V,
-      const Eigen::PlainObjectBase<DerivedF> &_F,
-      const Eigen::PlainObjectBase<DerivedTT> &_TT,
-      const Eigen::PlainObjectBase<DerivedTT> &_TTi,
+      const Eigen::MatrixBase<DerivedV> &_V,
+      const Eigen::MatrixBase<DerivedF> &_F,
+      const Eigen::MatrixBase<DerivedTT> &_TT,
+      const Eigen::MatrixBase<DerivedTT> &_TTi,
       const std::vector<std::vector<VFType> > &_VF,
       const std::vector<std::vector<VFType> > &_VFi,
       const std::vector<bool> &_V_border,
-      const Eigen::PlainObjectBase<DerivedC> &_Handle_Seams);
+      const Eigen::MatrixBase<DerivedC> &_Handle_Seams);
 
     // vertex to variable mapping
     // initialize the mapping for a given sampled mesh
@@ -84,14 +84,14 @@ namespace igl {
 template <typename DerivedV, typename DerivedF, typename VFType, typename DerivedTT, typename DerivedC>
 IGL_INLINE igl::MeshCutterMini<DerivedV, DerivedF, VFType, DerivedTT, DerivedC>::
 MeshCutterMini(
-  const Eigen::PlainObjectBase<DerivedV> &_V,
-  const Eigen::PlainObjectBase<DerivedF> &_F,
-  const Eigen::PlainObjectBase<DerivedTT> &_TT,
-  const Eigen::PlainObjectBase<DerivedTT> &_TTi,
+  const Eigen::MatrixBase<DerivedV> &_V,
+  const Eigen::MatrixBase<DerivedF> &_F,
+  const Eigen::MatrixBase<DerivedTT> &_TT,
+  const Eigen::MatrixBase<DerivedTT> &_TTi,
   const std::vector<std::vector<VFType> > &_VF,
   const std::vector<std::vector<VFType> > &_VFi,
   const std::vector<bool> &_V_border,
-  const Eigen::PlainObjectBase<DerivedC> &_Handle_Seams):
+  const Eigen::MatrixBase<DerivedC> &_Handle_Seams):
   V(_V),
   F(_F),
   TT(_TT),
@@ -262,16 +262,16 @@ InitMappingSeam()
 
 template <typename DerivedV, typename DerivedF, typename VFType, typename DerivedTT, typename DerivedC>
 IGL_INLINE void igl::cut_mesh(
-  const Eigen::PlainObjectBase<DerivedV> &V,
-  const Eigen::PlainObjectBase<DerivedF> &F,
+  const Eigen::MatrixBase<DerivedV> &V,
+  const Eigen::MatrixBase<DerivedF> &F,
   const std::vector<std::vector<VFType> >& VF,
   const std::vector<std::vector<VFType> >& VFi,
-  const Eigen::PlainObjectBase<DerivedTT>& TT,
-  const Eigen::PlainObjectBase<DerivedTT>& TTi,
+  const Eigen::MatrixBase<DerivedTT>& TT,
+  const Eigen::MatrixBase<DerivedTT>& TTi,
   const std::vector<bool> &V_border,
-  const Eigen::PlainObjectBase<DerivedC> &cuts,
-  Eigen::PlainObjectBase<DerivedV> &Vcut,
-  Eigen::PlainObjectBase<DerivedF> &Fcut)
+  const Eigen::MatrixBase<DerivedC> &cuts,
+  Eigen::MatrixBase<DerivedV> &Vcut,
+  Eigen::MatrixBase<DerivedF> &Fcut)
 {
   //finding the cuts is done, now we need to actually generate a cut mesh
   igl::MeshCutterMini<DerivedV, DerivedF, VFType, DerivedTT, DerivedC> mc(V, F, TT, TTi, VF, VFi, V_border, cuts);
@@ -304,11 +304,11 @@ IGL_INLINE void igl::cut_mesh(
 //Wrapper of the above with only vertices and faces as mesh input
 template <typename DerivedV, typename DerivedF, typename DerivedC>
 IGL_INLINE void igl::cut_mesh(
-  const Eigen::PlainObjectBase<DerivedV> &V,
-  const Eigen::PlainObjectBase<DerivedF> &F,
-  const Eigen::PlainObjectBase<DerivedC> &cuts,
-  Eigen::PlainObjectBase<DerivedV> &Vcut,
-  Eigen::PlainObjectBase<DerivedF> &Fcut)
+  const Eigen::MatrixBase<DerivedV> &V,
+  const Eigen::MatrixBase<DerivedF> &F,
+  const Eigen::MatrixBase<DerivedC> &cuts,
+  Eigen::MatrixBase<DerivedV> &Vcut,
+  Eigen::MatrixBase<DerivedF> &Fcut)
 {
   std::vector<std::vector<int> > VF, VFi;
   igl::vertex_triangle_adjacency(V,F,VF,VFi);
@@ -323,8 +323,8 @@ IGL_INLINE void igl::cut_mesh(
 
 #ifdef IGL_STATIC_LIBRARY
 // Explicit template instantiation
-template void igl::cut_mesh<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, int, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, std::vector<bool, std::allocator<bool> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&);
-template void igl::cut_mesh<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&);
-template void igl::cut_mesh<Eigen::Matrix<double, -1, 3, 0, -1, 3>, Eigen::Matrix<int, -1, 3, 0, -1, 3>, Eigen::Matrix<int, -1, 3, 0, -1, 3> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, 3, 0, -1, 3> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 3, 0, -1, 3> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 3, 0, -1, 3> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, 3, 0, -1, 3> >&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 3, 0, -1, 3> >&);
-template void igl::cut_mesh<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 3, 0, -1, 3> >(Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, 3, 0, -1, 3> > const&, Eigen::PlainObjectBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&, Eigen::PlainObjectBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&);
+template void igl::cut_mesh<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, int, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, std::vector<bool, std::allocator<bool> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&);
+template void igl::cut_mesh<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&);
+template void igl::cut_mesh<Eigen::Matrix<double, -1, 3, 0, -1, 3>, Eigen::Matrix<int, -1, 3, 0, -1, 3>, Eigen::Matrix<int, -1, 3, 0, -1, 3> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, 3, 0, -1, 3> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 3, 0, -1, 3> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 3, 0, -1, 3> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, 3, 0, -1, 3> >&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 3, 0, -1, 3> >&);
+template void igl::cut_mesh<Eigen::Matrix<double, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, -1, 0, -1, -1>, Eigen::Matrix<int, -1, 3, 0, -1, 3> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> > const&, Eigen::MatrixBase<Eigen::Matrix<int, -1, 3, 0, -1, 3> > const&, Eigen::MatrixBase<Eigen::Matrix<double, -1, -1, 0, -1, -1> >&, Eigen::MatrixBase<Eigen::Matrix<int, -1, -1, 0, -1, -1> >&);
 #endif

@@ -29,11 +29,11 @@ namespace igl
     typename T,
     typename DerivedU>
   IGL_INLINE void dqs(
-    const Eigen::PlainObjectBase<DerivedV> & V,
-    const Eigen::PlainObjectBase<DerivedW> & W,
+    const Eigen::MatrixBase<DerivedV> & V,
+    const Eigen::MatrixBase<DerivedW> & W,
     const std::vector<Q,QAlloc> & vQ,
     const std::vector<T> & vT,
-    Eigen::PlainObjectBase<DerivedU> & U);
+    Eigen::MatrixBase<DerivedU> & U);
 };
 
 #ifndef IGL_STATIC_LIBRARY

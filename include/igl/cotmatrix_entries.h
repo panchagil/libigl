@@ -27,7 +27,7 @@ namespace igl
   IGL_INLINE void cotmatrix_entries(
     const Eigen::MatrixBase<DerivedV>& V,
     const Eigen::MatrixBase<DerivedF>& F,
-    Eigen::PlainObjectBase<DerivedC>& C);
+    Eigen::MatrixBase<DerivedC>& C);
 }
 
 #ifndef IGL_STATIC_LIBRARY
