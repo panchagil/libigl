@@ -1,7 +1,5 @@
-#include <Eigen/Core>
 #include <npe.h>
 #include <igl/edges.h>
-#include <pybind11/pybind11.h>
 #include <exception>
 
 npe_function(edges)
