@@ -11,7 +11,7 @@ npe_default_arg(uniform, bool, false)
 npe_begin_code()
 using namespace std;
 
-Eigen::SparseMatrix<npe_Scalar_v> G;
+Eigen::SparseMatrix<npe_Scalar_v> g;
 igl::grad(v, f, g, uniform);
 
 return NPE_MOVE_SPARSE(g);
