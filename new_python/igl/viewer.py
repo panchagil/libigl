@@ -11,22 +11,34 @@ class Viewer():
                     width=600, height=600, antialias=False)
         self.widgets = []
 
-    def set_mesh(self, v, f):
+    def set_mesh(self, v, f, c=None):
         v = v.astype("float32", copy=False)
         f = f.astype("uint16", copy=False).ravel()
-
-        geometry = BufferGeometry(attributes=dict(
-            position=BufferAttribute(v, normalized=False),
-            index=BufferAttribute(f, normalized=False)
-            #color=BufferAttribute(vertexcolors),
-        ))
+        
+        if type(c) == type(None):
+            c = np.ones_like(v)
+            c[:, 1] = 0.874
+            c[:, 2] = 0.0
+            geometry = BufferGeometry(attributes=dict(
+                position=BufferAttribute(v, normalized=False),
+                index=BufferAttribute(f, normalized=False),
+                color=BufferAttribute(c)
+            ))
+        else:
+            c = c.astype("float32", copy=False)
+            c = c[:, :3]
+            geometry = BufferGeometry(attributes=dict(
+                position=BufferAttribute(v, normalized=False),
+                index=BufferAttribute(f, normalized=False),
+                color=BufferAttribute(c),
+            ))
         geometry.exec_three_obj_method('computeVertexNormals')
-        self.mesh = Mesh(geometry=geometry, material=[MeshStandardMaterial(color='#ffdf00', reflectivity=1.0, 
+        self.mesh = Mesh(geometry=geometry, material=[MeshStandardMaterial(vertexColors='VertexColors', reflectivity=1.0, 
                                                             #side='FrontSide', 
                                                             roughness=0.5, metalness=0.25, flatShading=False,
                                                             polygonOffset=True, polygonOffsetFactor= 1,
                                                             polygonOffsetUnits=1)])
-
+#MeshLambertMaterial(vertexColors='VertexColors')
         geon = WireframeGeometry(self.mesh.geometry) # WireframeGeometry
         mat = LineBasicMaterial(color="black", linewidth=0.6)
         wireframe = LineSegments( geon, mat )
@@ -34,6 +46,11 @@ class Viewer():
 
         self.scene = Scene(children=[self.mesh, self.cam, AmbientLight(intensity=0.5)], background="#4c4c80")
         self.renderer.scene = self.scene
+        
+    def set_colors(self, c):
+        c = c.astype("float32", copy=False)
+        c = c[:, :3]
+        self.mesh.geometry.attributes.get("color").array = c
         
     def add_widget(self, widget, callback):
         self.widgets.append(widget)
