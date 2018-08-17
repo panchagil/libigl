@@ -23,8 +23,8 @@ IGL_INLINE void igl::gaussian_curvature(
     DerivedF::RowsAtCompileTime,
     DerivedF::ColsAtCompileTime> A;
   internal_angles(V,F,A);
-  K.resize(V.rows(),1);
-  K.setConstant(V.rows(),1,2.*PI);
+  K.derived().resize(V.rows(),1);
+  K.derived().setConstant(V.rows(),1,2.*PI);
   assert(A.rows() == F.rows());
   assert(A.cols() == F.cols());
   assert(K.rows() == V.rows());

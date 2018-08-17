@@ -21,7 +21,7 @@ IGL_INLINE void igl::squared_edge_lengths(
   {
     case 2:
     {
-      L.resize(F.rows(),1);
+      L.derived().resize(F.rows(),1);
       for(int i = 0;i<F.rows();i++)
       {
         L(i,0) = (V.row(F(i,1))-V.row(F(i,0))).squaredNorm();
@@ -30,7 +30,7 @@ IGL_INLINE void igl::squared_edge_lengths(
     }
     case 3:
     {
-      L.resize(m,3);
+      L.derived().resize(m,3);
       // loop over faces
       parallel_for(
         m,
@@ -45,7 +45,7 @@ IGL_INLINE void igl::squared_edge_lengths(
     }
     case 4:
     {
-      L.resize(m,6);
+      L.derived().resize(m,6);
       // loop over faces
       parallel_for(
         m,

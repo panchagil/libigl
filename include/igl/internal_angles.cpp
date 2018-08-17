@@ -34,7 +34,7 @@ IGL_INLINE void igl::internal_angles(
   }else
   {
     assert(V.cols() == 3 && "If F contains non-triangle facets, V must be 3D");
-    K.resizeLike(F);
+    K.derived().resizeLike(F);
     auto corner = [](
       const typename DerivedV::ConstRowXpr & x, 
       const typename DerivedV::ConstRowXpr & y, 
@@ -70,7 +70,7 @@ IGL_INLINE void igl::internal_angles_using_squared_edge_lengths(
   typedef typename DerivedL::Index Index;
   assert(L_sq.cols() == 3 && "Edge-lengths should come from triangles");
   const Index m = L_sq.rows();
-  K.resize(m,3);
+  K.derived().resize(m,3);
   parallel_for(
     m,
     [&L_sq,&K](const Index f)
@@ -97,7 +97,7 @@ IGL_INLINE void igl::internal_angles_using_edge_lengths(
   typedef typename DerivedL::Index Index;
   assert(L.cols() == 3 && "Edge-lengths should come from triangles");
   const Index m = L.rows();
-  K.resize(m,3);
+  K.derived().resize(m,3);
   parallel_for(
     m,
     [&L,&K](const Index f)
