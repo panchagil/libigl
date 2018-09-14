@@ -14,7 +14,7 @@ using namespace std;
 Eigen::SparseMatrix<npe_Scalar_v> g;
 igl::grad(v, f, g, uniform);
 
-return NPE_MOVE_SPARSE(g);
+return npe::move(g);
 
 npe_end_code()
 

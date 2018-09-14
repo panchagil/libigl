@@ -16,7 +16,7 @@ using namespace std;
 
 Eigen::Matrix<std::double_t, Eigen::Dynamic, Eigen::Dynamic> k;
 igl::gaussian_curvature(v, f, k);
-return NPE_MOVE_DENSE(k);
+return npe::move(k);
 
 npe_end_code()
 

@@ -15,7 +15,7 @@ using namespace std;
 
 Eigen::Matrix<std::double_t, Eigen::Dynamic, Eigen::Dynamic> c;
 igl::jet(z, normalize, c);
-return NPE_MOVE_DENSE(c);
+return npe::move(c);
 
 npe_end_code()
 
