@@ -11,6 +11,7 @@
 #include <igl/igl_inline.h>
 #include <igl/setdiff.h>
 #include <igl/cat.h>
+#include <igl/PI.h>
 #include <Eigen/Core>
 #include <vector>
 
@@ -18,7 +19,7 @@ namespace igl
 {
     
   //This projection does nothing but render points into projP. Mostly used for "echoing" the global step
-  IGL_INLINE bool shapeup_identity_projection(const Eigen::MatrixBase<Eigen::MatrixXd>& P, const Eigen::MatrixBase<Eigen::VectorXi>& SC, const Eigen::MatrixBase<Eigen::MatrixXi>& S,  Eigen::MatrixBase<Eigen::MatrixXd>& projP){
+  IGL_INLINE bool shapeup_identity_projection(const Eigen::MatrixBase<Eigen::MatrixXd>& P, const Eigen::MatrixBase<Eigen::VectorXi>& SC, const Eigen::MatrixBase<Eigen::MatrixXi>& S,  Eigen::PlainObjectBase<Eigen::MatrixXd>& projP){
     projP.conservativeResize(SC.rows(), 3*SC.maxCoeff());
     for (int i=0;i<S.rows();i++){
       Eigen::RowVector3d avgCurrP=Eigen::RowVector3d::Zero();
@@ -33,7 +34,7 @@ namespace igl
   
   
   //the projection assumes that the sets are vertices of polygons in order
-  IGL_INLINE bool shapeup_regular_face_projection(const Eigen::MatrixBase<Eigen::MatrixXd>& P, const Eigen::MatrixBase<Eigen::VectorXi>& SC, const Eigen::MatrixBase<Eigen::MatrixXi>& S,  Eigen::MatrixBase<Eigen::MatrixXd>& projP){
+  IGL_INLINE bool shapeup_regular_face_projection(const Eigen::MatrixBase<Eigen::MatrixXd>& P, const Eigen::MatrixBase<Eigen::VectorXi>& SC, const Eigen::MatrixBase<Eigen::MatrixXi>& S,  Eigen::PlainObjectBase<Eigen::MatrixXd>& projP){
     projP.conservativeResize(SC.rows(), 3*SC.maxCoeff());
     for (int currRow=0;currRow<SC.rows();currRow++){
     //computing average
@@ -50,7 +51,7 @@ namespace igl
   
       //creating perfectly regular source polygon
       for (int j=0;j<N;j++)
-        sourcePolygon.row(j)<<cos(2*M_PI*(double)j/(double(N))), sin(2*M_PI*(double)j/(double(N))),0.0;
+        sourcePolygon.row(j)<<cos(2*igl::PI*(double)j/(double(N))), sin(2*igl::PI*(double)j/(double(N))),0.0;
   
       //finding closest similarity transformation between source and target
       Eigen::MatrixXd corrMat=sourcePolygon.transpose()*targetPolygon;
@@ -178,7 +179,7 @@ namespace igl
                                 const Eigen::MatrixBase<DerivedP>& P0,
                                 const ShapeupData & sudata,
                                 const bool quietIterations,
-                                Eigen::MatrixBase<DerivedP>& P)
+                                Eigen::PlainObjectBase<DerivedP>& P)
   {
     using namespace Eigen;
     using namespace std;

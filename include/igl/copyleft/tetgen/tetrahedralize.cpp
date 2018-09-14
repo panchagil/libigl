@@ -69,9 +69,9 @@ IGL_INLINE int igl::copyleft::tetgen::tetrahedralize(
   const Eigen::MatrixBase<DerivedV>& V,
   const Eigen::MatrixBase<DerivedF>& F,
   const std::string switches,
-  Eigen::MatrixBase<DerivedTV>& TV,
-  Eigen::MatrixBase<DerivedTT>& TT,
-  Eigen::MatrixBase<DerivedTF>& TF)
+  Eigen::PlainObjectBase<DerivedTV>& TV,
+  Eigen::PlainObjectBase<DerivedTT>& TT,
+  Eigen::PlainObjectBase<DerivedTF>& TF)
 {
   using namespace std;
   vector<vector<REAL> > vV,vTV;
@@ -115,10 +115,10 @@ IGL_INLINE int igl::copyleft::tetgen::tetrahedralize(
   const Eigen::MatrixBase<DerivedVM>& VM,
   const Eigen::MatrixBase<DerivedFM>& FM,
   const std::string switches,
-  Eigen::MatrixBase<DerivedTV>& TV,
-  Eigen::MatrixBase<DerivedTT>& TT,
-  Eigen::MatrixBase<DerivedTF>& TF,
-  Eigen::MatrixBase<DerivedTM>& TM)
+  Eigen::PlainObjectBase<DerivedTV>& TV,
+  Eigen::PlainObjectBase<DerivedTT>& TT,
+  Eigen::PlainObjectBase<DerivedTF>& TF,
+  Eigen::PlainObjectBase<DerivedTM>& TM)
 {
   using namespace std;
   vector<vector<REAL> > vV,vTV;
