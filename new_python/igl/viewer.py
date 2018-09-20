@@ -52,6 +52,23 @@ class Viewer():
         c = c[:, :3]
         self.mesh.geometry.attributes.get("color").array = c
         
+    def add_lines(self, lines):#, colors):
+        #mat = LineBasicMaterial(color="black", linewidth=0.6)
+        linesgeom = Geometry(vertices=lines)#, colors = colors)# ['red', 'red', 'green', 'green', 'white', 'orange'])
+        lines = LineSegments(geometry=linesgeom, 
+             material=LineBasicMaterial(linewidth=5, color="red"))#,#vertexColors='VertexColors'), 
+             #type='LinePieces')
+        self.mesh.add(lines)
+    
+    def add_arrows(self, arrow, length):#, colors):
+        #mat = LineBasicMaterial(color="black", linewidth=0.6)
+        #linesgeom = Geometry(vertices=lines)#, colors = colors)# ['red', 'red', 'green', 'green', 'white', 'orange'])
+        #lines = LineSegments(geometry=linesgeom, 
+             #material=LineBasicMaterial(linewidth=5, color="red"))#,#vertexColors='VertexColors'), 
+             #type='LinePieces')
+        arrowhelper = ArrowHelper(dir=arrow[1], origin=arrow[0], length=length);
+        self.mesh.add(arrowhelper)
+        
     def add_widget(self, widget, callback):
         self.widgets.append(widget)
         widget.observe(callback, names='value')
