@@ -24,7 +24,7 @@
 
 extern "C"
 {
-#include <triangle.h>
+#include "triangle.h"
 }
 
 #undef ANSI_DECLARATORS

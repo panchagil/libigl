@@ -7,7 +7,13 @@
 # obtain one at http://mozilla.org/MPL/2.0/.
 import os
 
-tutorial_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../../tutorial/shared/")
+TUTORIAL_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../../tutorial/shared/")
+
+MASSMATRIX_TYPE_BARYCENTRIC = 0
+MASSMATRIX_TYPE_VORONOI = 1
+MASSMATRIX_TYPE_FULL = 2
+MASSMATRIX_TYPE_DEFAULT = 3
+NUM_MASSMATRIX_TYPE = 4
 
 def check_dependencies(deps):
     available = [hasattr(igl, m) for m in deps]

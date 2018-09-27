@@ -24,7 +24,7 @@ namespace igl
   //   Y  an m by n sparse matrix
   template <typename T>
   IGL_INLINE void invert_diag(
-    const Eigen::SparseMatrix<T>& X, 
+    const Eigen::SparseMatrixBase<T>& X, 
     Eigen::SparseMatrix<T>& Y);
 }
 

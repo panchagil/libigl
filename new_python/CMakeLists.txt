@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 # NumpyEigen
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/../external/numpyeigen/cmake)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 include(numpyeigen)
 
 
@@ -23,7 +24,7 @@ option(LIBIGL_WITH_OPENGL_GLFW      "Use GLFW"           OFF)
 option(LIBIGL_WITH_PNG              "Use PNG"            OFF)
 option(LIBIGL_WITH_PYTHON           "Use Python"         OFF)
 option(LIBIGL_WITH_TETGEN           "Use Tetgen"         OFF)
-option(LIBIGL_WITH_TRIANGLE         "Use Triangle"       OFF)
+option(LIBIGL_WITH_TRIANGLE         "Use Triangle"       ON)
 option(LIBIGL_WITH_VIEWER           "Use OpenGL viewer"  OFF)
 option(LIBIGL_WITH_XML              "Use XML"            OFF)
 
@@ -38,8 +39,9 @@ file(GLOB PYIGL_SOURCES src/*.cpp)
 npe_add_module(pyigl
   BINDING_SOURCES
   ${PYIGL_SOURCES})
-target_link_libraries(pyigl PRIVATE igl::core)
-target_include_directories(pyigl PRIVATE ${PYBIND_11_DIR}/include)
+
+target_link_libraries(pyigl PRIVATE igl::core igl::triangle)
+target_include_directories(pyigl PRIVATE ${PYBIND_11_DIR}/include src/include)
 
 
 #set(Python_ADDITIONAL_VERSIONS 3.4 3.5 3.6)
