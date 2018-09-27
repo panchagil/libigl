@@ -5,7 +5,7 @@
 #include <igl/writeOBJ.h>
 
 
-npe_function(writeOBJ)
+npe_function(write_obj)
 npe_arg(str, std::string)
 npe_default_arg(v, dense_f64, dense_f32, pybind11::array_t<double>())
 npe_default_arg(f, dense_i64, dense_i32, pybind11::array_t<int>())
