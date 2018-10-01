@@ -21,7 +21,7 @@ IGL_INLINE void igl::per_vertex_normals(
   const Eigen::MatrixBase<DerivedV>& V,
   const Eigen::MatrixBase<DerivedF>& F,
   const igl::PerVertexNormalsWeightingType weighting,
-  Eigen::MatrixBase<DerivedN> & N)
+  Eigen::PlainObjectBase<DerivedN> & N)
 {
   Eigen::Matrix<typename DerivedV::Scalar,Eigen::Dynamic,3> PFN;
   igl::per_face_normals(V,F,PFN);
@@ -32,7 +32,7 @@ template <typename DerivedV, typename DerivedF, typename DerivedN>
 IGL_INLINE void igl::per_vertex_normals(
   const Eigen::MatrixBase<DerivedV>& V,
   const Eigen::MatrixBase<DerivedF>& F,
-  Eigen::MatrixBase<DerivedN> & N)
+  Eigen::PlainObjectBase<DerivedN> & N)
 {
   return per_vertex_normals(V,F,PER_VERTEX_NORMALS_WEIGHTING_TYPE_DEFAULT,N);
 }
@@ -43,11 +43,11 @@ IGL_INLINE void igl::per_vertex_normals(
   const Eigen::MatrixBase<DerivedF>& F,
   const igl::PerVertexNormalsWeightingType weighting,
   const Eigen::MatrixBase<DerivedFN>& FN,
-  Eigen::MatrixBase<DerivedN> & N)
+  Eigen::PlainObjectBase<DerivedN> & N)
 {
   using namespace std;
   // Resize for output
-  N.setZero(V.rows(),3);
+  N.derived().setZero(V.rows(),3);
 
   Eigen::Matrix<typename DerivedN::Scalar,DerivedF::RowsAtCompileTime,3>
     W(F.rows(),3);
@@ -113,7 +113,7 @@ IGL_INLINE void igl::per_vertex_normals(
   const Eigen::MatrixBase<DerivedV>& V,
   const Eigen::MatrixBase<DerivedF>& F,
   const Eigen::MatrixBase<DerivedFN>& FN,
-  Eigen::MatrixBase<DerivedN> & N)
+  Eigen::PlainObjectBase<DerivedN> & N)
 {
   return
     per_vertex_normals(V,F,PER_VERTEX_NORMALS_WEIGHTING_TYPE_DEFAULT,FN,N);

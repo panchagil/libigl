@@ -50,8 +50,8 @@ template <
 IGL_INLINE void igl::vertex_triangle_adjacency(
   const Eigen::MatrixBase<DerivedF> & F,
   const int n,
-  Eigen::MatrixBase<DerivedVF> & VF,
-  Eigen::MatrixBase<DerivedNI> & NI)
+  Eigen::PlainObjectBase<DerivedVF> & VF,
+  Eigen::PlainObjectBase<DerivedNI> & NI)
 {
   typedef Eigen::Matrix<typename DerivedVF::Scalar,Eigen::Dynamic,1> VectorXI;
   // vfd  #V list so that vfd(i) contains the vertex-face degree (number of

@@ -38,7 +38,7 @@ namespace igl
   IGL_INLINE void edge_lengths(
     const Eigen::MatrixBase<DerivedV>& V,
     const Eigen::MatrixBase<DerivedF>& F,
-    Eigen::MatrixBase<DerivedL>& L);
+    Eigen::PlainObjectBase<DerivedL>& L);
 }
 
 #ifndef IGL_STATIC_LIBRARY

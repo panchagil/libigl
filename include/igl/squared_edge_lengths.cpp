@@ -13,7 +13,7 @@ template <typename DerivedV, typename DerivedF, typename DerivedL>
 IGL_INLINE void igl::squared_edge_lengths(
   const Eigen::MatrixBase<DerivedV>& V,
   const Eigen::MatrixBase<DerivedF>& F,
-  Eigen::MatrixBase<DerivedL>& L)
+  Eigen::PlainObjectBase<DerivedL>& L)
 {
   using namespace std;
   const int m = F.rows();
@@ -21,7 +21,7 @@ IGL_INLINE void igl::squared_edge_lengths(
   {
     case 2:
     {
-      L.derived().resize(F.rows(),1);
+      L.resize(F.rows(),1);
       for(int i = 0;i<F.rows();i++)
       {
         L(i,0) = (V.row(F(i,1))-V.row(F(i,0))).squaredNorm();
@@ -30,7 +30,7 @@ IGL_INLINE void igl::squared_edge_lengths(
     }
     case 3:
     {
-      L.derived().resize(m,3);
+      L.resize(m,3);
       // loop over faces
       parallel_for(
         m,
@@ -45,7 +45,7 @@ IGL_INLINE void igl::squared_edge_lengths(
     }
     case 4:
     {
-      L.derived().resize(m,6);
+      L.resize(m,6);
       // loop over faces
       parallel_for(
         m,

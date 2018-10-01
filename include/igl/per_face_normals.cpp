@@ -14,7 +14,7 @@ IGL_INLINE void igl::per_face_normals(
   const Eigen::MatrixBase<DerivedV>& V,
   const Eigen::MatrixBase<DerivedF>& F,
   const Eigen::MatrixBase<DerivedZ> & Z,
-  Eigen::MatrixBase<DerivedN> & N)
+  Eigen::PlainObjectBase<DerivedN> & N)
 {
   N.resize(F.rows(),3);
   // loop over faces
@@ -40,7 +40,7 @@ template <typename DerivedV, typename DerivedF, typename DerivedN>
 IGL_INLINE void igl::per_face_normals(
   const Eigen::MatrixBase<DerivedV>& V,
   const Eigen::MatrixBase<DerivedF>& F,
-  Eigen::MatrixBase<DerivedN> & N)
+  Eigen::PlainObjectBase<DerivedN> & N)
 {
   using namespace Eigen;
   Matrix<typename DerivedN::Scalar,3,1> Z(0,0,0);
@@ -51,7 +51,7 @@ template <typename DerivedV, typename DerivedF, typename DerivedN>
 IGL_INLINE void igl::per_face_normals_stable(
   const Eigen::MatrixBase<DerivedV>& V,
   const Eigen::MatrixBase<DerivedF>& F,
-  Eigen::MatrixBase<DerivedN> & N)
+  Eigen::PlainObjectBase<DerivedN> & N)
 {
   using namespace Eigen;
   typedef Matrix<typename DerivedV::Scalar,1,3> RowVectorV3;

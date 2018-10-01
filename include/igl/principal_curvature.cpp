@@ -783,10 +783,10 @@ template <
 IGL_INLINE void igl::principal_curvature(
   const Eigen::MatrixBase<DerivedV>& V,
   const Eigen::MatrixBase<DerivedF>& F,
-  Eigen::MatrixBase<DerivedPD1>& PD1,
-  Eigen::MatrixBase<DerivedPD2>& PD2,
-  Eigen::MatrixBase<DerivedPV1>& PV1,
-  Eigen::MatrixBase<DerivedPV2>& PV2,
+  Eigen::PlainObjectBase<DerivedPD1>& PD1,
+  Eigen::PlainObjectBase<DerivedPD2>& PD2,
+  Eigen::PlainObjectBase<DerivedPV1>& PV1,
+  Eigen::PlainObjectBase<DerivedPV2>& PV2,
   unsigned radius,
   bool useKring)
 {

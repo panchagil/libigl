@@ -13,7 +13,7 @@ template <typename DerivedV, typename DerivedT, typename DerivedA>
 IGL_INLINE void igl::face_areas(
   const Eigen::MatrixBase<DerivedV>& V,
   const Eigen::MatrixBase<DerivedT>& T,
-  Eigen::MatrixBase<DerivedA>& A)
+  Eigen::PlainObjectBase<DerivedA>& A)
 {
   assert(T.cols() == 4);
   DerivedA L;
@@ -24,7 +24,7 @@ IGL_INLINE void igl::face_areas(
 template <typename DerivedL, typename DerivedA>
 IGL_INLINE void igl::face_areas(
   const Eigen::MatrixBase<DerivedL>& L,
-  Eigen::MatrixBase<DerivedA>& A)
+  Eigen::PlainObjectBase<DerivedA>& A)
 {
   return face_areas(
     L,std::numeric_limits<typename DerivedL::Scalar>::quiet_NaN(),A);
@@ -34,7 +34,7 @@ template <typename DerivedL, typename DerivedA>
 IGL_INLINE void igl::face_areas(
   const Eigen::MatrixBase<DerivedL>& L,
   const typename DerivedL::Scalar doublearea_nan_replacement,
-  Eigen::MatrixBase<DerivedA>& A)
+  Eigen::PlainObjectBase<DerivedA>& A)
 {
   using namespace Eigen;
   assert(L.cols() == 6);
