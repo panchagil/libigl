@@ -29,6 +29,7 @@ option(LIBIGL_WITH_TETGEN           "Use Tetgen"         OFF)
 option(LIBIGL_WITH_TRIANGLE         "Use Triangle"       ON)
 option(LIBIGL_WITH_VIEWER           "Use OpenGL viewer"  OFF)
 option(LIBIGL_WITH_XML              "Use XML"            OFF)
+option(LIBIGL_PYTHON_TESTS      "Run Python tests"   ON)
 
 if(NOT TARGET igl::core)
   list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/../shared/cmake")
@@ -53,3 +54,9 @@ target_include_directories(pyigl PRIVATE ${PYBIND_11_DIR}/include src/include)
 #set_target_properties(pyigl PROPERTIES LINK_FLAGS "-Wl,--no-undefined")
 set_target_properties(pyigl PROPERTIES COMPILE_FLAGS "-Os -fvisibility=hidden")
 set_target_properties(pyigl PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../igl")
+
+
+if(${LIBIGL_PYTHON_TESTS})
+  enable_testing()
+  add_subdirectory(tests)
+endif()
