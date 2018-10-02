@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.2)
 project(new_pyigl)
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_BUILD_TYPE "Release")
+
 
 # NumpyEigen
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/../external/numpyeigen/cmake)
@@ -40,7 +42,7 @@ npe_add_module(pyigl
   BINDING_SOURCES
   ${PYIGL_SOURCES})
 
-target_link_libraries(pyigl PRIVATE igl::core igl::triangle)
+target_link_libraries(pyigl PRIVATE igl::core igl::triangle) #TODO move additional libs to variable
 target_include_directories(pyigl PRIVATE ${PYBIND_11_DIR}/include src/include)
 
 
@@ -49,4 +51,5 @@ target_include_directories(pyigl PRIVATE ${PYBIND_11_DIR}/include src/include)
 #find_package(PythonInterp REQUIRED)
 #target_link_libraries(pyigl PRIVATE ${PYTHON_LIBRARIES})
 #set_target_properties(pyigl PROPERTIES LINK_FLAGS "-Wl,--no-undefined")
-#set_target_properties(pyigl PROPERTIES COMPILE_FLAGS "-Os -fvisibility=hidden")
+set_target_properties(pyigl PROPERTIES COMPILE_FLAGS "-Os -fvisibility=hidden")
+set_target_properties(pyigl PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../igl")
