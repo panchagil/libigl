@@ -17,6 +17,7 @@ class TestBasic(unittest.TestCase):
         self.t = np.random.rand(10, 4)
         self.f = np.random.randint(0, 10, size=(20, 3), dtype="int32")
         self.g = np.random.randint(0, 10, size=(20, 4), dtype="int32")
+        # TODO add manifold/proper test data
 
     def test_module(self):
         # Extract all implemented functions from the module
@@ -56,7 +57,7 @@ class TestBasic(unittest.TestCase):
 
     def test_avg_edge_length(self):
         l = igl.avg_edge_length(self.v, self.f)
-        #self.assertTrue(np.isclose(l, 0.591942059553195))
+        self.assertTrue(np.isclose(l, 0.591942059553195))
 
 
     def test_cotmatrix(self):
@@ -80,6 +81,8 @@ class TestBasic(unittest.TestCase):
 
 
     def test_grad(self):
+        # TODO Running the function fails due to some bug in numpyeigen
+        # ValueError: Last value of index pointer should be less than the size of index and data arrays
         g = igl.grad(self.v, self.f)
         h = igl.grad(self.v, self.f, uniform=True)
         self.assertTrue(g.shape == (self.f.shape[0] * self.v.shape[1], self.v.shape[0]))
