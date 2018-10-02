@@ -11,8 +11,8 @@ Triangulate the interior of a polygon using the triangle library.
 
 Parameters
 ----------
-v : #v by 2 list of 2D vertex positions
-e : #e by 2 list of vertex ids forming unoriented edges of the boundary of the polygon
+v : #v by 2 array of 2D vertex positions
+e : #e by 2 array of vertex ids forming unoriented edges of the boundary of the polygon
 h : #h by 2 coordinates of points contained inside holes of the polygon
 flags : string of options pass to triangle (see triangle documentation) (default "a0.005q")
 dtype : data-type of the returned objects, optional. Default is `float64`.
@@ -21,7 +21,7 @@ dtype : data-type of the returned objects, optional. Default is `float64`.
 Returns
 -------
 v2  #v2 by 2 coordinates of the vertives of the generated triangulation
-f2  #f2 by 3 list of indices forming the faces of the generated triangulation
+f2  #f2 by 3 array of indices forming the faces of the generated triangulation
 
 See also
 --------

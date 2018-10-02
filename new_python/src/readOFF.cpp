@@ -13,6 +13,7 @@ and texture coordinates. Mesh may have faces of any number of degree.
 Parameters
 ----------
 filename : string, path to .off file
+read_normals : bool, determines whether normals are read. If false, returns []
 dtype : data-type of the returned objects, optional. Default is `float64`.
         (All integer return types are `int32` by default.)
 
