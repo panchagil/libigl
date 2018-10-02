@@ -2,33 +2,71 @@
 #include <Eigen/Core>
 #include <Eigen/Sparse>
 #include <npe.h>
+#include <typedefs.h>
+
 #include <igl/readOBJ.h>
 
+const char* ds_read_obj = R"igl_Qu8mg5v7(
+Read a mesh from an ascii obj file, filling in vertex positions, normals
+and texture coordinates. Mesh may have faces of any number of degree.
+
+Parameters
+----------
+filename : string, path to .obj file
+dtype : data-type of the returned objects, optional. Default is `float64`.
+        (All integer return types are `int32` by default.)
+
+Returns
+-------
+v : array of vertex positions #v by 3
+tc : array of texture coordinats #tc by 2
+n : array of corner normals #n by 3
+f : #f array of face indices into vertex positions
+ftc : #f array of face indices into vertex texture coordinates
+fn : #f array of face indices into vertex normals
+
+See also
+--------
+read_triangle_mesh, read_off
+
+Notes
+-----
+None
+
+Examples
+--------
+>>> v, _, n, f, _, _ = read_obj("my_model.obj")
+)igl_Qu8mg5v7";
+
 npe_function(read_obj)
-npe_arg(str, std::string)
-//npe_default_arg(read_normals, bool, true)
-npe_doc("A function which computes \n various values from input matrices")
+npe_doc(ds_read_obj)
+
+npe_arg(filename, std::string)
+npe_default_arg(dtype, npe::dtype, "float64")
+
+
 npe_begin_code()
 using namespace std;
 
-Eigen::Matrix<std::double_t, Eigen::Dynamic, Eigen::Dynamic> v;
-Eigen::Matrix<std::int32_t, Eigen::Dynamic, Eigen::Dynamic> f;
-Eigen::Matrix<std::double_t, Eigen::Dynamic, Eigen::Dynamic> n;
-Eigen::Matrix<std::double_t, Eigen::Dynamic, Eigen::Dynamic> tc;
-Eigen::Matrix<std::int32_t, Eigen::Dynamic, Eigen::Dynamic> ftc;
-Eigen::Matrix<std::int32_t, Eigen::Dynamic, Eigen::Dynamic> fn;
-bool ret;
 
-
-//if (read_normals) {
-//    ret = igl::readOBJ(str, v, f, n);
-//}
-//else {
-ret = igl::readOBJ(str, v, tc, n, f, ftc, fn);
-//}
-if (!ret) {
-    throw std::invalid_argument("File '" + str + "' not found.");
+if (dtype.type() == npe::type_f32) {
+    Dense_f32 v, tc, n; 
+    Dense_i32 f, ftc, fn;
+    bool ret = igl::readOBJ(filename, v, tc, n, f, ftc, fn);
+    if (!ret) {
+        throw std::invalid_argument("File '" + filename + "' not found.");
+    }
+    return std::make_tuple(npe::move(v), npe::move(tc), npe::move(n), npe::move(f), npe::move(ftc), npe::move(fn));
+} else if (dtype.type() == npe::type_f64) {
+    Dense_f64 v, tc, n; 
+    Dense_i32 f, ftc, fn;
+    bool ret = igl::readOBJ(filename, v, tc, n, f, ftc, fn);
+    if (!ret) {
+        throw std::invalid_argument("File '" + filename + "' not found.");
+    }
+    return std::make_tuple(npe::move(v), npe::move(tc), npe::move(n), npe::move(f), npe::move(ftc), npe::move(fn));
+} else {
+    throw pybind11::type_error("Only float32 and float64 dtypes are supported.");
 }
-return std::make_tuple(npe::move(v), npe::move(f), npe::move(n));
 
 npe_end_code()
