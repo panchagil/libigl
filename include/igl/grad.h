@@ -25,7 +25,6 @@ namespace igl {
   // Outputs:
   //   G  #faces*dim by #V Gradient operator
   //
-
   // Gradient of a scalar function defined on piecewise linear elements (mesh)
   // is constant on each triangle [tetrahedron] i,j,k:
   // grad(Xijk) = (Xj-Xi) * (Vi - Vk)^R90 / 2A + (Xk-Xi) * (Vj - Vi)^R90 / 2A
