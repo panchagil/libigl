@@ -175,5 +175,10 @@ class TestBasic(unittest.TestCase):
         kd = igl.arap_linear_block_spokes_and_rims(v, f, d=2)
         self.assertTrue(kd.shape[0] > 0)
 
+    def test_arap_rhs(self):
+        v, f, n = igl.read_off(os.path.join(igl.TUTORIAL_PATH, "bunny.off"))
+        k = igl.arap_rhs(v, f, d=2, energy=0)
+        self.assertTrue(k.shape[0] > 0)
+
 if __name__ == '__main__':
     unittest.main()

@@ -33,10 +33,10 @@ namespace igl {
   // 90 degrees
   //
 template <typename DerivedV, typename DerivedF, typename Scalar>
-IGL_INLINE void grad(const Eigen::MatrixBase<DerivedV>&V,
-                     const Eigen::MatrixBase<DerivedF>&F,
-                    Eigen::SparseMatrix<Scalar> &G,
-                    bool uniform = false);
+IGL_INLINE void grad(const Eigen::MatrixBase<DerivedV>& V,
+                     const Eigen::MatrixBase<DerivedF>& F,
+                     Eigen::SparseMatrix<Scalar> &G,
+                     bool uniform = false);
 }
 #ifndef IGL_STATIC_LIBRARY
 #  include "grad.cpp"

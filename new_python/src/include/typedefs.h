@@ -11,4 +11,3 @@ typedef Eigen::SparseMatrix<std::float_t, Eigen::ColMajor> EigenSparseF32;
 typedef Eigen::SparseMatrix<std::double_t, Eigen::ColMajor> EigenSparseF64;
 typedef Eigen::SparseMatrix<std::int32_t, Eigen::ColMajor> EigenSparseI32;
 typedef Eigen::SparseMatrix<std::int64_t, Eigen::ColMajor> EigenSparseI64;
-
