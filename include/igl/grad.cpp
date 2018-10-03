@@ -14,10 +14,10 @@
 #include "volume.h"
 #include "doublearea.h"
 
-template <typename DerivedV, typename DerivedF>
+template <typename DerivedV, typename DerivedF, typename Scalar>
 IGL_INLINE void grad_tet(const Eigen::MatrixBase<DerivedV>&V,
                          const Eigen::MatrixBase<DerivedF>&T,
-                         Eigen::SparseMatrix<typename DerivedV::Scalar> &G,
+                         Eigen::SparseMatrix<Scalar> &G,
                          bool uniform) {
   using namespace Eigen;
   assert(T.cols() == 4);
@@ -115,10 +115,10 @@ IGL_INLINE void grad_tet(const Eigen::MatrixBase<DerivedV>&V,
   G.setFromTriplets(G_t.begin(), G_t.end());
 }
 
-template <typename DerivedV, typename DerivedF>
+template <typename DerivedV, typename DerivedF, typename Scalar>
 IGL_INLINE void grad_tri(const Eigen::MatrixBase<DerivedV>&V,
                      const Eigen::MatrixBase<DerivedF>&F,
-                    Eigen::SparseMatrix<typename DerivedV::Scalar> &G,
+                    Eigen::SparseMatrix<Scalar> &G,
                     bool uniform)
 {
   Eigen::Matrix<typename DerivedV::Scalar,Eigen::Dynamic,3>
@@ -223,10 +223,10 @@ IGL_INLINE void grad_tri(const Eigen::MatrixBase<DerivedV>&V,
   G.setFromTriplets(triplets.begin(), triplets.end());
 }
 
-template <typename DerivedV, typename DerivedF>
+template <typename DerivedV, typename DerivedF, typename Scalar>
 IGL_INLINE void igl::grad(const Eigen::MatrixBase<DerivedV>&V,
                      const Eigen::MatrixBase<DerivedF>&F,
-                    Eigen::SparseMatrix<typename DerivedV::Scalar> &G,
+                    Eigen::SparseMatrix<Scalar> &G,
                     bool uniform)
 {
   assert(F.cols() == 3 || F.cols() == 4);

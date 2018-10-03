@@ -43,15 +43,22 @@ npe_doc(ds_grad)
 
 npe_arg(v, dense_f64, dense_f32)
 npe_arg(f, dense_i32)
+npe_default_arg(dtype, npe::dtype, "float64")
 npe_default_arg(uniform, bool, false)
 
 npe_begin_code()
 using namespace std;
 
-Eigen::SparseMatrix<npe_Scalar_v> g;
-igl::grad(v, f, g, uniform);
+if (dtype.type() == npe::type_f32) {
+    Eigen::SparseMatrix<float> g;
+    igl::grad(v, f, g, uniform);
+    return npe::move(g);
+} else {
+    Eigen::SparseMatrix<double> g;
+    igl::grad(v, f, g, uniform);
+    return npe::move(g);
+}
 
-return npe::move(g);
 
 npe_end_code()
 

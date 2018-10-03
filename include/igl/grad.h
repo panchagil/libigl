@@ -32,10 +32,10 @@ namespace igl {
   // i, and A is the area of triangle (i,j,k). ^R90 represent a rotation of
   // 90 degrees
   //
-template <typename DerivedV, typename DerivedF>
+template <typename DerivedV, typename DerivedF, typename Scalar>
 IGL_INLINE void grad(const Eigen::MatrixBase<DerivedV>&V,
                      const Eigen::MatrixBase<DerivedF>&F,
-                    Eigen::SparseMatrix<typename DerivedV::Scalar> &G,
+                    Eigen::SparseMatrix<Scalar> &G,
                     bool uniform = false);
 }
 #ifndef IGL_STATIC_LIBRARY
