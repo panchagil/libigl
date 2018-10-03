@@ -45,16 +45,16 @@ npe_begin_code()
 using namespace std;
 
 if (dtype.type() == npe::type_f32) {
-    Dense_f32 v;
-    Dense_i32 f;
+    EigenDenseF32 v;
+    EigenDenseI32 f;
     bool ret = igl::read_triangle_mesh(filename, v, f);
     if (!ret) {
         throw std::invalid_argument("File '" + filename + "' not found.");
     }
     return std::make_tuple(npe::move(v), npe::move(f));
 } else if (dtype.type() == npe::type_f64) {
-    Dense_f32 v;
-    Dense_i32 f;
+    EigenDenseF64 v;
+    EigenDenseI32 f;
     bool ret = igl::read_triangle_mesh(filename, v, f);
     if (!ret) {
         throw std::invalid_argument("File '" + filename + "' not found.");

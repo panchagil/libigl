@@ -1,6 +1,3 @@
-#include <tuple>
-#include <Eigen/Core>
-#include <Eigen/Sparse>
 #include <npe.h>
 #include <typedefs.h>
 #include <igl/gaussian_curvature.h>
@@ -43,15 +40,13 @@ npe_default_arg(dtype, npe::dtype, "float64")
 
 
 npe_begin_code()
-using namespace std;
-
 
 if (dtype.type() == npe::type_f32) {
-    Dense_f32 k;
+    EigenDenseF32 k;
     igl::gaussian_curvature(v, f, k);
     return npe::move(k);
 } else if (dtype.type() == npe::type_f64) {
-    Dense_f64 k;
+    EigenDenseF64 k;
     igl::gaussian_curvature(v, f, k);
     return npe::move(k);
 } else {

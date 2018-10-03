@@ -48,8 +48,8 @@ npe_begin_code()
 using namespace std;
 
 if (dtype.type() == npe::type_f32) {
-    Dense_f32 v, n; 
-    Dense_i32 f;
+    EigenDenseF32 v, n;
+    EigenDenseI32 f;
     bool ret;
     if (read_normals) {
         ret = igl::readOFF(filename, v, f, n);
@@ -64,8 +64,8 @@ if (dtype.type() == npe::type_f32) {
 
     return std::make_tuple(npe::move(v), npe::move(f), npe::move(n));
 } else if (dtype.type() == npe::type_f64) {
-    Dense_f64 v, n; 
-    Dense_i32 f;
+    EigenDenseF64 v, n;
+    EigenDenseI32 f;
     bool ret;
     if (read_normals) {
         ret = igl::readOFF(filename, v, f, n);

@@ -1,6 +1,3 @@
-#include <tuple>
-#include <Eigen/Core>
-#include <Eigen/Sparse>
 #include <npe.h>
 #include <typedefs.h>
 #include <igl/adjacency_matrix.h>
@@ -20,7 +17,7 @@ a : max(f) by max(f) cotangent matrix, each row i corresponding to v(i, :)
 
 See also
 --------
-edges, cotmatrix, diag
+adjacency_list, edges, cotmatrix, diag
 
 Notes
 -----
@@ -49,15 +46,13 @@ npe_default_arg(dtype, npe::dtype, "float64")
 
 
 npe_begin_code()
-using namespace std;
-
 
 if (dtype.type() == npe::type_f32) {
-    Sparse_f32 a;
+    EigenSparseF32 a;
     igl::adjacency_matrix(f, a);
     return npe::move(a);
 } else if (dtype.type() == npe::type_f64) {
-    Sparse_f64 a;
+    EigenSparseF64 a;
     igl::adjacency_matrix(f, a);
     return npe::move(a);
 } else {

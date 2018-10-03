@@ -94,11 +94,8 @@ npe_arg(f, dense_i32)
 
 
 npe_begin_code()
-using namespace std;
 
-bool ret = igl::writeOBJ(filename, v, f);
-
-return ret;
+return igl::writeOBJ(filename, v, f);
 
 npe_end_code()
 

@@ -1,8 +1,4 @@
-#include <tuple>
-#include <Eigen/Core>
-#include <Eigen/Sparse>
 #include <npe.h>
-#include <typedefs.h>
 #include <igl/avg_edge_length.h>
 
 const char* ds_avg_edge_length = R"igl_Qu8mg5v7(

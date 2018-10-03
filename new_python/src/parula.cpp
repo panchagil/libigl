@@ -1,6 +1,3 @@
-#include <tuple>
-#include <Eigen/Core>
-#include <Eigen/Sparse>
 #include <npe.h>
 #include <typedefs.h>
 #include <igl/parula.h>
@@ -46,11 +43,11 @@ npe_begin_code()
 using namespace std;
 
 if (dtype.type() == npe::type_f32) {
-    Dense_f32 c;
+    EigenDenseF32 c;
     igl::parula(z, normalize, c);
     return npe::move(c);
 } else if (dtype.type() == npe::type_f64) {
-    Dense_f64 c;
+    EigenDenseF64 c;
     igl::parula(z, normalize, c);
     return npe::move(c);
 } else {

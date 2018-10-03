@@ -1,9 +1,5 @@
-#include <tuple>
-#include <Eigen/Core>
-#include <Eigen/Sparse>
 #include <npe.h>
 #include <typedefs.h>
-
 #include <igl/grad.h>
 
 const char* ds_grad = R"igl_Qu8mg5v7(
@@ -51,11 +47,11 @@ npe_default_arg(uniform, bool, false)
 npe_begin_code()
 
 if (dtype.type() == npe::type_f32) {
-    Eigen::SparseMatrix<std::float_t> g;
+    EigenSparseF32 g;
     igl::grad(v, f, g, uniform);
     return npe::move(g);
 } else {
-    Eigen::SparseMatrix<std::double_t> g;
+    EigenSparseF64 g;
     igl::grad(v, f, g, uniform);
     return npe::move(g);
 }

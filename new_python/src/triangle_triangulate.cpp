@@ -51,13 +51,13 @@ using namespace std;
 
 
 if (dtype.type() == npe::type_f32) {
-    Dense_f32 v2;
-    Dense_i32 f2;
+    EigenDenseF32 v2;
+    EigenDenseI32 f2;
     igl::triangle::triangulate(v, e, h, flags, v2, f2);
     return std::make_tuple(npe::move(v2), npe::move(f2));
 } else if (dtype.type() == npe::type_f64) {
-    Dense_f64 v2;
-    Dense_i32 f2;
+    EigenDenseF64 v2;
+    EigenDenseI32 f2;
     igl::triangle::triangulate(v, e, h, flags, v2, f2);
     return std::make_tuple(npe::move(v2), npe::move(f2));
 } else {

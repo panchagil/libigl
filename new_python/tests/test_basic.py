@@ -164,6 +164,16 @@ class TestBasic(unittest.TestCase):
         a = igl.adjacency_list(f)
         self.assertEqual(len(a), v.shape[0])
 
+    def test_arap_linear_block(self):
+        v, f, n = igl.read_off(os.path.join(igl.TUTORIAL_PATH, "bunny.off"))
+        kd = igl.arap_linear_block(v, f, d=2, energy=0)
+        self.assertTrue(kd.shape[0] > 0)
+        kd = igl.arap_linear_block_elements(v, f, d=2)
+        self.assertTrue(kd.shape[0] > 0)
+        kd = igl.arap_linear_block_spokes(v, f, d=2)
+        self.assertTrue(kd.shape[0] > 0)
+        kd = igl.arap_linear_block_spokes_and_rims(v, f, d=2)
+        self.assertTrue(kd.shape[0] > 0)
 
 if __name__ == '__main__':
     unittest.main()

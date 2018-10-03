@@ -1,8 +1,5 @@
 #include <tuple>
-#include <Eigen/Core>
-#include <Eigen/Sparse>
 #include <npe.h>
-#include <typedefs.h>
 #include <igl/principal_curvature.h>
 
 const char* ds_principal_curvature = R"igl_Qu8mg5v7(
@@ -47,7 +44,6 @@ npe_default_arg(radius, int, 5)
 npe_default_arg(use_k_ring, bool, true)
 
 npe_begin_code()
-using namespace std;
 
 npe_Matrix_v pd1;
 npe_Matrix_v pd2;

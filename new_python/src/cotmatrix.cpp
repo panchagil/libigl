@@ -1,6 +1,3 @@
-#include <tuple>
-#include <Eigen/Core>
-#include <Eigen/Sparse>
 #include <npe.h>
 #include <typedefs.h>
 #include <igl/cotmatrix.h>
@@ -46,15 +43,13 @@ npe_default_arg(dtype, npe::dtype, "float64")
 
 
 npe_begin_code()
-using namespace std;
-
 
 if (dtype.type() == npe::type_f32) {
-    Sparse_f32 l;
+    EigenSparseF32 l;
     igl::cotmatrix(v, f, l);
     return npe::move(l);
 } else if (dtype.type() == npe::type_f64) {
-    Sparse_f64 l;
+    EigenSparseF64 l;
     igl::cotmatrix(v, f, l);
     return npe::move(l);
 } else {
