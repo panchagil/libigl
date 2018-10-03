@@ -180,5 +180,17 @@ class TestBasic(unittest.TestCase):
         k = igl.arap_rhs(v, f, d=2, energy=0)
         self.assertTrue(k.shape[0] > 0)
 
+    def test_average_onto_vertices(self):
+        v, f, n = igl.read_off(os.path.join(igl.TUTORIAL_PATH, "bunny.off"))
+        s = np.random.rand(f.shape[0])
+        sf = igl.average_onto_faces(f, s)
+        self.assertEqual(sf.shape[0], f.shape[0])
+
+    def test_average_onto_vertices(self):
+        v, f, n = igl.read_off(os.path.join(igl.TUTORIAL_PATH, "bunny.off"))
+        s = np.random.rand(f.shape[0])
+        sv = igl.average_onto_vertices(v, f, s)
+        self.assertEqual(sv.shape[0], v.shape[0])
+
 if __name__ == '__main__':
     unittest.main()
