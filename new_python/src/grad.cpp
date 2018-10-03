@@ -18,6 +18,8 @@ uniform : boolean (default false). Use a uniform mesh instead of the vertices v
 Returns
 -------
 g : #faces * dim by #v gradient operator
+dtype : data-type of the returned objects, optional. Default is `float64`.
+(All integer return types are `int32` by default.)
 
 See also
 --------
@@ -47,14 +49,13 @@ npe_default_arg(dtype, npe::dtype, "float64")
 npe_default_arg(uniform, bool, false)
 
 npe_begin_code()
-using namespace std;
 
 if (dtype.type() == npe::type_f32) {
-    Eigen::SparseMatrix<float> g;
+    Eigen::SparseMatrix<std::float_t> g;
     igl::grad(v, f, g, uniform);
     return npe::move(g);
 } else {
-    Eigen::SparseMatrix<double> g;
+    Eigen::SparseMatrix<std::double_t> g;
     igl::grad(v, f, g, uniform);
     return npe::move(g);
 }

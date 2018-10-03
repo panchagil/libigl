@@ -56,11 +56,9 @@ class TestBasic(unittest.TestCase):
         self.assertTrue(a.dtype == np.float64)
         self.assertTrue(type(a) == type(b) == csc.csc_matrix)
 
-
     def test_avg_edge_length(self):
         l = igl.avg_edge_length(self.v, self.f)
         self.assertTrue(np.isclose(l, 0.591942059553195))
-
 
     def test_cotmatrix(self):
         l = igl.cotmatrix(self.v, self.f)
@@ -71,7 +69,6 @@ class TestBasic(unittest.TestCase):
         self.assertTrue(l.dtype == np.float64)
         self.assertTrue(type(l) == type(m) == csc.csc_matrix)
 
-
     def test_gaussian_curvature(self):
         g = igl.gaussian_curvature(self.v, self.f)
         h = igl.gaussian_curvature(self.v, self.f, dtype="float32")
@@ -81,7 +78,6 @@ class TestBasic(unittest.TestCase):
         self.assertTrue(g.dtype == np.float64)
         self.assertTrue(type(g) == type(h) == np.ndarray)
 
-
     def test_grad(self):
         g = igl.grad(self.v, self.f)
         h = igl.grad(self.v, self.f, uniform=True)
@@ -89,13 +85,11 @@ class TestBasic(unittest.TestCase):
         self.assertTrue(h.shape == (self.f.shape[0] * self.v.shape[1], self.v.shape[0]))
         self.assertTrue(type(g) == type(h) == csc.csc_matrix)
 
-
     def test_jet(self):
         c = igl.jet(np.random.rand(1000), True)
         self.assertTrue(len(c) == 1000)
         self.assertTrue(np.min(c) >= 0.0)
         self.assertTrue(np.max(c) <= 1.0)
-
 
     def test_massmatrix(self):
         a = igl.massmatrix(self.v, self.f)
@@ -106,13 +100,11 @@ class TestBasic(unittest.TestCase):
         self.assertTrue(a.dtype == np.float64)
         self.assertTrue(type(a) == type(b) == csc.csc_matrix)
 
-
     def test_parula(self):
         c = igl.parula(np.random.rand(1000), True)
         self.assertTrue(len(c) == 1000)
         self.assertTrue(np.min(c) >= 0.0)
         self.assertTrue(np.max(c) <= 1.0)
-
 
     def test_principal_curvature(self):
         pd1, pd2, pv1, pv2 = igl.principal_curvature(self.v, self.f)
@@ -126,7 +118,6 @@ class TestBasic(unittest.TestCase):
         self.assertTrue(pd1.dtype == pd2.dtype == pv1.dtype == pv2.dtype == np.float32)
         self.assertTrue(type(pd1) == type(pd2) == type(pv1) == type(pv2) == np.ndarray)
 
-
     def test_read_obj(self):
         v, _, n, f, _, _ = igl.read_obj(igl.TUTORIAL_PATH + "face.obj")
         self.assertTrue(type(v) == type(f) == type(n) == np.ndarray)
@@ -136,7 +127,6 @@ class TestBasic(unittest.TestCase):
         self.assertTrue(v.shape == (25905, 3) and n.shape == (0, 0) and f.shape == (51712, 3))
         self.assertTrue(v.dtype == np.float32)
 
-
     def test_read_off(self):
         v, f, n = igl.read_off(igl.TUTORIAL_PATH + "bunny.off")
         self.assertTrue(type(v) == type(f) == type(n) == np.ndarray)
@@ -145,7 +135,6 @@ class TestBasic(unittest.TestCase):
         v, f, n = igl.read_off(igl.TUTORIAL_PATH + "bunny.off", read_normals=False, dtype="float32")
         self.assertTrue(v.shape == (3485, 3) and n.shape == (0, 0) and f.shape == (6966, 3))
         self.assertTrue(v.dtype == np.float32)
-
 
     def test_read_triangle_mesh(self):
         # TODO fix segfault problem
@@ -157,7 +146,6 @@ class TestBasic(unittest.TestCase):
         #v, f = igl.read_triangle_mesh(igl.TUTORIAL_PATH + "beetle.off")
         #print(v.shape, f.shape)
 
-
     def test_triangulate(self):
         v = np.array([[0.0, 0.0], [1.0, 0.0], [1.0, 1.0], [0.0, 1.0]])
         e = np.array([[0, 1], [1, 2], [2, 3], [3, 0]], dtype="int32")
@@ -166,11 +154,15 @@ class TestBasic(unittest.TestCase):
         self.assertTrue(v2.dtype == np.float64)
         self.assertTrue(type(v2) == type(f2) == np.ndarray)
 
-
     def test_write_obj(self):
         suc = igl.write_obj("test.obj", self.v, self.f)
         self.assertTrue(suc)
         self.assertTrue(os.path.isfile("test.obj"))
+
+    def test_adjacency_list(self):
+        v, f, n = igl.read_off(os.path.join(igl.TUTORIAL_PATH, "bunny.off"))
+        a = igl.adjacency_list(f)
+        self.assertEqual(len(a), v.shape[0])
 
 
 if __name__ == '__main__':
