@@ -7,6 +7,8 @@ import igl
 import inspect
 import numpy as np
 import scipy.sparse.csr as csr
+import scipy.sparse.csc as csc
+
 
 class TestBasic(unittest.TestCase):
 
@@ -52,7 +54,7 @@ class TestBasic(unittest.TestCase):
         self.assertTrue(b.shape == (self.v.shape[0], self.v.shape[0]))
         self.assertTrue(b.dtype == np.float32)
         self.assertTrue(a.dtype == np.float64)
-        self.assertTrue(type(a) == type(b) == csr.csr_matrix)
+        self.assertTrue(type(a) == type(b) == csc.csc_matrix)
 
 
     def test_avg_edge_length(self):
@@ -67,7 +69,7 @@ class TestBasic(unittest.TestCase):
         self.assertTrue(m.shape == (self.v.shape[0], self.v.shape[0]))
         self.assertTrue(m.dtype == np.float32)
         self.assertTrue(l.dtype == np.float64)
-        self.assertTrue(type(l) == type(m) == csr.csr_matrix)
+        self.assertTrue(type(l) == type(m) == csc.csc_matrix)
 
 
     def test_gaussian_curvature(self):
@@ -81,14 +83,11 @@ class TestBasic(unittest.TestCase):
 
 
     def test_grad(self):
-        # TODO Running the function fails due to some bug in numpyeigen
-        # ValueError: Last value of index pointer should be less than the size of index and data arrays
-        #g = igl.grad(self.v, self.f)
-        #h = igl.grad(self.v, self.f, uniform=True)
-        #self.assertTrue(g.shape == (self.f.shape[0] * self.v.shape[1], self.v.shape[0]))
-        #self.assertTrue(h.shape == (self.f.shape[0] * self.v.shape[1], self.v.shape[0]))
-        #self.assertTrue(type(g) == type(h) == csr.csr_matrix)
-        pass
+        g = igl.grad(self.v, self.f)
+        h = igl.grad(self.v, self.f, uniform=True)
+        self.assertTrue(g.shape == (self.f.shape[0] * self.v.shape[1], self.v.shape[0]))
+        self.assertTrue(h.shape == (self.f.shape[0] * self.v.shape[1], self.v.shape[0]))
+        self.assertTrue(type(g) == type(h) == csc.csc_matrix)
 
 
     def test_jet(self):
@@ -105,7 +104,7 @@ class TestBasic(unittest.TestCase):
         self.assertTrue(b.shape == (self.v.shape[0], self.v.shape[0]))
         self.assertTrue(b.dtype == np.float64)
         self.assertTrue(a.dtype == np.float64)
-        self.assertTrue(type(a) == type(b) == csr.csr_matrix)
+        self.assertTrue(type(a) == type(b) == csc.csc_matrix)
 
 
     def test_parula(self):
