@@ -9,8 +9,6 @@ Parameters
 ----------
 z : #z list of factors
 normalize : whether to normalize Z to be tightly between [0, 1]
-dtype : data-type of the returned objects, optional. Default is `float64`.
-        (All integer return types are `int32` by default.)
 
 Returns
 -------
@@ -33,25 +31,13 @@ Examples
 
 npe_function(jet)
 npe_doc(ds_jet)
-
-npe_arg(z, dense_f64, dense_f64)
+npe_arg(z, dense_f32, dense_f64)
 npe_arg(normalize, bool)
-npe_default_arg(dtype, npe::dtype, "float64")
-
-
 npe_begin_code()
 
-if (dtype.type() == npe::type_f32) {
-    EigenDenseF32 c;
-    igl::jet(z, normalize, c);
-    return npe::move(c);
-} else if (dtype.type() == npe::type_f64) {
-    EigenDenseF64 c;
-    igl::jet(z, normalize, c);
-    return npe::move(c);
-} else {
-    throw pybind11::type_error("Only float32 and float64 dtypes are supported.");
-}
+  EigenDense<npe_Scalar_z> c;
+  igl::jet(z, normalize, c);
+  return npe::move(c);
 
 npe_end_code()
 

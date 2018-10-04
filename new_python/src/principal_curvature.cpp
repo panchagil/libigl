@@ -37,21 +37,19 @@ Examples
 
 npe_function(principal_curvature)
 npe_doc(ds_principal_curvature)
-
 npe_arg(v, dense_f64, dense_f32)
-npe_arg(f, dense_i32)
+npe_arg(f, dense_i32, dense_i64)
 npe_default_arg(radius, int, 5)
 npe_default_arg(use_k_ring, bool, true)
-
 npe_begin_code()
 
-npe_Matrix_v pd1;
-npe_Matrix_v pd2;
-npe_Matrix_v pv1;
-npe_Matrix_v pv2;
+  npe_Matrix_v pd1;
+  npe_Matrix_v pd2;
+  npe_Matrix_v pv1;
+  npe_Matrix_v pv2;
 
-igl::principal_curvature(v, f, pd1, pd2, pv1, pv2, radius, use_k_ring);
-return std::make_tuple(npe::move(pd1), npe::move(pd2), npe::move(pv1), npe::move(pv2));
+  igl::principal_curvature(v, f, pd1, pd2, pv1, pv2, radius, use_k_ring);
+  return std::make_tuple(npe::move(pd1), npe::move(pd2), npe::move(pv1), npe::move(pv2));
 
 npe_end_code()
 

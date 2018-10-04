@@ -37,8 +37,8 @@ IGL_INLINE void igl::massmatrix(
   // Not yet supported
   assert(type!=MASSMATRIX_TYPE_FULL);
 
-  Matrix<int,Dynamic,1> MI;
-  Matrix<int,Dynamic,1> MJ;
+  Matrix<typename DerivedF::Scalar,Dynamic,1> MI;
+  Matrix<typename DerivedF::Scalar,Dynamic,1> MJ;
   Matrix<Scalar,Dynamic,1> MV;
   if(simplex_size == 3)
   {

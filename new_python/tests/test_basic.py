@@ -49,12 +49,9 @@ class TestBasic(unittest.TestCase):
 
     def test_adjacency_matrix(self):
         a = igl.adjacency_matrix(self.f)
-        b = igl.adjacency_matrix(self.f, dtype="float32")
         self.assertTrue(a.shape == (self.v.shape[0], self.v.shape[0]))
-        self.assertTrue(b.shape == (self.v.shape[0], self.v.shape[0]))
-        self.assertTrue(b.dtype == np.float32)
-        self.assertTrue(a.dtype == np.float64)
-        self.assertTrue(type(a) == type(b) == csc.csc_matrix)
+        self.assertTrue(a.dtype == self.f.dtype)
+        self.assertTrue(type(a) == csc.csc_matrix)
 
     def test_avg_edge_length(self):
         l = igl.avg_edge_length(self.v, self.f)
@@ -62,21 +59,15 @@ class TestBasic(unittest.TestCase):
 
     def test_cotmatrix(self):
         l = igl.cotmatrix(self.v, self.f)
-        m = igl.cotmatrix(self.v, self.f, dtype="float32")
         self.assertTrue(l.shape == (self.v.shape[0], self.v.shape[0]))
-        self.assertTrue(m.shape == (self.v.shape[0], self.v.shape[0]))
-        self.assertTrue(m.dtype == np.float32)
-        self.assertTrue(l.dtype == np.float64)
-        self.assertTrue(type(l) == type(m) == csc.csc_matrix)
+        self.assertTrue(l.dtype == self.v.dtype)
+        self.assertTrue(type(l) == csc.csc_matrix)
 
     def test_gaussian_curvature(self):
         g = igl.gaussian_curvature(self.v, self.f)
-        h = igl.gaussian_curvature(self.v, self.f, dtype="float32")
         self.assertTrue(g.shape == (self.v.shape[0], 1))
-        self.assertTrue(h.shape == (self.v.shape[0], 1))
-        self.assertTrue(h.dtype == np.float32)
-        self.assertTrue(g.dtype == np.float64)
-        self.assertTrue(type(g) == type(h) == np.ndarray)
+        self.assertTrue(g.dtype == self.v.dtype)
+        self.assertTrue(type(g) == np.ndarray)
 
     def test_grad(self):
         g = igl.grad(self.v, self.f)
@@ -150,8 +141,9 @@ class TestBasic(unittest.TestCase):
         v = np.array([[0.0, 0.0], [1.0, 0.0], [1.0, 1.0], [0.0, 1.0]])
         e = np.array([[0, 1], [1, 2], [2, 3], [3, 0]], dtype="int32")
         h = np.array([[]])
+        print("v.dtype = %s, h.dtype = %s" % (v.dtype, h.dtype))
         v2, f2 = igl.triangulate(v, e, h, flags="a0.005q")
-        self.assertTrue(v2.dtype == np.float64)
+        self.assertTrue(v2.dtype == v.dtype)
         self.assertTrue(type(v2) == type(f2) == np.ndarray)
 
     def test_write_obj(self):

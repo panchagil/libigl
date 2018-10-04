@@ -1,9 +1,5 @@
-#include <tuple>
-#include <Eigen/Core>
-#include <Eigen/Sparse>
 #include <npe.h>
 #include <typedefs.h>
-
 #include <igl/readOBJ.h>
 
 const char* ds_read_obj = R"igl_Qu8mg5v7(
@@ -13,8 +9,8 @@ and texture coordinates. Mesh may have faces of any number of degree.
 Parameters
 ----------
 filename : string, path to .obj file
-dtype : data-type of the returned objects, optional. Default is `float64`.
-        (All integer return types are `int32` by default.)
+dtype : data-type of the returned faces, texture coordinates and normals, optional. Default is `float64`.
+        (returned faces always have type int32.)
 
 Returns
 -------
@@ -40,33 +36,28 @@ Examples
 
 npe_function(read_obj)
 npe_doc(ds_read_obj)
-
 npe_arg(filename, std::string)
 npe_default_arg(dtype, npe::dtype, "float64")
-
-
 npe_begin_code()
-using namespace std;
 
-
-if (dtype.type() == npe::type_f32) {
+  if (dtype.type() == npe::type_f32) {
     EigenDenseF32 v, tc, n;
     EigenDenseI32 f, ftc, fn;
     bool ret = igl::readOBJ(filename, v, tc, n, f, ftc, fn);
     if (!ret) {
-        throw std::invalid_argument("File '" + filename + "' not found.");
+      throw std::invalid_argument("File '" + filename + "' not found.");
     }
     return std::make_tuple(npe::move(v), npe::move(tc), npe::move(n), npe::move(f), npe::move(ftc), npe::move(fn));
-} else if (dtype.type() == npe::type_f64) {
+  } else if (dtype.type() == npe::type_f64) {
     EigenDenseF64 v, tc, n;
     EigenDenseI32 f, ftc, fn;
     bool ret = igl::readOBJ(filename, v, tc, n, f, ftc, fn);
     if (!ret) {
-        throw std::invalid_argument("File '" + filename + "' not found.");
+      throw std::invalid_argument("File '" + filename + "' not found.");
     }
     return std::make_tuple(npe::move(v), npe::move(tc), npe::move(n), npe::move(f), npe::move(ftc), npe::move(fn));
-} else {
+  } else {
     throw pybind11::type_error("Only float32 and float64 dtypes are supported.");
-}
+  }
 
 npe_end_code()

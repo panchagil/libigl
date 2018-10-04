@@ -27,16 +27,13 @@ Examples
 
 npe_function(average_onto_faces)
 npe_doc(ds_average_onto_faces)
-
-npe_arg(f, dense_i32)
+npe_arg(f, dense_i32, dense_i64)
 npe_arg(s, dense_f32, dense_f64)
-
-
 npe_begin_code()
 
-npe_Matrix_s sf;
-igl::average_onto_faces(f, s, sf);
-return npe::move(sf);
+  npe_Matrix_s sf;
+  igl::average_onto_faces(f, s, sf);
+  return npe::move(sf);
 
 npe_end_code()
 

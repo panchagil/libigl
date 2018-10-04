@@ -14,12 +14,10 @@ uniform : boolean (default false). Use a uniform mesh instead of the vertices v
 Returns
 -------
 g : #faces * dim by #v gradient operator
-dtype : data-type of the returned objects, optional. Default is `float64`.
-(All integer return types are `int32` by default.)
 
 See also
 --------
-None
+cotmatrix, massmatrix
 
 Notes
 -----
@@ -38,24 +36,15 @@ Examples
 
 npe_function(grad)
 npe_doc(ds_grad)
-
 npe_arg(v, dense_f64, dense_f32)
-npe_arg(f, dense_i32)
-npe_default_arg(dtype, npe::dtype, "float64")
+npe_arg(f, dense_i32, dense_i64)
 npe_default_arg(uniform, bool, false)
 
 npe_begin_code()
 
-if (dtype.type() == npe::type_f32) {
-    EigenSparseF32 g;
-    igl::grad(v, f, g, uniform);
-    return npe::move(g);
-} else {
-    EigenSparseF64 g;
-    igl::grad(v, f, g, uniform);
-    return npe::move(g);
-}
-
+  EigenSparse<npe_Scalar_v> g;
+  igl::grad(v, f, g, uniform);
+  return npe::move(g);
 
 npe_end_code()
 

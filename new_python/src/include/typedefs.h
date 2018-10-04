@@ -2,6 +2,13 @@
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 
+
+template <typename T>
+using EigenSparse = Eigen::SparseMatrix<T, Eigen::ColMajor>;
+
+template <typename T>
+using EigenDense = Eigen::Matrix<T, -1, -1, Eigen::ColMajor, -1, -1>;
+
 typedef Eigen::Matrix<std::float_t, -1, -1, Eigen::ColMajor, -1, -1> EigenDenseF32;
 typedef Eigen::Matrix<std::double_t, -1, -1, Eigen::ColMajor, -1, -1> EigenDenseF64;
 typedef Eigen::Matrix<std::int32_t, -1, -1, Eigen::ColMajor, -1, -1> EigenDenseI32;

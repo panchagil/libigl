@@ -8,8 +8,6 @@ Constructs the graph adjacency matrix of a given mesh (v, f).
 Parameters
 ----------
 f : #f by dim list of mesh simplices
-dtype : data-type of the returned objects, optional. Default is `float64`.
-        (All integer return types are `int32` by default.)
 
 Returns
 -------
@@ -40,24 +38,12 @@ Examples
 
 npe_function(adjacency_matrix)
 npe_doc(ds_adjacency_matrix)
-
-npe_arg(f, dense_i32)
-npe_default_arg(dtype, npe::dtype, "float64")
-
-
+npe_arg(f, dense_i32, dense_i64)
 npe_begin_code()
 
-if (dtype.type() == npe::type_f32) {
-    EigenSparseF32 a;
-    igl::adjacency_matrix(f, a);
-    return npe::move(a);
-} else if (dtype.type() == npe::type_f64) {
-    EigenSparseF64 a;
-    igl::adjacency_matrix(f, a);
-    return npe::move(a);
-} else {
-    throw pybind11::type_error("Only float32 and float64 dtypes are supported.");
-}
+  EigenSparse<npe_Scalar_f> a;
+  igl::adjacency_matrix(f, a);
+  return npe::move(a);
 
 npe_end_code()
 

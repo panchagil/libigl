@@ -10,8 +10,6 @@ Parameters
 ----------
 v : #v by dim list of mesh vertex positions
 f : #f by simplex_size list of mesh faces (must be triangles)
-dtype : data-type of the returned objects, optional. Default is `float64`.
-        (All integer return types are `int32` by default.)
 
 Returns
 -------
@@ -36,25 +34,13 @@ Examples
 
 npe_function(cotmatrix)
 npe_doc(ds_cotmatrix)
-
 npe_arg(v, dense_f64, dense_f32)
-npe_arg(f, dense_i32)
-npe_default_arg(dtype, npe::dtype, "float64")
-
-
+npe_arg(f, dense_i32, dense_i64)
 npe_begin_code()
 
-if (dtype.type() == npe::type_f32) {
-    EigenSparseF32 l;
-    igl::cotmatrix(v, f, l);
-    return npe::move(l);
-} else if (dtype.type() == npe::type_f64) {
-    EigenSparseF64 l;
-    igl::cotmatrix(v, f, l);
-    return npe::move(l);
-} else {
-    throw pybind11::type_error("Only float32 and float64 dtypes are supported.");
-}
+  EigenSparse<npe_Scalar_v> l;
+  igl::cotmatrix(v, f, l);
+  return npe::move(l);
 
 npe_end_code()
 
