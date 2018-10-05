@@ -35,7 +35,7 @@ namespace igl
     const Eigen::MatrixBase<DerivedB> & B,
     const Eigen::MatrixBase<DerivedC> & C,
     const Eigen::MatrixBase<DerivedD> & D,
-    Eigen::MatrixBase<DerivedL> & L);
+    Eigen::PlainObjectBase<DerivedL> & L);
   // Compute barycentric coordinates in a triangle
   //
   // Inputs:
@@ -57,7 +57,7 @@ namespace igl
     const Eigen::MatrixBase<DerivedA> & A,
     const Eigen::MatrixBase<DerivedB> & B,
     const Eigen::MatrixBase<DerivedC> & C,
-    Eigen::MatrixBase<DerivedL> & L);
+    Eigen::PlainObjectBase<DerivedL> & L);
 
 }
 

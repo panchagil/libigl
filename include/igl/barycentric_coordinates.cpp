@@ -21,9 +21,10 @@ IGL_INLINE void igl::barycentric_coordinates(
   const Eigen::MatrixBase<DerivedB> & B,
   const Eigen::MatrixBase<DerivedC> & C,
   const Eigen::MatrixBase<DerivedD> & D,
-  Eigen::MatrixBase<DerivedL> & L)
+  Eigen::PlainObjectBase<DerivedL> & L)
 {
   using namespace Eigen;
+
   assert(P.cols() == 3 && "query must be in 3d");
   assert(A.cols() == 3 && "corners must be in 3d");
   assert(B.cols() == 3 && "corners must be in 3d");
@@ -33,8 +34,11 @@ IGL_INLINE void igl::barycentric_coordinates(
   assert(A.rows() == B.rows() && "Corners must be same size");
   assert(A.rows() == C.rows() && "Corners must be same size");
   assert(A.rows() == D.rows() && "Corners must be same size");
-  typedef Matrix<typename DerivedL::Scalar,DerivedL::RowsAtCompileTime,1> 
-    VectorXS;
+
+  typedef Eigen::Matrix<
+      typename DerivedL::Scalar,
+               DerivedL::RowsAtCompileTime,
+               1> VectorXS;
   // Total volume
   VectorXS vol,LA,LB,LC,LD;
   volume(B,D,C,P,LA);
@@ -58,7 +62,7 @@ IGL_INLINE void igl::barycentric_coordinates(
   const Eigen::MatrixBase<DerivedA> & A,
   const Eigen::MatrixBase<DerivedB> & B,
   const Eigen::MatrixBase<DerivedC> & C,
-  Eigen::MatrixBase<DerivedL> & L)
+  Eigen::PlainObjectBase<DerivedL> & L)
 {
   using namespace Eigen;
 #ifndef NDEBUG
@@ -72,18 +76,16 @@ IGL_INLINE void igl::barycentric_coordinates(
 #endif
 
   // http://gamedev.stackexchange.com/a/23745
-  typedef 
-    Eigen::Array<
-      typename DerivedP::Scalar,
-               DerivedP::RowsAtCompileTime,
-               DerivedP::ColsAtCompileTime>
-    ArrayS;
-  typedef 
-    Eigen::Array<
-      typename DerivedP::Scalar,
-               DerivedP::RowsAtCompileTime,
-               1>
-    VectorS;
+  typedef Eigen::Array<
+      typename DerivedL::Scalar,
+      DerivedL::RowsAtCompileTime,
+      DerivedL::ColsAtCompileTime,
+      DerivedL::Options> ArrayS;
+
+  typedef Eigen::Array<
+      typename DerivedL::Scalar,
+      DerivedL::RowsAtCompileTime,
+      1> VectorS;
 
   const ArrayS v0 = B.array() - A.array();
   const ArrayS v1 = C.array() - A.array();

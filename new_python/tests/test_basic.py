@@ -184,5 +184,19 @@ class TestBasic(unittest.TestCase):
         sv = igl.average_onto_vertices(v, f, s)
         self.assertEqual(sv.shape[0], v.shape[0])
 
+    def test_barycentric_coordinates(self):
+        v, f, n = igl.read_off(os.path.join(igl.TUTORIAL_PATH, "bunny.off"))
+        a, b, c = v[f[:, 0]], v[f[:, 1]], v[f[:, 2]]
+        bc = igl.barycentric_coordinates_tri(a, a, b, c)
+        self.assertEqual(bc.shape, a.shape)
+        expected_bc = np.zeros(a.shape)
+        expected_bc[:, 0] = np.ones(a.shape[0])
+        self.assertTrue(np.linalg.norm(expected_bc-bc) < 1e-6)
+
+        d = 0.5*a + 0.5*c + np.array([0.1, 0.1, 0.1])
+        bc = igl.barycentric_coordinates_tet(d, a, b, c, d)
+        self.assertEqual(bc.shape, (a.shape[0], 4))
+
+
 if __name__ == '__main__':
     unittest.main()

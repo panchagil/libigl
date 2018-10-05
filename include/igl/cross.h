@@ -32,7 +32,7 @@ namespace igl
   IGL_INLINE void cross(
     const Eigen::MatrixBase<DerivedA> & A,
     const Eigen::MatrixBase<DerivedB> & B,
-    Eigen::MatrixBase<DerivedC> & C);
+    Eigen::PlainObjectBase<DerivedC> & C);
 }
 
 #ifndef IGL_STATIC_LIBRARY

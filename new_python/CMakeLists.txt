@@ -29,7 +29,7 @@ option(LIBIGL_WITH_TETGEN           "Use Tetgen"         OFF)
 option(LIBIGL_WITH_TRIANGLE         "Use Triangle"       ON)
 option(LIBIGL_WITH_VIEWER           "Use OpenGL viewer"  OFF)
 option(LIBIGL_WITH_XML              "Use XML"            OFF)
-option(LIBIGL_PYTHON_TESTS      "Run Python tests"   ON)
+option(LIBIGL_PYTHON_TESTS          "Run Python tests"   ON)
 
 if(NOT TARGET igl::core)
   list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/../shared/cmake")

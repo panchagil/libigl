@@ -15,7 +15,7 @@ template <
 IGL_INLINE void igl::volume(
   const Eigen::MatrixBase<DerivedV>& V,
   const Eigen::MatrixBase<DerivedT>& T,
-  Eigen::MatrixBase<Derivedvol>& vol)
+  Eigen::PlainObjectBase<Derivedvol>& vol)
 {
   using namespace Eigen;
   const int m = T.rows();
@@ -42,12 +42,16 @@ IGL_INLINE void igl::volume(
   const Eigen::MatrixBase<DerivedB> & B,
   const Eigen::MatrixBase<DerivedC> & C,
   const Eigen::MatrixBase<DerivedD> & D,
-  Eigen::MatrixBase<Derivedvol> & vol)
+  Eigen::PlainObjectBase<Derivedvol> & vol)
 {
   const auto & AmD = A-D;
   const auto & BmD = B-D;
   const auto & CmD = C-D;
-  DerivedA BmDxCmD;
+  Eigen::Matrix<
+      typename Derivedvol::Scalar,
+      Derivedvol::RowsAtCompileTime,
+      Derivedvol::ColsAtCompileTime,
+      Derivedvol::Options> BmDxCmD;
   cross(BmD.eval(),CmD.eval(),BmDxCmD);
   const auto & AmDdx = (AmD.array() * BmDxCmD.array()).rowwise().sum();
   vol = -AmDdx/6.;
@@ -73,7 +77,7 @@ template <
   typename Derivedvol>
 IGL_INLINE void igl::volume(
   const Eigen::MatrixBase<DerivedL>& L,
-  Eigen::MatrixBase<Derivedvol>& vol)
+  Eigen::PlainObjectBase<Derivedvol>& vol)
 {
   using namespace Eigen;
   const int m = L.rows();

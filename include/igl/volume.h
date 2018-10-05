@@ -29,7 +29,7 @@ namespace igl
   IGL_INLINE void volume(
     const Eigen::MatrixBase<DerivedV>& V,
     const Eigen::MatrixBase<DerivedT>& T,
-    Eigen::MatrixBase<Derivedvol>& vol);
+    Eigen::PlainObjectBase<Derivedvol>& vol);
   template <
     typename DerivedA,
     typename DerivedB,
@@ -41,7 +41,7 @@ namespace igl
     const Eigen::MatrixBase<DerivedB> & B,
     const Eigen::MatrixBase<DerivedC> & C,
     const Eigen::MatrixBase<DerivedD> & D,
-    Eigen::MatrixBase<Derivedvol> & vol);
+    Eigen::PlainObjectBase<Derivedvol> & vol);
   // Single tet
   template <
     typename VecA,
@@ -62,7 +62,7 @@ namespace igl
     typename Derivedvol>
   IGL_INLINE void volume(
     const Eigen::MatrixBase<DerivedL>& L,
-    Eigen::MatrixBase<Derivedvol>& vol);
+    Eigen::PlainObjectBase<Derivedvol>& vol);
 }
 
 #ifndef IGL_STATIC_LIBRARY
