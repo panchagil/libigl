@@ -52,7 +52,7 @@ target_include_directories(pyigl PRIVATE ${PYBIND_11_DIR}/include src/include)
 #find_package(PythonInterp REQUIRED)
 #target_link_libraries(pyigl PRIVATE ${PYTHON_LIBRARIES})
 #set_target_properties(pyigl PROPERTIES LINK_FLAGS "-Wl,--no-undefined")
-set_target_properties(pyigl PROPERTIES COMPILE_FLAGS "-Os -fvisibility=hidden")
+set_target_properties(pyigl PROPERTIES COMPILE_FLAGS "-fvisibility=hidden -msse2")
 set_target_properties(pyigl PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/../igl")
 
 
