@@ -53,8 +53,8 @@ IGL_INLINE void igl::triangle::triangulate(
   const Eigen::MatrixBase<DerivedE> & E,
   const Eigen::MatrixBase<DerivedH> & H,
   const std::string flags,
-  Eigen::MatrixBase<DerivedV2> & V2,
-  Eigen::MatrixBase<DerivedF2> & F2)
+  Eigen::PlainObjectBase<DerivedV2> & V2,
+  Eigen::PlainObjectBase<DerivedF2> & F2)
 {
   Eigen::VectorXi VM,EM,VM2,EM2;
   return triangulate(V,E,H,VM,EM,flags,V2,F2,VM2,EM2);
@@ -77,10 +77,10 @@ IGL_INLINE void igl::triangle::triangulate(
   const Eigen::MatrixBase<DerivedVM> & VM,
   const Eigen::MatrixBase<DerivedEM> & EM,
   const std::string flags,
-  Eigen::MatrixBase<DerivedV2> & V2,
-  Eigen::MatrixBase<DerivedF2> & F2,
-  Eigen::MatrixBase<DerivedVM2> & VM2,
-  Eigen::MatrixBase<DerivedEM2> & EM2)
+  Eigen::PlainObjectBase<DerivedV2> & V2,
+  Eigen::PlainObjectBase<DerivedF2> & F2,
+  Eigen::PlainObjectBase<DerivedVM2> & VM2,
+  Eigen::PlainObjectBase<DerivedEM2> & EM2)
 {
   using namespace std;
   using namespace Eigen;
