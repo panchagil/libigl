@@ -35,7 +35,7 @@ npe_arg(z, dense_f64)
 npe_arg(normalize, bool)
 npe_begin_code()
 
-  EigenDense<npe_Scalar_z> c;
+  npe_Matrix_z c;
   igl::parula(z, normalize, c);
   return npe::move(c);
 

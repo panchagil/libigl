@@ -38,8 +38,8 @@ npe_arg(h, dense_f32, dense_f64) // TODO: Matches bug
 npe_default_arg(flags, std::string, "a0.005q")
 npe_begin_code()
 
-  EigenDense<npe_Scalar_v> v2;
-  EigenDense<npe_Scalar_e> f2;
+  npe_Matrix_v v2;
+  npe_Matrix_e f2;
   igl::triangle::triangulate(v, e, h, flags, v2, f2);
   return std::make_tuple(npe::move(v2), npe::move(f2));
 

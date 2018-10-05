@@ -58,7 +58,7 @@ npe_begin_code()
         std::to_string(igl::ARAP_ENERGY_TYPE_DEFAULT-1);
   }
 
-  EigenSparse<npe_Scalar_v> k;
+  EigenSparseLike<npe_Matrix_v> k;
   igl::arap_rhs(v, f, d, igl::ARAPEnergyType(energy), k);
   return npe::move(k);
 

@@ -41,7 +41,7 @@ npe_doc(ds_adjacency_matrix)
 npe_arg(f, dense_i32, dense_i64)
 npe_begin_code()
 
-  EigenSparse<npe_Scalar_f> a;
+  EigenSparseLike<npe_Matrix_f> a;
   igl::adjacency_matrix(f, a);
   return npe::move(a);
 

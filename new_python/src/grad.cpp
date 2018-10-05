@@ -42,7 +42,7 @@ npe_default_arg(uniform, bool, false)
 
 npe_begin_code()
 
-  EigenSparse<npe_Scalar_v> g;
+  EigenSparseLike<npe_Matrix_v> g;
   igl::grad(v, f, g, uniform);
   return npe::move(g);
 

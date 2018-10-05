@@ -38,7 +38,7 @@ npe_arg(v, dense_f64, dense_f32)
 npe_arg(f, dense_i32, dense_i64)
 npe_begin_code()
 
-  EigenSparse<npe_Scalar_v> l;
+  EigenSparseLike<npe_Matrix_v> l;
   igl::cotmatrix(v, f, l);
   return npe::move(l);
 

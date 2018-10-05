@@ -66,7 +66,7 @@ npe_begin_code()
     throw pybind11::value_error(errmsg);
   }
 
-  EigenSparse<npe_Scalar_v> kd;
+  EigenSparseLike<npe_Matrix_v> kd;
   igl::arap_linear_block(v, f, d, igl::ARAPEnergyType(energy), kd);
   return npe::move(kd);
 
@@ -85,7 +85,7 @@ npe_arg(f, dense_i32, dense_i64)
 npe_arg(d, int)
 npe_begin_code()
 
-  EigenSparse<npe_Scalar_v> kd;
+  EigenSparseLike<npe_Matrix_v> kd;
   igl::arap_linear_block_spokes(v, f, d, kd);
   return npe::move(kd);
 
@@ -103,7 +103,7 @@ npe_arg(f, dense_i32, dense_i64)
 npe_arg(d, int)
 npe_begin_code()
 
-  EigenSparse<npe_Scalar_v> kd;
+  EigenSparseLike<npe_Matrix_v> kd;
   igl::arap_linear_block_spokes_and_rims(v, f, d, kd);
   return npe::move(kd);
 
@@ -122,7 +122,7 @@ npe_arg(f, dense_i32, dense_i64)
 npe_arg(d, int)
 npe_begin_code()
 
-  EigenSparse<npe_Scalar_v> kd;
+  EigenSparseLike<npe_Matrix_v> kd;
   igl::arap_linear_block_elements(v, f, d, kd);
   return npe::move(kd);
 

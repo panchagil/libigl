@@ -3,18 +3,20 @@
 #include <Eigen/Sparse>
 
 
-template <typename T>
-using EigenSparse = Eigen::SparseMatrix<T, Eigen::ColMajor>;
+template <typename LikeT>
+using EigenSparseLike = Eigen::SparseMatrix<typename LikeT::Scalar, Eigen::ColMajor>; // FIXME: Maybe we should output CSR if LikeT is row major
 
-template <typename T>
-using EigenDense = Eigen::Matrix<T, -1, -1, Eigen::ColMajor, -1, -1>;
+template <typename LikeT>
+using EigenDenseLike = Eigen::Matrix<typename LikeT::Scalar, Eigen::Dynamic, Eigen::Dynamic, LikeT::Options, Eigen::Dynamic, Eigen::Dynamic>;
 
-typedef Eigen::Matrix<std::float_t, -1, -1, Eigen::ColMajor, -1, -1> EigenDenseF32;
-typedef Eigen::Matrix<std::double_t, -1, -1, Eigen::ColMajor, -1, -1> EigenDenseF64;
-typedef Eigen::Matrix<std::int32_t, -1, -1, Eigen::ColMajor, -1, -1> EigenDenseI32;
-typedef Eigen::Matrix<std::int64_t, -1, -1, Eigen::ColMajor, -1, -1> EigenDenseI64;
+const int IglDefaultOptions = Eigen::RowMajor;
 
-typedef Eigen::SparseMatrix<std::float_t, Eigen::ColMajor> EigenSparseF32;
-typedef Eigen::SparseMatrix<std::double_t, Eigen::ColMajor> EigenSparseF64;
-typedef Eigen::SparseMatrix<std::int32_t, Eigen::ColMajor> EigenSparseI32;
-typedef Eigen::SparseMatrix<std::int64_t, Eigen::ColMajor> EigenSparseI64;
+typedef Eigen::Matrix<std::float_t, Eigen::Dynamic, Eigen::Dynamic, IglDefaultOptions, Eigen::Dynamic, Eigen::Dynamic> EigenDenseF32;
+typedef Eigen::Matrix<std::double_t, Eigen::Dynamic, Eigen::Dynamic, IglDefaultOptions, Eigen::Dynamic, Eigen::Dynamic> EigenDenseF64;
+typedef Eigen::Matrix<std::int32_t, Eigen::Dynamic, Eigen::Dynamic, IglDefaultOptions, Eigen::Dynamic, Eigen::Dynamic> EigenDenseI32;
+typedef Eigen::Matrix<std::int64_t, Eigen::Dynamic, Eigen::Dynamic, IglDefaultOptions, Eigen::Dynamic, Eigen::Dynamic> EigenDenseI64;
+
+typedef Eigen::SparseMatrix<std::float_t, IglDefaultOptions> EigenSparseF32;
+typedef Eigen::SparseMatrix<std::double_t, IglDefaultOptions> EigenSparseF64;
+typedef Eigen::SparseMatrix<std::int32_t, IglDefaultOptions> EigenSparseI32;
+typedef Eigen::SparseMatrix<std::int64_t, IglDefaultOptions> EigenSparseI64;

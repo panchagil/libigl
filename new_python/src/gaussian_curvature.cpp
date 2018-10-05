@@ -35,7 +35,7 @@ npe_arg(v, dense_f32, dense_f64)
 npe_arg(f, dense_i32, dense_i64)
 npe_begin_code()
 
-  EigenDense<npe_Scalar_v> k;
+  npe_Matrix_v k;
   igl::gaussian_curvature(v, f, k);
   return npe::move(k);
 

@@ -51,7 +51,7 @@ npe_begin_code()
     throw pybind11::value_error(errmsg);
   }
 
-  EigenSparse<npe_Scalar_v> m;
+  EigenSparseLike<npe_Matrix_v> m;
   igl::massmatrix(v, f, igl::MassMatrixType(type), m);
   return npe::move(m);
 
