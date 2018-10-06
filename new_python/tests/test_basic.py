@@ -197,6 +197,15 @@ class TestBasic(unittest.TestCase):
         bc = igl.barycentric_coordinates_tet(d, a, b, c, d)
         self.assertEqual(bc.shape, (a.shape[0], 4))
 
+    def test_components(self):
+        v, f, n = igl.read_off(os.path.join(igl.TUTORIAL_PATH, "bunny.off"))
+        a = igl.adjacency_matrix(f)
+        c, count = igl.components(a)
+        self.assertEqual(c.shape[0], v.shape[0])
+
+        c = igl.components_from_faces(f)
+        self.assertEqual(c.shape[0], f.shape[0])
+
 
 if __name__ == '__main__':
     unittest.main()

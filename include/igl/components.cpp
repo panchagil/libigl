@@ -10,11 +10,11 @@
 #include <queue>
 #include <vector>
 
-template <typename AScalar, typename DerivedC, typename Derivedcounts>
+template <typename SparseT, typename DerivedC, typename Derivedcounts>
 IGL_INLINE void igl::components(
-  const Eigen::SparseMatrix<AScalar> & A,
-  Eigen::MatrixBase<DerivedC> & C,
-  Eigen::MatrixBase<Derivedcounts> & counts)
+  const SparseT & A,
+  Eigen::PlainObjectBase<DerivedC> & C,
+  Eigen::PlainObjectBase<Derivedcounts> & counts)
 {
   using namespace Eigen;
   using namespace std;
@@ -46,7 +46,7 @@ IGL_INLINE void igl::components(
       C(f,0) = id;
       vcounts[id]++;
       // Iterate over inside
-      for(typename SparseMatrix<AScalar>::InnerIterator it (A,f); it; ++it)
+      for(typename SparseT::InnerIterator it (A,f); it; ++it)
       {
         const int g = it.index();
         if(!seen(g) && it.value())
@@ -67,10 +67,10 @@ IGL_INLINE void igl::components(
   }
 }
 
-template <typename AScalar, typename DerivedC>
+template <typename SparseT, typename DerivedC>
 IGL_INLINE void igl::components(
-  const Eigen::SparseMatrix<AScalar> & A,
-  Eigen::MatrixBase<DerivedC> & C)
+  const SparseT & A,
+  Eigen::PlainObjectBase<DerivedC> & C)
 {
   Eigen::VectorXi counts;
   return components(A,C,counts);
@@ -79,11 +79,11 @@ IGL_INLINE void igl::components(
 template <typename DerivedF, typename DerivedC>
 IGL_INLINE void igl::components(
   const Eigen::MatrixBase<DerivedF> & F,
-  Eigen::MatrixBase<DerivedC> & C)
+  Eigen::PlainObjectBase<DerivedC> & C)
 {
   Eigen::SparseMatrix<typename DerivedC::Scalar> A;
   adjacency_matrix(F,A);
-  return components(A,C);
+  components(A,C);
 }
 
 #ifdef IGL_STATIC_LIBRARY
