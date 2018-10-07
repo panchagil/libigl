@@ -24,7 +24,6 @@ adjacency_matrix, cotmatrix, grad
 
 Notes
 -----
-None
 
 Examples
 --------
