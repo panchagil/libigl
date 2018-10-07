@@ -10,7 +10,7 @@
 template <typename DerivedF, typename DerivedE>
 IGL_INLINE void igl::oriented_facets(
   const Eigen::MatrixBase<DerivedF> & F,
-  Eigen::MatrixBase<DerivedE> & E)
+  Eigen::PlainObjectBase<DerivedE> & E)
 {
   E.resize(F.rows()*F.cols(),F.cols()-1);
   typedef typename DerivedE::Scalar EScalar;

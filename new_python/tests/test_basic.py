@@ -245,6 +245,12 @@ class TestBasic(unittest.TestCase):
         self.assertEqual(c.shape, (f.shape[0],))
         self.assertTrue(np.array_equal(f, ff))
 
+    def test_oriented_facets(self):
+        v, f, n = igl.read_off(os.path.join(igl.TUTORIAL_PATH, "bunny.off"))
+        e = igl.oriented_facets(f)
+        self.assertTrue(e.shape[0] > f.shape[0])
+        self.assertTrue(0 <= np.max(e) < v.shape[0])
+
 
 if __name__ == '__main__':
     unittest.main()
