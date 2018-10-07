@@ -51,10 +51,10 @@
 
 template <typename DerivedX, typename DerivedIX>
 IGL_INLINE void igl::sortrows(
-  const Eigen::DenseBase<DerivedX>& X,
+  const Eigen::MatrixBase<DerivedX>& X,
   const bool ascending,
-  Eigen::MatrixBase<DerivedX>& Y,
-  Eigen::MatrixBase<DerivedIX>& IX)
+  Eigen::PlainObjectBase<DerivedX>& Y,
+  Eigen::PlainObjectBase<DerivedIX>& IX)
 {
   // This is already 2x faster than matlab's builtin `sortrows`. I have tried
   // implementing a "multiple-pass" sort on each column, but see no performance

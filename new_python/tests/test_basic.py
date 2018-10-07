@@ -237,7 +237,14 @@ class TestBasic(unittest.TestCase):
         p, d, = igl.bfs(a, 0)
         self.assertEqual(p.shape, ())
         self.assertTrue(np.array_equal(d, -np.ones(10)))
-        
+
+    def test_bfs_orient(self):
+        v, f, n = igl.read_off(os.path.join(igl.TUTORIAL_PATH, "bunny.off"))
+        ff, c = igl.bfs_orient(f)
+        self.assertEqual(ff.shape, f.shape)
+        self.assertEqual(c.shape, (f.shape[0],))
+        self.assertTrue(np.array_equal(f, ff))
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -27,7 +27,7 @@ Notes
 
 Examples
 --------
->>> V, F _ = igl.readOFF("test.off)
+>>> V, F, _ = igl.readOFF("test.off)
 >>> A = igl.adjacency_matrix(V, F)
 >>> d, p = igl.bfs(A, V[0])
 
