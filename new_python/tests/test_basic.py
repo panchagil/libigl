@@ -65,7 +65,7 @@ class TestBasic(unittest.TestCase):
 
     def test_gaussian_curvature(self):
         g = igl.gaussian_curvature(self.v, self.f)
-        self.assertTrue(g.shape == (self.v.shape[0], 1))
+        self.assertTrue(g.shape == (self.v.shape[0],))
         self.assertTrue(g.dtype == self.v.dtype)
         self.assertTrue(type(g) == np.ndarray)
 
@@ -100,8 +100,8 @@ class TestBasic(unittest.TestCase):
     def test_principal_curvature(self):
         pd1, pd2, pv1, pv2 = igl.principal_curvature(self.v, self.f)
         qd1, qd2, qv1, qv2 = igl.principal_curvature(self.v, self.f, radius=7, use_k_ring=False)
-        self.assertTrue(pd1.shape == qd1.shape == pd2.shape == qd2.shape == (self.v.shape[0], 3))
-        self.assertTrue(pv1.shape == qv1.shape == pv2.shape == qv2.shape == (self.v.shape[0], 1))
+        self.assertTrue(pd1.shape == qd1.shape == pd2.shape == qd2.shape == self.v.shape)
+        self.assertTrue(pv1.shape == qv1.shape == pv2.shape == qv2.shape == (self.v.shape[0],))
         self.assertTrue(pd1.dtype == pd2.dtype == pv1.dtype == pv2.dtype == np.float64)
         v = self.v.copy()
         v = v.astype(np.float32)
@@ -206,6 +206,38 @@ class TestBasic(unittest.TestCase):
         c = igl.components_from_faces(f)
         self.assertEqual(c.shape[0], f.shape[0])
 
+    def test_bfs(self):
+        v, f, n = igl.read_off(os.path.join(igl.TUTORIAL_PATH, "bunny.off"))
+        a = igl.adjacency_matrix(f)
+        p, d = igl.bfs(a, 0)
+        self.assertEqual(p.shape, (v.shape[0],))
+        self.assertEqual(p.shape, (v.shape[0],))
+
+        try:
+            p, d, = igl.bfs(a, -1)
+            self.assertTrue(False)
+        except IndexError as e:
+            pass
+
+        a = csc.csc_matrix(np.zeros([0, 0], dtype=np.int32))
+        try:
+            p, d, = igl.bfs(a, 0)
+            self.assertTrue(False)
+        except ValueError as e:
+            pass
+
+        a = csc.csc_matrix(np.zeros([10, 11], dtype=np.int32))
+        try:
+            p, d, = igl.bfs(a, 0)
+            self.assertTrue(False)
+        except ValueError as e:
+            pass
+
+        a = csc.csc_matrix(np.zeros([10, 10], dtype=np.int32))
+        p, d, = igl.bfs(a, 0)
+        self.assertEqual(p.shape, ())
+        self.assertTrue(np.array_equal(d, -np.ones(10)))
+        
 
 if __name__ == '__main__':
     unittest.main()

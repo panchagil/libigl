@@ -31,8 +31,8 @@ npe_function(components)
 npe_doc(ds_components)
 npe_arg(a, sparse_i32, sparse_i64)
 npe_begin_code()
-    EigenDenseI32 c;
-    EigenDenseI32 counts;
+    EigenDense<npe_Scalar_a> c;
+    EigenDense<npe_Scalar_a> counts;
     igl::components(a, c, counts);
     return std::make_tuple(npe::move(c), npe::move(counts));
 npe_end_code()

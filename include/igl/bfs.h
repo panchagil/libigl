@@ -23,10 +23,10 @@ namespace igl
     typename DerivedD,
     typename DerivedP>
   IGL_INLINE void bfs(
-    const AType & A,
+    const AType& A,
     const size_t s,
-    Eigen::MatrixBase<DerivedD> & D,
-    Eigen::MatrixBase<DerivedP> & P);
+    Eigen::PlainObjectBase<DerivedD> & D,
+    Eigen::PlainObjectBase<DerivedP> & P);
 
   template <
     typename AType,
@@ -42,7 +42,7 @@ namespace igl
     typename DType,
     typename PType>
   IGL_INLINE void bfs(
-    const Eigen::SparseMatrix<AType> & A,
+    const AType& A,
     const size_t s,
     std::vector<DType> & D,
     std::vector<PType> & P);

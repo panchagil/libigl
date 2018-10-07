@@ -10,8 +10,8 @@ template <
 IGL_INLINE void igl::bfs(
   const AType & A,
   const size_t s,
-  Eigen::MatrixBase<DerivedD> & D,
-  Eigen::MatrixBase<DerivedP> & P)
+  Eigen::PlainObjectBase<DerivedD> & D,
+  Eigen::PlainObjectBase<DerivedP> & P)
 {
   std::vector<typename DerivedD::Scalar> vD;
   std::vector<typename DerivedP::Scalar> vP;
@@ -59,7 +59,7 @@ template <
   typename DType,
   typename PType>
 IGL_INLINE void igl::bfs(
-  const Eigen::SparseMatrix<AType> & A,
+  const AType & A,
   const size_t s,
   std::vector<DType> & D,
   std::vector<PType> & P)
@@ -83,7 +83,7 @@ IGL_INLINE void igl::bfs(
     D.push_back(f);
     P[f] = p;
     seen[f] = true;
-    for(typename Eigen::SparseMatrix<AType>::InnerIterator it (A,f); it; ++it)
+    for(typename AType::InnerIterator it (A,f); it; ++it)
     {
       if(it.value()) Q.push({it.index(),f});
     }
