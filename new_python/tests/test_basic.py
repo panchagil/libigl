@@ -251,6 +251,13 @@ class TestBasic(unittest.TestCase):
         self.assertTrue(e.shape[0] > f.shape[0])
         self.assertTrue(0 <= np.max(e) < v.shape[0])
 
+    def test_orientable_patches(self):
+        v, f, n = igl.read_off(os.path.join(igl.TUTORIAL_PATH, "bunny.off"))
+        c, a = igl.orientable_patches(f)
+
+        self.assertTrue(np.array_equal(c, np.zeros(f.shape[0])))
+        self.assertEqual(a.shape, (f.shape[0], f.shape[0]))
+
 
 if __name__ == '__main__':
     unittest.main()
