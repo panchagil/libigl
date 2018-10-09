@@ -91,7 +91,7 @@ IGL_INLINE void igl::orientable_patches(
 
 template <typename DerivedF, typename DerivedC>
 IGL_INLINE void igl::orientable_patches(
-  const Eigen::PlainObjectBase<DerivedF> & F,
+  const Eigen::MatrixBase<DerivedF> & F,
   Eigen::PlainObjectBase<DerivedC> & C)
 {
   Eigen::SparseMatrix<typename DerivedF::Scalar> A;
